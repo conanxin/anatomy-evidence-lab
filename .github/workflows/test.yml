@@ -24,6 +24,7 @@ jobs:
       - run: test -f docs/P8_RESULTS.md
       - run: test -f artifacts/cost-run.jsonld
       - run: test -f artifacts/comparison-run.jsonld
+      - run: test -f dist/jiegao.html
       - run: test -f dist/index.html
       - run: test -f dist/study-static.html
       - run: test -f dist/study-interactive.html
@@ -54,10 +55,11 @@ jobs:
       - run: python scripts/browser_smoke.py
       - run: python scripts/browser_sensitivity.py
       - run: python scripts/browser_robustness.py
+      - run: python scripts/browser_jiegao.py
       - name: Upload browser screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: anatomy-p8-browser-screenshots
+          name: anatomy-p9-browser-screenshots
           path: browser-artifacts/
           if-no-files-found: ignore

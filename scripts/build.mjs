@@ -17,3 +17,16 @@ await writeFile(new URL('index.html',dist),html);
 await writeFile(new URL('study-static.html',dist),html.replace('<body>','<body data-study-condition="static">'));
 await writeFile(new URL('study-interactive.html',dist),html.replace('<body>','<body data-study-condition="interactive">'));
 console.log(`Build PASS: dist/index.html + study-static.html + study-interactive.html (${Buffer.byteLength(html)} bytes; self-contained each)`);
+
+// P9 standalone documentary mechanism figure; independent of the B-tree view.
+let historical=await read('jiegao.html');
+const historicalCSS=await read('jiegao.css');
+const historicalParts=['src/jiegao.js','src/jiegao-ui.js'];
+const historicalSources=await Promise.all(historicalParts.map(read));
+const historicalBundle=historicalSources.map((src,i)=>`\n// bundled: ${historicalParts[i]}\n`+src.replace(/^export\s+/gm,'').replace(/^import\s+.+?;\s*$/gm,'')).join('\n');
+historical=historical.replace('<link rel="stylesheet" href="./jiegao.css">',`<style>\n${historicalCSS}\n</style>`);
+historical=historical.replace('<script type="module" src="./src/jiegao-ui.js"></script>','');
+historical=historical.replace('</body>',`<script>\n${historicalBundle}\n</script></body>`);
+if(historical.includes('./src/jiegao-ui.js')||historical.includes('./jiegao.css'))throw new Error('Historical figure contains external dependency');
+await writeFile(new URL('jiegao.html',dist),historical);
+console.log(`P9 historical mechanism: dist/jiegao.html (${Buffer.byteLength(historical)} bytes)`);

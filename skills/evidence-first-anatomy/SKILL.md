@@ -36,6 +36,7 @@ Use when asked to **explain** an algorithm or historical mechanical principle in
 ## References and evaluation
 
 - [Evidence and model protocol](references/protocol.md): typed link schema, validation gates, historical-object threshold and browser checks.
+- [Documentary jiégāo case](../../docs/P9_HISTORICAL_JIEGAO.md): a transmitted-text water-lifter with explicitly hypothetical dimensions and idealized torque; the linked P9 tests are an example, not proof of an as-built historical artifact.
 - [Eval prompts](evals/evals.json): sample requirements and failure traps (not model-run results).
 - `node skills/evidence-first-anatomy/scripts/check-project.mjs`: structural package checker; use `--strict` only against this reference implementation. This is not proof that an installed agent automatically loaded the Skill.
 - [Anatomy upstream](https://github.com/wheresryan22/anatomy) / [NIST B-tree](https://xlinux.nist.gov/dads/HTML/btree.html) / [Agent Skills format](https://agentskills.io/specification).

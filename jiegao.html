@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>桔槔｜证据优先的互动机械解释</title><link rel="stylesheet" href="./jiegao.css"></head>
+<body><main class="jg-layout">
+<header><a href="index.html">← B-tree Evidence Lab</a><p class="eyebrow">P9 · HISTORICAL MECHANISM · SOURCE FIRST</p><h1>桔槔 · 一俯一仰，如何提水？</h1><p>原始文字告诉我们什么？现代力学演示又假设了什么？<strong>这不是某一件古代器物的精确复原。</strong></p></header>
+<section class="jg-scene" aria-label="交互桔槔示意图"><div id="jg-svg"></div><div class="jg-actions"><button id="jg-lower" type="button">手动下压前端</button><button id="jg-release" type="button">松手观察力矩倾向</button><button id="jg-reset" type="button">恢复参数</button></div><p id="jg-motion-msg" role="status"></p></section>
+<section class="jg-controls"><h2>修改假设，而不是修改史料</h2><p>以下数字全部是 <strong>ILLUSTRATIVE｜教学假设</strong>，不是史料中的重量和尺寸。</p>
+<label>后端配重 <output id="jg-out-counter">11.0 kg</output><input id="jg-counter" type="range" min="0" max="25" step="0.5" value="11"></label>
+<label>前端总载荷 <output id="jg-out-load">9.0 kg</output><input id="jg-load" type="range" min="0" max="25" step="0.5" value="9"></label>
+<label>后臂长度 <output id="jg-out-rear">1.3 m</output><input id="jg-rear" type="range" min="0.5" max="2.5" step="0.1" value="1.3"></label>
+<label>前臂长度 <output id="jg-out-front">1.0 m</output><input id="jg-front" type="range" min="0.5" max="2.5" step="0.1" value="1"></label>
+<div class="jg-metrics"><p>后端力矩 <strong id="jg-tau-c"></strong></p><p>前端力矩 <strong id="jg-tau-l"></strong></p><p>净力矩 <strong id="jg-tau-net"></strong></p></div><p id="jg-tendency" aria-live="polite"></p><p class="caption">理想模型：τ = mgL·cosθ；按横杆倾角修正重力力臂。无摩擦、无水动力、无绳索惯性。力矩是计算结果，不是历史测量值。</p></section>
+<aside class="jg-evidence"><h2>构件与证据</h2><p>点击图中的木杆、配重、立柱、悬索或容器，检查文字出处。</p><article id="jg-evidence-card" tabindex="-1" aria-live="polite"></article></aside>
+<footer><h2>来源与限制</h2><p><a href="https://ctext.org/text.pl?if=en&node=2795&remap=gb&show=parallel" target="_blank" rel="noopener">《庄子·天地》</a> · <a href="https://zh.wikisource.org/w/index.php?title=王禎農書/卷十八&oldid=1142890" target="_blank" rel="noopener">《王祯农书》卷十八（版本链接）</a></p><p>网页中的立柱、横杆、石块形状和数值仅代表可探索的现代教学解释。现有文献不支持确定某一历史实物的精确形态、木料尺寸、效率及提水速度。</p><p><a href="https://github.com/conanxin/anatomy-evidence-lab/pull/2">查看项目源码与测试</a></p></footer>
+</main><script type="module" src="./src/jiegao-ui.js"></script></body></html>

@@ -1,6 +1,6 @@
 {
   "name": "anatomy-evidence-lab",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": true,
   "type": "module",
   "description": "Evidence-first B-tree archive machine: model, SVG explanation and reproducible tests",
@@ -16,7 +16,8 @@
     "test:browser:p7": "python3 scripts/browser_sensitivity.py",
     "analysis:p8": "node scripts/run_robustness.mjs",
     "check:skill": "node skills/evidence-first-anatomy/scripts/check-project.mjs --strict",
-    "test:browser:p8": "python3 scripts/browser_robustness.py"
+    "test:browser:p8": "python3 scripts/browser_robustness.py",
+    "test:browser:p9": "python3 scripts/browser_jiegao.py"
   },
   "engines": {
     "node": ">=22"
