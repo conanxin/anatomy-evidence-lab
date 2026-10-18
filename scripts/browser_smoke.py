@@ -73,6 +73,51 @@ with sync_playwright() as p:
         assert '25' in page.locator('#stats').inner_text()
         assert page.locator('#machine .drawer.found').count()==0
         checks.append(f'{width}px: reset')
+        assert page.locator('#degree').input_value()=='2'
+        assert page.locator('#case-2').get_attribute('aria-pressed')=='true'
+        v2=page.locator('#case-2').get_attribute('data-scenario-id')
+        v3=page.locator('#case-3').get_attribute('data-scenario-id')
+        assert v2.startswith('BT-2-') and v3.startswith('BT-3-') and v2!=v3
+        assert 'I/O' in page.locator('#comparison-boundary').inner_text()
+        checks.append(f'{width}px: comparison begins from identical 25-key dataset with explicit measurement boundary')
+        nodes2=page.locator('#machine .drawer').count()
+        page.locator('#case-3').click()
+        assert page.locator('#degree').input_value()=='3'
+        assert page.locator('#case-3').get_attribute('aria-pressed')=='true'
+        assert page.locator('#case-2').get_attribute('aria-pressed')=='false'
+        assert page.locator('#case-2').get_attribute('data-found')==page.locator('#case-3').get_attribute('data-found')
+        assert 'MINIMUM DEGREE t = 3' in page.locator('#drawing-note').inner_text()
+        nodes3=page.locator('#machine .drawer').count()
+        assert nodes2!=nodes3, f'degree change should rebuild geometry ({nodes2} versus {nodes3})'
+        checks.append(f'{width}px: switching to t=3 rebuilds real model and geometry ({nodes2} to {nodes3} nodes)')
+        page.locator('#scenario-evidence').click()
+        assert page.locator('#evidence-claim').get_attribute('data-claim-id')=='C-SCENARIO'
+        for item in ['A-SAME-DATA','A-NOT-IO','T-COMPARISON']:
+            assert page.locator(f'[data-evidence-id="{item}"]').count()==1
+        page.locator('#evidence-follow').click()
+        checks.append(f'{width}px: comparison assumption links to claim, model, tests and caution')
+        page.locator('#query').fill('25')
+        page.locator('#search').click()
+        assert page.locator('#case-2').get_attribute('data-found')=='false'
+        assert page.locator('#case-3').get_attribute('data-found')=='false'
+        checks.append(f'{width}px: both degrees agree on absent key')
+        page.locator('#insert').click()
+        assert page.locator('#case-2').get_attribute('data-found')=='true'
+        assert page.locator('#case-3').get_attribute('data-found')=='true'
+        assert '26' in page.locator('#stats').inner_text()
+        checks.append(f'{width}px: inserting a key updates both comparison datasets')
+        page.locator('#degree').select_option('2')
+        assert page.locator('#case-2').get_attribute('aria-pressed')=='true'
+        assert page.locator('#degree').input_value()=='2'
+        page.locator('#toggle-language').click()
+        assert '不是磁盘 I/O' in page.locator('#comparison-result').inner_text()
+        checks.append(f'{width}px: degree selector and Chinese comparison readout work')
+        page.locator('#reset').click()
+        assert page.locator('#degree').input_value()=='2'
+        assert page.locator('#case-2').get_attribute('data-found')=='true'
+        assert '25' in page.locator('#stats').inner_text()
+        checks.append(f'{width}px: reset restores t=2, original dataset and original query')
+        page.screenshot(path=str(OUT / f'p5-comparison-{width}.png'),full_page=True)
         assert not errors, f'JS runtime errors: {errors}'
         checks.append(f'{width}px: zero page errors')
         page.emulate_media(reduced_motion='reduce')

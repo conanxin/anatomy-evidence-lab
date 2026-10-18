@@ -4,3 +4,5 @@ dist/
 coverage/
 playwright-report/
 browser-artifacts/
+
+artifacts/comparison-run.jsonld

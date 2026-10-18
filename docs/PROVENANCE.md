@@ -34,3 +34,12 @@ Read [EVIDENCE_GRAPH.md](EVIDENCE_GRAPH.md) and [`src/evidence.js`](../src/evide
 ## Upstream review — 2026-10-18
 
 Original Anatomy upstream has released [Anatomy 1.1](https://github.com/wheresryan22/anatomy/releases/tag/v1.1.0). This introduces optional community-gallery publication, geometry audit changes, reduced-motion handling updates, and expanded available agents. It does **not** make this project an upstream official illustration and has no bearing on our custom B-tree correctness guarantee. The P0 upstream pin remains a historical reference; no silent upstream upgrade has been performed.
+
+
+## P5 | Variable degree, input identity and Activity provenance (2026-10-18)
+
+Source: [NIST B-tree](https://xlinux.nist.gov/dads/HTML/btree.html) defines the balanced multiway tree but uses maximum-child order `m`; this teaching code defines *minimum degree* `t` and enforces the associated bounds. The model deliberately varies `t=2,3` with identical 25 input integers and insertion order. **No real database performance evidence is claimed.**
+
+A deterministic `BT-<degree>-<8 hex>` label is only a UI scenario marker and is **not** collision-resistant. Actual input integrity is represented by SHA-256 in a separate exported JSON-LD `prov:Entity` with its input ordering, linked to the actual export `prov:Activity` and the code-runner `prov:Agent`; generated cases link back via `prov:wasGeneratedBy` and `prov:wasDerivedFrom`. [W3C PROV-O Recommendation](https://www.w3.org/TR/prov-o/) is a vocabulary reference; OWL inference, SHACL validation and comprehensive W3C provenance conformance are outside P5. In exports without available Git revision metadata, `lab:codeRevision` must explicitly equal `UNPINNED`.
+
+No URL in the evidence graph is taken as proof of the specific SVG geometry: NIST is a source for the general concept, tests verify the local code, and the mechanical cabinet is an illustrative assumption.

@@ -24,7 +24,7 @@
       <section class="workspace" aria-label="B-tree archive machine">
         <div class="drawing-head">
           <div><span class="drawing-number">FIG. 01</span><strong> MULTIWAY INDEX / SEARCH MECHANISM</strong></div>
-          <span class="drawing-note">MINIMUM DEGREE t = 2 · SYNTHETIC DATA</span>
+          <span class="drawing-note" id="drawing-note">MINIMUM DEGREE t = 2 · SYNTHETIC DATA</span>
         </div>
         <div class="canvas-scroller" tabindex="0" aria-label="Scrollable visualization; horizontal scrolling may be needed on mobile">
           <svg id="machine" class="machine" viewBox="0 0 900 450" role="img" aria-label="B-tree archive filing cabinet"></svg>
@@ -35,6 +35,12 @@
       <section id="controls" class="lower" aria-label="Interactive controls">
         <div class="controls">
           <div class="panel-index">01 / COMMAND DESK</div>
+          <label for="degree" id="label-degree">当前模型的最小度数</label>
+          <select id="degree" aria-describedby="degree-hint">
+            <option value="2">t = 2 · ≤3 keys / node</option>
+            <option value="3">t = 3 · ≤5 keys / node</option>
+          </select>
+          <p id="degree-hint" class="field-hint">切换度数会用同一组整数按相同插入顺序重新建树。</p>
           <label for="query" id="label-query">检索整数</label>
           <div class="query-row"><input id="query" type="number" value="24" step="1" inputmode="numeric"><button type="button" class="primary" id="search">开始检索</button></div>
           <button type="button" class="insert" id="insert">插入卡片</button>
@@ -53,8 +59,21 @@
         </div>
       </section>
 
+      <section class="scenario-comparison" id="scenario-comparison" aria-labelledby="comparison-heading">
+        <div class="panel-index">03 / CONTROLLED EXPERIMENT · SAME DATASET</div>
+        <h2 id="comparison-heading">更改假设，比较两棵树</h2>
+        <p id="comparison-intro" class="comparison-intro">固定同一组整数和插入顺序，仅改变最小度数 t。点击不同案例，机械模型随之重新计算。</p>
+        <div class="comparison-grid" id="comparison-grid">
+          <button class="comparison-case" type="button" id="case-2" data-degree="2" aria-pressed="true"><span>t = 2</span><small>...</small></button>
+          <button class="comparison-case" type="button" id="case-3" data-degree="3" aria-pressed="false"><span>t = 3</span><small>...</small></button>
+        </div>
+        <p id="comparison-result" class="comparison-result" role="status" aria-live="polite"></p>
+        <div class="comparison-bottom"><span id="comparison-version" class="scenario-fingerprint"></span><button id="scenario-evidence" type="button" class="ghost">查看参数证据</button></div>
+        <p id="comparison-boundary" class="comparison-boundary">请勿把访问节点数理解为磁盘读写次数或现实数据库的速度。模型版本编号仅用于界面识别，不是校验用哈希。</p>
+      </section>
+
       <section class="trace-evidence" id="trace-evidence" aria-labelledby="trace-evidence-heading">
-        <div class="panel-index">03 / EVIDENCE GRAPH · INSPECT THE EXPLANATION</div>
+        <div class="panel-index">04 / EVIDENCE GRAPH · INSPECT THE EXPLANATION</div>
         <div class="trace-heading">
           <div>
             <h2 id="trace-evidence-heading">这一步为何如此运动？</h2>
@@ -69,9 +88,9 @@
       </section>
 
       <details class="evidence" open>
-        <summary><span>04 / <span id="source-title">来源与假设</span></span><span class="summary-symbol" aria-hidden="true">+</span></summary>
+        <summary><span>05 / <span id="source-title">来源与假设</span></span><span class="summary-symbol" aria-hidden="true">+</span></summary>
         <div class="evidence-cols">
-          <div><h2>REFERENCE / 一手定义</h2><p lang="zh-CN"><a href="https://xlinux.nist.gov/dads/HTML/btree.html" target="_blank" rel="noopener noreferrer">NIST Dictionary of Algorithms and Data Structures: B-tree ↗</a>。节点多路搜索、同深度叶节点、有限节点容量。这里固定最小度数 t = 2，每节点最多 3 个键，内部节点最多 4 个子节点。</p><p lang="en"><a href="https://xlinux.nist.gov/dads/HTML/btree.html" target="_blank" rel="noopener noreferrer">NIST Dictionary of Algorithms and Data Structures: B-tree ↗</a> defines balanced multiway search trees. Our teaching convention uses minimum degree t = 2: up to 3 keys and 4 children per internal node.</p></div>
+          <div><h2>REFERENCE / 一手定义</h2><p lang="zh-CN"><a href="https://xlinux.nist.gov/dads/HTML/btree.html" target="_blank" rel="noopener noreferrer">NIST Dictionary of Algorithms and Data Structures: B-tree ↗</a>。节点多路搜索、同深度叶节点、有限节点容量。这里可切换最小度数 t=2 或 t=3；各节点最多 2t−1 个键、内部节点最多 2t 个子节点。</p><p lang="en"><a href="https://xlinux.nist.gov/dads/HTML/btree.html" target="_blank" rel="noopener noreferrer">NIST Dictionary of Algorithms and Data Structures: B-tree ↗</a> defines balanced multiway search trees. Our teaching convention compares minimum degree t=2 and t=3: up to 2t−1 keys and 2t children per internal node.</p></div>
           <div><h2>ASSUMPTION / 演示边界</h2><p lang="zh-CN">键值、抽屉、颜色和机械连接均是合成教学隐喻；只实现插入和搜索，不模拟删除、磁盘 I/O、并发或具体数据库产品。<strong>不代表 BOOK-ID-SEARCH 的真实内部实现。</strong></p><p lang="en">Every key, cabinet and rail is a synthetic educational metaphor. Only insert/search is modeled: no deletion, disk I/O, concurrency or real database product. <strong>This does not describe BOOK-ID-SEARCH internals.</strong></p></div>
           <div><h2>TESTABILITY / 可复核性</h2><p lang="zh-CN">算法状态 → 结构化 search trace → 状态读数和 SVG 高亮。纯 JS 不变量测试检查节点容量、排序、搜索结果与所有叶子同深度。<a href="https://github.com/conanxin/anatomy-evidence-lab" target="_blank" rel="noopener noreferrer">源码与自动化测试 ↗</a></p><p lang="en">Algorithm state → structured trace → readout and SVG highlight. The pure JavaScript tests cover node bounds, sorting, lookups and equal leaf depth. <a href="https://github.com/conanxin/anatomy-evidence-lab" target="_blank" rel="noopener noreferrer">Source and tests ↗</a></p></div>
         </div>

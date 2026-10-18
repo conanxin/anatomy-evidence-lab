@@ -10,12 +10,18 @@ export const EVIDENCE_RECORDS = Object.freeze([
   { id:'C-COMPARE', type:'claim', zh:'按有序键依次比较，在当前节点中确定命中或选择分支。', en:'Ordered keys determine a match or the next branch in the current node.', status:'MODEL_TESTED' },
   { id:'C-DESCEND', type:'claim', zh:'落在相邻键之间的查询值，只能继续检查对应范围的子节点。', en:'A query between adjacent keys continues into the corresponding child range.', status:'MODEL_TESTED' },
   { id:'C-RESULT', type:'claim', zh:'命中或未命中由真实检索步骤决定，不由图形动画预设。', en:'Hit or miss comes from the search trace, not a pre-scripted visual result.', status:'MODEL_TESTED' },
+  { id:'C-SCENARIO', type:'claim', zh:'仅更改最小度数 t、保持同一插入序列，可观察由参数驱动的不同搜索路径。不同模型的节点访问量不代表实际 I/O 或速度。', en:'Changing only t while holding insertion order fixed can change the search path. Model visits are not disk I/O or real latency.', status:'MODEL_TESTED' },
   { id:'S-NIST', type:'source', zh:'NIST DADS：B-tree 定义。支持平衡多路树这一基本概念；不验证本站具体视觉效果。', en:'NIST DADS: B-tree. Supports the multiway balanced-tree concept, not the custom animation.', status:'PRIMARY_REFERENCE', href:'https://xlinux.nist.gov/dads/HTML/btree.html' },
-  { id:'A-DEGREE', type:'assumption', zh:'教学约定：最小度数 t=2；每节点至多 3 个键、至多 4 个子节点。', en:'Teaching convention: minimum degree t=2, at most 3 keys and 4 children per node.', status:'EXPLICIT_SIMPLIFICATION' },
+  { id:'A-DEGREE', type:'assumption', zh:'可修改的教学约定：t=2 或 t=3；每节点最多 2t−1 个键、2t 个子节点。', en:'Variable teaching convention: t=2 or t=3, at most 2t−1 keys and 2t children per node.', status:'EXPLICIT_SIMPLIFICATION' },
+  { id:'A-SAME-DATA', type:'assumption', zh:'两个案例输入相同、插入顺序相同且只包含唯一的安全整数。', en:'Both cases use the same unique safe-integer keys and identical insertion order.', status:'CONTROLLED_EXPERIMENT' },
+  { id:'A-NOT-IO', type:'assumption', zh:'节点访问、键比较只统计当前教学实现的步骤；不代表磁盘访问、墙钟耗时或任何生产数据库。', en:'Node visits and comparisons count this teaching algorithm only, not disk reads, elapsed time or production database performance.', status:'MEASUREMENT_BOUNDARY' },
   { id:'A-METAPHOR', type:'assumption', zh:'抽屉、卡片、通道只是机械隐喻，不是历史设备或数据库的实物照片。', en:'Cabinets, cards and rails are a metaphor, not historical or database hardware.', status:'SYNTHETIC' },
   { id:'A-SCOPE', type:'assumption', zh:'不模拟删除、磁盘 I/O、并发及 BOOK-ID-SEARCH 的实际内部实现。', en:'No deletion, disk I/O, concurrency or claim about BOOK-ID-SEARCH internals.', status:'OUT_OF_SCOPE' },
   { id:'M-TREE', type:'model', zh:'B-tree 不变量：键排序、容量约束、同深度叶子。', en:'B-tree invariant model: ordered keys, size bounds and equal leaf depths.', status:'CODE_AND_TEST', href:'https://github.com/conanxin/anatomy-evidence-lab/blob/feat/anatomy-btree-evidence/src/btree.js' },
   { id:'M-TRACE', type:'model', zh:'searchTrace 为每个节点比较、下钻、命中与未命中产生结构化事件。', en:'searchTrace produces structured visit, compare, descend, found and miss events.', status:'CODE_AND_TEST', href:'https://github.com/conanxin/anatomy-evidence-lab/blob/feat/anatomy-btree-evidence/src/btree.js' },
+  { id:'M-COMPARISON', type:'model', zh:'createComparison 在同一输入上重建 t=2 / t=3 的两棵树并比较真实检索轨迹。', en:'createComparison rebuilds t=2 / t=3 trees from identical inputs and compares their real search traces.', status:'CODE_AND_TEST', href:'https://github.com/conanxin/anatomy-evidence-lab/blob/feat/anatomy-btree-evidence/src/comparison.js' },
+  { id:'V-COMPARISON', type:'visual', zh:'两张对照卡显示节点、层级、访问数、比较数、经过节点 ID 与模型编号；选择卡片即重新构造树。', en:'Two comparison cards display node counts, levels, visits, comparisons, visited IDs and version labels; selecting a case rebuilds the tree.', status:'VISUAL_MAPPING' },
+  { id:'T-COMPARISON', type:'test', zh:'同输入跨 t 搜索等价、结构约束、可重复编号与实测计数测试。', en:'Tests for identical-query parity across t, invariants, deterministic IDs and real step counts.', status:'AUTOMATED_TEST', href:'https://github.com/conanxin/anatomy-evidence-lab/blob/feat/anatomy-btree-evidence/tests/comparison.test.mjs' },
   { id:'V-DRAWER', type:'visual', zh:'抽屉 = 单个 B-tree 节点；编号仅是合成模型的稳定节点 ID。', en:'Drawer = one B-tree node; IDs identify synthetic model nodes.', status:'VISUAL_MAPPING' },
   { id:'V-CARD', type:'visual', zh:'数字卡片 = 节点中的有序键；琥珀色表示当前比较。', en:'Numbered card = an ordered key; amber marks the current comparison.', status:'VISUAL_MAPPING' },
   { id:'V-RAIL', type:'visual', zh:'连接通道 = 父子引用；高亮表示本次轨迹选择的子节点。', en:'Rail = parent-child link; highlight indicates the child selected by the trace.', status:'VISUAL_MAPPING' },
@@ -26,6 +32,7 @@ export const EVIDENCE_RECORDS = Object.freeze([
 ]);
 
 export const STEP_EVIDENCE = Object.freeze({
+  scenario: ['C-SCENARIO','S-NIST','A-DEGREE','A-SAME-DATA','A-NOT-IO','M-COMPARISON','V-COMPARISON','T-COMPARISON','T-PROOF'],
   idle: ['C-BALANCED','S-NIST','A-DEGREE','A-METAPHOR','A-SCOPE','M-TREE','V-DRAWER','T-BTREE','T-PROOF'],
   visit: ['C-BALANCED','S-NIST','A-DEGREE','A-METAPHOR','A-SCOPE','M-TREE','V-DRAWER','T-BTREE','T-PROOF'],
   compare: ['C-COMPARE','S-NIST','A-DEGREE','A-METAPHOR','A-SCOPE','M-TRACE','V-CARD','T-BTREE','T-SCENE','T-PROOF'],
@@ -43,7 +50,7 @@ export function validateEvidenceGraph(records = EVIDENCE_RECORDS, chains = STEP_
     if (r.href && (!r.href.startsWith('https://') || /\s/.test(r.href))) throw new Error(`Unsafe evidence URL in ${r.id}`);
     map.set(r.id, r);
   }
-  for (const kind of ['idle','visit','compare','descend','found','miss']) {
+  for (const kind of ['scenario','idle','visit','compare','descend','found','miss']) {
     const chain = chains[kind];
     if (!Array.isArray(chain) || !chain.length) throw new Error(`Missing chain: ${kind}`);
     const types = new Set();
@@ -60,7 +67,7 @@ export function validateEvidenceGraph(records = EVIDENCE_RECORDS, chains = STEP_
 
 /** Returns an immutable-enough consumer copy: linked records are not mutated. */
 export function evidenceFor(stepType = 'idle', inspectPart = null) {
-  const override = {drawer:'visit',card:'compare',rail:'descend',status:'found'}[inspectPart];
+  const override = {drawer:'visit',card:'compare',rail:'descend',status:'found',comparison:'scenario'}[inspectPart];
   const key = override ?? stepType;
   const ids = STEP_EVIDENCE[key];
   if (!ids) throw new RangeError(`Unknown trace/evidence kind: ${key}`);

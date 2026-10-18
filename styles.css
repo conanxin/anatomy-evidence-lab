@@ -28,3 +28,23 @@
 @media(max-width:920px){.trace-records{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:580px){.trace-evidence{padding:18px 14px;}.trace-records{grid-template-columns:1fr;}.trace-heading{flex-direction:column;}.trace-heading h2{font-size:22px;}}
 .file-number{pointer-events:none;} /* Click the card, not its overlaid text glyph. */
+
+/* P5 Controlled assumption experiment. Compare only in-model counters. */
+.controls select{width:100%;background:#fffcf6;border:1px solid var(--line);border-radius:4px;padding:12px 13px;color:var(--ink);font:14px 'DM Mono',monospace;margin-bottom:7px;}
+.controls select:focus-visible,.comparison-case:focus-visible{outline:3px solid var(--brass);outline-offset:3px;}
+.controls .field-hint{font-size:11px;line-height:1.7;color:var(--muted);margin:0 0 17px;}
+.scenario-comparison{border:1px solid #d7d8c3;padding:26px 28px;background:#f1f2e9;margin-top:32px;}
+.scenario-comparison .panel-index{margin-bottom:12px;}
+.scenario-comparison h2{font-size:clamp(19px,2.3vw,27px);font-weight:600;line-height:1.45;margin:0 0 8px;}
+.comparison-intro,.comparison-boundary{font-size:12px;line-height:1.8;color:var(--muted);margin:8px 0 18px;}
+.comparison-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+.comparison-case{text-align:left;padding:18px;background:#fffdf7;border:1px solid #d4d8c9;border-left:4px solid #a6b0a0;border-radius:5px;color:var(--ink);min-width:0;}
+.comparison-case[aria-pressed='true']{border-left-color:var(--brass);background:#fff9e9;box-shadow:inset 0 0 0 1px #b68d4c54;}
+.comparison-case strong{display:block;font:600 21px 'DM Mono',monospace;margin-bottom:8px;}
+.comparison-case small{display:block;font-size:12px;line-height:1.75;color:var(--muted);white-space:normal;overflow-wrap:anywhere;}
+.comparison-case .case-path{margin-top:8px;font:11px/1.6 'DM Mono',monospace;overflow-wrap:anywhere;}
+.comparison-result{margin:18px 0;line-height:1.8;font-size:14px;font-weight:500;}
+.comparison-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.scenario-fingerprint{font:10px/1.6 'DM Mono',monospace;color:var(--muted);overflow-wrap:anywhere;}
+.comparison-boundary{margin-bottom:0;color:#9d5c47;}
+@media(max-width:580px){.scenario-comparison{padding:18px 14px;}.comparison-grid{grid-template-columns:1fr;}.comparison-case{padding:13px;}}

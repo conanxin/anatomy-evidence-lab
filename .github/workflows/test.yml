@@ -12,6 +12,8 @@ jobs:
           node-version: '22'
       - run: npm test
       - run: npm run build
+      - run: npm run export:provenance
+      - run: test -f artifacts/comparison-run.jsonld
       - run: test -f dist/index.html
       - name: Upload static preview
         uses: actions/upload-artifact@v4
@@ -37,6 +39,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: anatomy-p4-browser-screenshots
+          name: anatomy-p5-browser-screenshots
           path: browser-artifacts/
           if-no-files-found: ignore

@@ -1,14 +1,15 @@
 import { createTree, fromKeys, insert, validateTree, searchTrace, layoutTree, DEFAULT_KEYS } from './btree.js';
 import { frameFor, readout, highlightModel } from './scene.js';
 import { evidenceFor, validateEvidenceGraph } from './evidence.js';
+import { createComparison, describeComparison, COMPARED_DEGREES } from './comparison.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 const byId = id => document.getElementById(id);
-const state = { tree: fromKeys(), trace: null, index: 0, lang: 'zh', timer: null, layout: null, inspectPart: null, inspectTarget: '' };
+const state = { keys: [...DEFAULT_KEYS], degree: 2, lastQuery: 24, tree: fromKeys(), comparison: null, trace: null, index: 0, lang: 'zh', timer: null, layout: null, inspectPart: null, inspectTarget: '' };
 validateEvidenceGraph();
 const texts = {
-  zh: { hero:'一座能够解释搜索的档案柜', subtitle:'真实 B-tree 算法 · 轴测机械示意 · 证据与假设可追踪', query:'检索整数', search:'开始检索', insert:'插入卡片', previous:'上一步', next:'下一步', autoplay:'自动播放', pause:'暂停', reset:'恢复初始档案', records:'卡片', drawers:'抽屉', levels:'层级', gate:'算法门槛', sources:'来源与假设', explain:'每张抽屉是一个 B-tree 节点。比较档案号，再沿正确的子节点通道下降。动画只反映真实搜索轨迹。', idle:'请开始一次检索。', error:'请输入安全范围内的整数。', duplicate:'该整数已存在，未重复插入。', inserted:'卡片已插入，B-tree 已重新平衡。', status:'状态：' },
-  en: { hero:'An archive cabinet that explains search', subtitle:'Real B-tree algorithm · isometric machine · inspectable evidence', query:'Look up integer', search:'Search', insert:'Insert card', previous:'Previous', next:'Next', autoplay:'Autoplay', pause:'Pause', reset:'Reset archive', records:'Cards', drawers:'Drawers', levels:'Levels', gate:'Invariant gate', sources:'Sources & assumptions', explain:'Each drawer is a B-tree node. Compare the file number and descend through the correct corridor. Every motion comes from a real search trace.', idle:'Start a search.', error:'Enter a safe integer.', duplicate:'This key already exists; no duplicate inserted.', inserted:'Card inserted; B-tree rebalanced.', status:'Status: ' },
+  zh: { hero:'一座能够解释搜索的档案柜', subtitle:'真实 B-tree 算法 · 轴测机械示意 · 证据与假设可追踪', query:'检索整数', degree:'当前模型的最小度数', degreeHint:'切换度数会按相同插入顺序，使用同一组整数重新建树。', comparisonHeading:'更改假设，比较两棵树', comparisonIntro:'固定同一组整数和插入顺序，仅改变最小度数 t。点击不同案例，机械模型随之重新计算。', comparisonEvidence:'查看参数证据', comparisonBoundary:'访问节点数、键比较数并非磁盘 I/O 或真实性能。模型编号是非加密的界面标识，不是证据校验哈希。', search:'开始检索', insert:'插入卡片', previous:'上一步', next:'下一步', autoplay:'自动播放', pause:'暂停', reset:'恢复初始档案', records:'卡片', drawers:'抽屉', levels:'层级', gate:'算法门槛', sources:'来源与假设', explain:'每张抽屉是一个 B-tree 节点。比较档案号，再沿正确的子节点通道下降。动画只反映真实搜索轨迹。', idle:'请开始一次检索。', error:'请输入安全范围内的整数。', duplicate:'该整数已存在，未重复插入。', inserted:'卡片已插入，B-tree 已重新平衡。', status:'状态：' },
+  en: { hero:'An archive cabinet that explains search', subtitle:'Real B-tree algorithm · isometric machine · inspectable evidence', query:'Look up integer', degree:'Minimum degree of the active model', degreeHint:'Switching t rebuilds both models from the same keys, in the same insertion order.', comparisonHeading:'Change an assumption. Compare two trees.', comparisonIntro:'Hold the ordered input dataset fixed and vary only minimum degree t. Choose a case to rebuild the machine.', comparisonEvidence:'Inspect parameter evidence', comparisonBoundary:'Node visits and comparisons do not measure disk I/O or real latency. Scenario IDs are non-cryptographic UI labels, not integrity proofs.', search:'Search', insert:'Insert card', previous:'Previous', next:'Next', autoplay:'Autoplay', pause:'Pause', reset:'Reset archive', records:'Cards', drawers:'Drawers', levels:'Levels', gate:'Invariant gate', sources:'Sources & assumptions', explain:'Each drawer is a B-tree node. Compare the file number and descend through the correct corridor. Every motion comes from a real search trace.', idle:'Start a search.', error:'Enter a safe integer.', duplicate:'This key already exists; no duplicate inserted.', inserted:'Card inserted; B-tree rebalanced.', status:'Status: ' },
 };
 
 function svg(tag, attrs = {}, content) {
@@ -20,8 +21,44 @@ function svg(tag, attrs = {}, content) {
 const append = (parent, tag, attrs, content) => { const item = svg(tag, attrs, content); parent.append(item); return item; };
 function stop() { if (state.timer !== null) clearInterval(state.timer); state.timer = null; }
 function describe(stats) {
+  byId('drawing-note').textContent = `MINIMUM DEGREE t = ${state.degree} · SYNTHETIC DATA`;
   byId('stats').textContent = `${texts[state.lang].records}: ${stats.keys}  ·  ${texts[state.lang].drawers}: ${stats.nodes}  ·  ${texts[state.lang].levels}: ${stats.height}`;
   byId('gate').textContent = `${texts[state.lang].gate}: PASS`;
+}
+function renderComparison() {
+  const comparison = createComparison(state.keys, state.lastQuery);
+  state.comparison = comparison;
+  const zh = state.lang === 'zh';
+  for (const scenario of comparison.cases) {
+    const card = byId(`case-${scenario.degree}`);
+    card.replaceChildren();
+    const header = document.createElement('strong'); header.textContent = `t = ${scenario.degree}`;
+    const metrics = document.createElement('small');
+    metrics.textContent = zh
+      ? `${scenario.stats.keys} 键 · ${scenario.stats.nodes} 节点 · ${scenario.stats.height} 层 · 访问 ${scenario.visits} 节点 · 比较 ${scenario.comparisons} 次`
+      : `${scenario.stats.keys} keys · ${scenario.stats.nodes} nodes · ${scenario.stats.height} levels · ${scenario.visits} visits · ${scenario.comparisons} comparisons`;
+    const path = document.createElement('div'); path.className = 'case-path';
+    path.textContent = `${zh ? '检索节点' : 'Visit path'}: ${scenario.visitedNodeIds.map(id => `#${id}`).join(' → ')}`;
+    card.append(header, metrics, path);
+    card.setAttribute('aria-pressed', String(state.degree === scenario.degree));
+    card.setAttribute('aria-label', `${header.textContent}. ${metrics.textContent}`);
+    card.dataset.scenarioId = scenario.scenarioId;
+    card.dataset.visits = String(scenario.visits);
+    card.dataset.comparisons = String(scenario.comparisons);
+    card.dataset.found = String(scenario.found);
+  }
+  byId('comparison-result').textContent = describeComparison(comparison, state.lang);
+  byId('comparison-version').textContent = comparison.cases.map(c => c.scenarioId).join('  /  ');
+}
+function setDegree(degree) {
+  if (!COMPARED_DEGREES.includes(degree)) throw new RangeError('Unsupported pedagogical degree');
+  stop(); state.degree = degree; state.inspectPart = null; state.inspectTarget = '';
+  byId('degree').value = String(degree);
+  state.tree = fromKeys(state.keys, degree);
+  state.trace = searchTrace(state.tree, state.lastQuery);
+  state.index = 0;
+  drawMachine();
+  renderComparison();
 }
 function drawNode(canvas, node) {
   const g = append(canvas, 'g', { class:'drawer', 'data-node-id': node.id, transform:`translate(${node.x},${node.y})`, tabindex:0, 'data-evidence-part':'drawer' });
@@ -136,13 +173,15 @@ function renderFrame() {
 function startLookup() {
   stop(); state.inspectPart=null; const n=Number(byId('query').value);
   if (!Number.isSafeInteger(n)||!byId('query').value.trim()) { byId('readout').textContent=texts[state.lang].error; return; }
-  state.trace=searchTrace(state.tree,n); state.index=0; renderFrame();
+  state.lastQuery=n; state.trace=searchTrace(state.tree,n); state.index=0; renderFrame(); renderComparison();
 }
 function insertKey() {
   stop(); state.inspectPart=null; const n=Number(byId('query').value);
   if (!Number.isSafeInteger(n)||!byId('query').value.trim()) { byId('readout').textContent=texts[state.lang].error; return; }
   const added=insert(state.tree,n);
-  state.trace=null; state.index=0; drawMachine();
+  if (added.inserted) state.keys.push(n);
+  state.lastQuery=n; state.tree=fromKeys(state.keys,state.degree);
+  state.trace=null; state.index=0; drawMachine(); renderComparison();
   byId('readout').textContent=added.duplicate ? texts[state.lang].duplicate : texts[state.lang].inserted;
 }
 function next() { if(!state.trace)return;state.inspectPart=null;state.index=Math.min(state.index+1,state.trace.steps.length-1);if(state.index===state.trace.steps.length-1)stop();renderFrame(); }
@@ -155,13 +194,16 @@ function togglePlay(){
   state.timer=window.setInterval(()=>{ next(); },900);
   renderFrame();
 }
-function reset(){stop();state.inspectPart=null;state.tree=fromKeys(DEFAULT_KEYS);state.trace=null;state.index=0;byId('query').value='24';drawMachine();}
+function reset(){stop();state.inspectPart=null;state.keys=[...DEFAULT_KEYS];state.degree=2;state.lastQuery=24;state.tree=fromKeys(state.keys,state.degree);state.trace=null;state.index=0;byId('query').value='24';byId('degree').value='2';drawMachine();renderComparison();}
 function localize(){
   document.documentElement.lang=state.lang==='zh'?'zh-CN':'en';
-  for(const [id,key] of [['hero','hero'],['subtitle','subtitle'],['label-query','query'],['search','search'],['insert','insert'],['previous','previous'],['next','next'],['reset','reset'],['source-title','sources'],['explain','explain']])byId(id).textContent=texts[state.lang][key];
+  for(const [id,key] of [['hero','hero'],['subtitle','subtitle'],['label-query','query'],['label-degree','degree'],['degree-hint','degreeHint'],['comparison-heading','comparisonHeading'],['comparison-intro','comparisonIntro'],['scenario-evidence','comparisonEvidence'],['comparison-boundary','comparisonBoundary'],['search','search'],['insert','insert'],['previous','previous'],['next','next'],['reset','reset'],['source-title','sources'],['explain','explain']])byId(id).textContent=texts[state.lang][key];
   byId('toggle-language').textContent=state.lang==='zh'?'English':'中文';
-  describe(validateTree(state.tree)); renderFrame();
+  describe(validateTree(state.tree)); renderFrame(); renderComparison();
 }
+byId('degree').addEventListener('change',e=>setDegree(Number(e.target.value)));
+for(const degree of COMPARED_DEGREES)byId(`case-${degree}`).addEventListener('click',()=>setDegree(degree));
+byId('scenario-evidence').addEventListener('click',()=>{state.inspectPart='comparison';state.inspectTarget='t=2 ↔ t=3';renderEvidence(frameFor(state.trace,state.index));});
 byId('search').addEventListener('click',startLookup);
 byId('insert').addEventListener('click',insertKey);
 byId('previous').addEventListener('click',previous);

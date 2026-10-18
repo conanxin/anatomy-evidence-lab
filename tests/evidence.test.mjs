@@ -4,7 +4,7 @@ import { EVIDENCE_RECORDS, STEP_EVIDENCE, evidenceFor, validateEvidenceGraph } f
 import { fromKeys, searchTrace } from '../src/btree.js';
 import { frameFor } from '../src/scene.js';
 
-const kinds=['idle','visit','compare','descend','found','miss'];
+const kinds=['scenario','idle','visit','compare','descend','found','miss'];
 const knownTypes=['claim','source','assumption','model','visual','test'];
 
 test('evidence graph has unique stable identifiers and every step has all six evidence types',()=>{
@@ -110,4 +110,13 @@ test('end-to-end trace step, frame and evidence stay aligned',()=>{
       assert.equal(frame.step,trace.steps[i]);
     }
   }
+});
+
+
+test('P5 controlled comparison has a distinct claim, assumption, model and test',()=>{
+  const r=evidenceFor('found','comparison');
+  assert.equal(r.stepType,'scenario');
+  assert.equal(r.records.find(x=>x.type==='claim').id,'C-SCENARIO');
+  for(const id of ['A-SAME-DATA','A-NOT-IO','M-COMPARISON','V-COMPARISON','T-COMPARISON']) assert.ok(r.records.some(x=>x.id===id));
+  assert.ok(r.records.find(x=>x.id==='S-NIST').href.startsWith('https://'));
 });

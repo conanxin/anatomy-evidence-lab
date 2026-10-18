@@ -8,6 +8,15 @@ An **evidence-first B-tree archive machine**: a real, deterministic multiway sea
 
 ## 中文
 
+### P5：可修改假设的双模型对照（2026-10-18）
+
+- 使用**完全相同的插入顺序和整数集合**，按 `t=2` / `t=3` 重建两棵 B-tree；在页面选择最小度数、查找整数、插入新卡片，结构与结果同步重算。
+- 对照卡直接显示节点总数、树高、查找访问节点数、键比较次数和所访问的节点 ID；模型状态与视觉源于同一 `searchTrace`。
+- 固定案例（查询 `24`）：t=2 有 14 个节点、访问 2 个节点、比较 4 次；t=3 有 9 个节点、访问 3 个节点、比较 6 次。这说明**总节点更少并不保证某次查询访问更少节点**，也不能推断真实磁盘 I/O/延迟。
+- 新增 [对照实验研究说明](docs/P5_CONTROLLED_EXPERIMENT.md)、`src/comparison.js` 和 `tests/comparison.test.mjs`。
+- `npm run export:provenance` 生成 SHA-256 标识输入、带实际执行时间/执行者/代码版本的 PROV-O 术语 JSON-LD（尚未声明 RDF/OWL 全标准一致性）。浏览器情景编号则明确不是加密摘要。
+- CI 额外验证运行记录可导出；浏览器回归覆盖桌面与手机的参数切换、查找、证据卡和插入一致性。
+
 ### P4：交互式证据图谱
 
 - 点选档案抽屉、数字卡片或连接通道，可以追踪到关联的 **Claim → Source → Assumption → Model → Visual → Test**。
@@ -30,6 +39,7 @@ An **evidence-first B-tree archive machine**: a real, deterministic multiway sea
 npm test
 npm run build
 npm run preview
+npm run export:provenance  # optional run provenance JSON-LD
 # open http://127.0.0.1:4317
 ```
 
@@ -62,12 +72,15 @@ styles.css          Responsive mechanical illustration style
 src/btree.js        Pure B-tree algorithms, trace, invariants and layout
 src/scene.js        Pure readout/highlight projections
 src/evidence.js     Typed claim/source/assumption/model/visual/test graph
+src/comparison.js   Both B-tree models, visited-node counters, deterministic labels
 src/app.js          Accessible controls and SVG renderer
 scripts/build.mjs   Static packaging into dist/
 scripts/serve.mjs   Local-only static preview server
+scripts/export_provenance.mjs  Input SHA-256 and actual export activity JSON-LD
 tests/*.test.mjs    Deterministic model, view and provenance graph tests
 scripts/browser_smoke.py  Playwright + Chromium smoke test (also CI)
 docs/PROVENANCE.md  Source pin, assumptions and evidentiary boundaries
+docs/P5_CONTROLLED_EXPERIMENT.md  Controlled degree comparison and research result
 docs/RUN_RECEIPT.md  Verified results and untested boundaries
 docs/LOCAL_HERMES_HANDOFF.md  Command for resuming on local Hermes
 ```
@@ -77,3 +90,7 @@ docs/LOCAL_HERMES_HANDOFF.md  Command for resuming on local Hermes
 ## P4 / Evidence graph (English)
 
 The new **Evidence Graph** panel attaches each trace event to a typed claim, primary source, declared assumptions, executable model code, visual mapping and reproducible tests. Click a drawer, card or rail to inspect its mapping; a dedicated control returns to the live search trace. This is an auditable *teaching model*, not a claim that a real database has been reverse engineered. The provenance graph is intentionally a small custom schema rather than a W3C PROV-O implementation. Details: [docs/EVIDENCE_GRAPH.md](docs/EVIDENCE_GRAPH.md).
+
+## P5 / Change an assumption (English)
+
+The interface can rebuild an interactive archive machine for the *same insertion sequence* with degree `t=2` or `t=3`. The controlled comparison counts actual in-model node visits, key comparisons and tree levels. A reproducible counterexample for key 24 shows fewer total nodes under `t=3`, yet more node visits than under `t=2`. This does not imply a performance benchmark of any database. See [controlled experiment and provenance](docs/P5_CONTROLLED_EXPERIMENT.md).

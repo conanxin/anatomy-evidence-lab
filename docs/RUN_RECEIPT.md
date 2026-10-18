@@ -52,3 +52,26 @@ This section is an independent local container test of a new revision; it is not
 **Limitations:** The browser test directly executes the self-contained HTML via Playwright `page.set_content`, not by navigating to a deployed public URL. It verifies interactions but is not a full screen-reader accessibility audit, and it does not prove effectiveness for teaching real learners. The W3C PROV-O comparison is conceptual; RDF export is not implemented.
 
 **Source tracking:** NIST definition is evidence for the general balanced multiway tree, not validation of the custom B-tree code or rendering. The synthetic degree convention, filing-cabinet analogy, and omitted database concerns remain explicitly labeled assumptions.
+
+---
+
+# P5 / Controlled assumption experiment — 2026-10-18 (initial local receipt)
+
+**Build origin:** independent, isolated ChatGPT container copy of the published P4 branch; the preserved WSL Hermes source tree was not overwritten. P5 GitHub commit and CI are **pending** at time this initial receipt was written. The PR remains unmerged.
+
+| Gate | Actual command or method | Result |
+| --- | --- | --- |
+| Node | `node -v` | `v22.16.0` |
+| Unit | `npm test` | **69 PASS / 0 FAIL / 0 SKIP** |
+| Build | `npm run build` | **PASS**, 59,942 byte standalone HTML |
+| Browser | `CHROMIUM_PATH=/usr/bin/chromium npm run test:browser` | **37 PASS**, Chromium 144, 1366px and 390px |
+| Source and parameter | `tests/evidence.test.mjs`, `tests/comparison.test.mjs` | **PASS** |
+| SHA-256 export | `npm run export:provenance` | **PASS**; SHA-256 `a91733d14361ba1aaeab302b519e786efdb5ce2fe6aaaa62f43d65f26b9347fb` for default case |
+| Actual Git revision | This copy was exported from a ZIP without `.git` | **UNPINNED** in local JSON-LD (GitHub CI runs with pinned commit) |
+| Remote CI | New P5 GitHub Actions | PENDING at writing |
+| Human learning trial | No recruited participants | NOT TESTED |
+| Existing website | Not deployed to existing site | NOT DEPLOYED |
+
+**Observed result for query 24**: t=2: 14 total nodes / 3 levels / 2 visits / 4 comparisons; t=3: 9 total nodes / 3 levels / 3 visits / 6 comparisons. These are exact counts for the chosen input and code, not disk I/O or relative runtime performance. The browser smoke uses Playwright `page.set_content` with the built, self-contained HTML, not public URL navigation.
+
+**Additional syntax/graph check:** Local Python `rdflib.Graph.parse(..., format='json-ld')` successfully expanded the actual CLI-produced JSON-LD into 31 RDF triples: 1 `prov:Activity`, 3 `prov:Entity` (one input + two model outputs) and 1 `prov:Agent`. This verifies a usable minimal RDF graph, **not** SHACL validation, full PROV-O ontology conformance or trustworthy source claims.
