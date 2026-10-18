@@ -18,7 +18,7 @@
 ## Ideal mechanical model (P9 only)
 
 - One beam rotates about a **schematic** pivot. Counterweight hangs to the left; vessel to the right. No physical dimensions in these sources warrant exact placement or historical material texture.
-- User may vary 0–30 kg hypothetical load/counterweight, 0.5–2.5 m hypothetical arms, ±28° schematic inclination. These are **UI ranges**, not historically measured ranges.
+- User may vary 0–30 kg hypothetical load/counterweight, 0.5–2.5 m hypothetical arms, ±28° schematic inclination. These are **UI ranges**, not historically measured ranges.
 - Modern ideal gravitational moment formula for inclined beam: `tau_net = g * cos(theta) * (m_counter*L_counter - m_load*L_load)` (g=9.81 m/s², illustrative). Positive sign means the counterweight tends to raise the front load; negative, the front tends to fall.
 - Automatic 'release' button **chooses a demonstration angle based on torque sign**; it does NOT numerically integrate angular acceleration, tension, friction, filling/draining or temporal motion. Surface the simplification to readers.
 - The example does not measure labor efficiency or verify literary claims such as irrigating 100 plots/day.
