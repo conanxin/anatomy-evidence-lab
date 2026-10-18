@@ -53,8 +53,23 @@
         </div>
       </section>
 
+      <section class="trace-evidence" id="trace-evidence" aria-labelledby="trace-evidence-heading">
+        <div class="panel-index">03 / EVIDENCE GRAPH · INSPECT THE EXPLANATION</div>
+        <div class="trace-heading">
+          <div>
+            <h2 id="trace-evidence-heading">这一步为何如此运动？</h2>
+            <p id="trace-evidence-hint">单击抽屉、数字卡片或连接通道，可查看其对应的模型及证据。</p>
+          </div>
+          <button id="evidence-follow" type="button" class="ghost evidence-follow" hidden>返回当前步骤</button>
+        </div>
+        <div class="trace-selection" id="evidence-selection" aria-live="polite">当前步骤 / CURRENT STEP</div>
+        <p id="evidence-claim" class="trace-claim"></p>
+        <div id="evidence-records" class="trace-records" aria-label="Linked evidence and assumptions"></div>
+        <p id="evidence-boundary" class="trace-boundary">说明：一手来源支持 B-tree 概念；具体档案柜是合成的教学隐喻，不代表任何真实数据库内部结构。</p>
+      </section>
+
       <details class="evidence" open>
-        <summary><span>03 / <span id="source-title">来源与假设</span></span><span class="summary-symbol" aria-hidden="true">+</span></summary>
+        <summary><span>04 / <span id="source-title">来源与假设</span></span><span class="summary-symbol" aria-hidden="true">+</span></summary>
         <div class="evidence-cols">
           <div><h2>REFERENCE / 一手定义</h2><p lang="zh-CN"><a href="https://xlinux.nist.gov/dads/HTML/btree.html" target="_blank" rel="noopener noreferrer">NIST Dictionary of Algorithms and Data Structures: B-tree ↗</a>。节点多路搜索、同深度叶节点、有限节点容量。这里固定最小度数 t = 2，每节点最多 3 个键，内部节点最多 4 个子节点。</p><p lang="en"><a href="https://xlinux.nist.gov/dads/HTML/btree.html" target="_blank" rel="noopener noreferrer">NIST Dictionary of Algorithms and Data Structures: B-tree ↗</a> defines balanced multiway search trees. Our teaching convention uses minimum degree t = 2: up to 3 keys and 4 children per internal node.</p></div>
           <div><h2>ASSUMPTION / 演示边界</h2><p lang="zh-CN">键值、抽屉、颜色和机械连接均是合成教学隐喻；只实现插入和搜索，不模拟删除、磁盘 I/O、并发或具体数据库产品。<strong>不代表 BOOK-ID-SEARCH 的真实内部实现。</strong></p><p lang="en">Every key, cabinet and rail is a synthetic educational metaphor. Only insert/search is modeled: no deletion, disk I/O, concurrency or real database product. <strong>This does not describe BOOK-ID-SEARCH internals.</strong></p></div>

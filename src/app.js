@@ -1,9 +1,11 @@
 import { createTree, fromKeys, insert, validateTree, searchTrace, layoutTree, DEFAULT_KEYS } from './btree.js';
 import { frameFor, readout, highlightModel } from './scene.js';
+import { evidenceFor, validateEvidenceGraph } from './evidence.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 const byId = id => document.getElementById(id);
-const state = { tree: fromKeys(), trace: null, index: 0, lang: 'zh', timer: null, layout: null };
+const state = { tree: fromKeys(), trace: null, index: 0, lang: 'zh', timer: null, layout: null, inspectPart: null, inspectTarget: '' };
+validateEvidenceGraph();
 const texts = {
   zh: { hero:'一座能够解释搜索的档案柜', subtitle:'真实 B-tree 算法 · 轴测机械示意 · 证据与假设可追踪', query:'检索整数', search:'开始检索', insert:'插入卡片', previous:'上一步', next:'下一步', autoplay:'自动播放', pause:'暂停', reset:'恢复初始档案', records:'卡片', drawers:'抽屉', levels:'层级', gate:'算法门槛', sources:'来源与假设', explain:'每张抽屉是一个 B-tree 节点。比较档案号，再沿正确的子节点通道下降。动画只反映真实搜索轨迹。', idle:'请开始一次检索。', error:'请输入安全范围内的整数。', duplicate:'该整数已存在，未重复插入。', inserted:'卡片已插入，B-tree 已重新平衡。', status:'状态：' },
   en: { hero:'An archive cabinet that explains search', subtitle:'Real B-tree algorithm · isometric machine · inspectable evidence', query:'Look up integer', search:'Search', insert:'Insert card', previous:'Previous', next:'Next', autoplay:'Autoplay', pause:'Pause', reset:'Reset archive', records:'Cards', drawers:'Drawers', levels:'Levels', gate:'Invariant gate', sources:'Sources & assumptions', explain:'Each drawer is a B-tree node. Compare the file number and descend through the correct corridor. Every motion comes from a real search trace.', idle:'Start a search.', error:'Enter a safe integer.', duplicate:'This key already exists; no duplicate inserted.', inserted:'Card inserted; B-tree rebalanced.', status:'Status: ' },
@@ -22,7 +24,7 @@ function describe(stats) {
   byId('gate').textContent = `${texts[state.lang].gate}: PASS`;
 }
 function drawNode(canvas, node) {
-  const g = append(canvas, 'g', { class:'drawer', 'data-node-id': node.id, transform:`translate(${node.x},${node.y})` });
+  const g = append(canvas, 'g', { class:'drawer', 'data-node-id': node.id, transform:`translate(${node.x},${node.y})`, tabindex:0, 'data-evidence-part':'drawer' });
   // A small 2.5D filing cabinet: top, flank and face, with brass trim.
   append(g, 'path', { d:'M -64 -26 L -40 -49 L 70 -49 L 49 -26 Z', class:'cabinet-top' });
   append(g, 'path', { d:'M 49 -26 L 70 -49 L 70 15 L 49 39 Z', class:'cabinet-side' });
@@ -34,14 +36,14 @@ function drawNode(canvas, node) {
   const w = Math.min(30, 94 / Math.max(count, 1) - 2);
   node.keys.forEach((key, i) => {
     const x = -53 + (i + .5) * (95 / count);
-    append(g, 'rect', { x:x-w/2, y:1, width:w, height:19, rx:2, class:'file-card', 'data-key':key });
+    append(g, 'rect', { x:x-w/2, y:1, width:w, height:19, rx:2, class:'file-card', 'data-key':key, 'data-evidence-part':'card', tabindex:0, role:'button', 'aria-label':`Inspect evidence for key ${key}` });
     append(g, 'text', { x, y:14, 'text-anchor':'middle', class:'file-number' }, key);
   });
   append(g, 'circle', { cx:-55, cy:31, r:2.2, class:'brass-screw' });
   append(g, 'circle', { cx:40, cy:31, r:2.2, class:'brass-screw' });
   const handle = append(g, 'rect', { x:-12, y:27, width:24, height:7, rx:3, class:'drawer-handle' });
-  g.setAttribute('role','img');
-  g.setAttribute('aria-label',`Drawer ${node.id}: ${node.keys.join(', ')}`);
+  g.setAttribute('role','group');
+  g.setAttribute('aria-label',`Inspect evidence for drawer ${node.id}: ${node.keys.join(', ')}`);
 }
 function drawMachine() {
   state.layout = layoutTree(state.tree);
@@ -58,7 +60,7 @@ function drawMachine() {
   edges.forEach(edge => {
     const start = nodes.find(n=>n.id===edge.from), end=nodes.find(n=>n.id===edge.to);
     const midY = (start.y+end.y)/2;
-    append(railLayer,'path',{ d:`M ${start.x} ${start.y+40} L ${start.x} ${midY} L ${end.x} ${midY} L ${end.x} ${end.y-48}`, class:'rail', 'data-child-id':edge.to });
+    append(railLayer,'path',{ d:`M ${start.x} ${start.y+40} L ${start.x} ${midY} L ${end.x} ${midY} L ${end.x} ${end.y-48}`, class:'rail', 'data-child-id':edge.to, 'data-evidence-part':'rail', tabindex:0, role:'button', 'aria-label':`Inspect evidence for rail to node ${edge.to}` });
   });
   const drawerLayer=append(canvas,'g',{class:'drawers'});
   nodes.slice().sort((a,b)=>a.depth-b.depth||a.x-b.x).forEach(n=>drawNode(drawerLayer,n));
@@ -70,6 +72,45 @@ function drawMachine() {
     if (root) scroll.scrollLeft = Math.max(0, root.x - scroll.clientWidth / 2);
   }
 }
+/** Trace-step, mechanical part, source citation and test form a single inspectable chain. */
+function renderEvidence(frame) {
+  const chain=evidenceFor(frame.step?.type ?? 'idle',state.inspectPart);
+  const lang=state.lang, section=byId('evidence-records');
+  const labels={zh:{source:'一手来源',assumption:'显式假设',model:'模型代码',visual:'可视部件',test:'自动化测试',inspect:'检查部件',current:'当前轨迹',back:'返回当前步骤',heading:'这一步为何如此运动？',hint:'点击抽屉、数字卡片或连接通道，查看每个视觉元素的模型和证据。',boundary:'证据边界：NIST 说明 B-tree 的基本概念，不验证这个档案柜隐喻，更不证明 BOOK-ID-SEARCH 的内部实现。'},en:{source:'Primary reference',assumption:'Explicit assumption',model:'Model code',visual:'Visual part',test:'Automated test',inspect:'Inspecting part',current:'Current trace',back:'Return to current step',heading:'Why does this part move?',hint:'Click a drawer, numbered card or rail to inspect its model, assumptions, source and tests.',boundary:'Evidence boundary: NIST documents general B-tree concepts, not this cabinet metaphor or BOOK-ID-SEARCH internals.'}};
+  const v=labels[lang], primary=chain.records.find(r=>r.type==='claim');
+  byId('trace-evidence-heading').textContent=v.heading;
+  byId('trace-evidence-hint').textContent=v.hint;
+  byId('evidence-boundary').textContent=v.boundary;
+  byId('evidence-follow').textContent=v.back;
+  byId('evidence-follow').hidden=!state.inspectPart;
+  byId('evidence-selection').textContent=state.inspectPart ? `${v.inspect}: ${state.inspectPart.toUpperCase()} ${state.inspectTarget}` : `${v.current}: ${frame.step?.type?.toUpperCase() ?? 'IDLE'} ${frame.step ? frame.index+1+'/'+frame.total : ''}`;
+  byId('trace-evidence').dataset.stepType=chain.stepType;
+  byId('evidence-claim').textContent=primary[lang];
+  byId('evidence-claim').dataset.claimId=primary.id;
+  section.replaceChildren();
+  for(const rec of chain.records.filter(r=>r.type!=='claim')){
+    const article=document.createElement('article');
+    article.className='proof-record proof-'+rec.type;
+    article.dataset.evidenceId=rec.id;
+    const head=document.createElement('div');head.className='proof-head';
+    const code=document.createElement('span');code.textContent=rec.id+' · '+v[rec.type];
+    const status=document.createElement('small');status.textContent=rec.status.replaceAll('_',' ');
+    head.append(code,status);article.append(head);
+    const description=document.createElement('p');description.textContent=rec[lang];article.append(description);
+    if(rec.href){const link=document.createElement('a');link.href=rec.href;link.target='_blank';link.rel='noopener noreferrer';link.textContent=lang==='zh'?'核对原始出处 ↗':'Inspect source ↗';article.append(link);}
+    section.append(article);
+  }
+}
+function inspectDiagramPart(target){
+  const element=target.closest('[data-evidence-part]');
+  if(!element)return;
+  const kind=element.dataset.evidencePart;
+  state.inspectPart=kind;
+  state.inspectTarget=kind==='rail' ? `N${element.dataset.childId}` : kind==='card' ? `${element.dataset.key}` : `N${element.dataset.nodeId}`;
+  renderEvidence(frameFor(state.trace,state.index));
+}
+function followTrace(){state.inspectPart=null;state.inspectTarget='';renderEvidence(frameFor(state.trace,state.index));}
+
 function renderFrame() {
   const frame=frameFor(state.trace,state.index);
   const projection=highlightModel(state.layout,frame);
@@ -90,21 +131,22 @@ function renderFrame() {
   byId('previous').disabled=!state.trace||state.index<=0;
   byId('next').disabled=!state.trace||state.index>=state.trace.steps.length-1;
   byId('play').textContent=state.timer===null?texts[state.lang].autoplay:texts[state.lang].pause;
+  renderEvidence(frame);
 }
 function startLookup() {
-  stop(); const n=Number(byId('query').value);
+  stop(); state.inspectPart=null; const n=Number(byId('query').value);
   if (!Number.isSafeInteger(n)||!byId('query').value.trim()) { byId('readout').textContent=texts[state.lang].error; return; }
   state.trace=searchTrace(state.tree,n); state.index=0; renderFrame();
 }
 function insertKey() {
-  stop(); const n=Number(byId('query').value);
+  stop(); state.inspectPart=null; const n=Number(byId('query').value);
   if (!Number.isSafeInteger(n)||!byId('query').value.trim()) { byId('readout').textContent=texts[state.lang].error; return; }
   const added=insert(state.tree,n);
   state.trace=null; state.index=0; drawMachine();
   byId('readout').textContent=added.duplicate ? texts[state.lang].duplicate : texts[state.lang].inserted;
 }
-function next() { if(!state.trace)return;state.index=Math.min(state.index+1,state.trace.steps.length-1);if(state.index===state.trace.steps.length-1)stop();renderFrame(); }
-function previous(){ if(!state.trace)return;stop();state.index=Math.max(state.index-1,0);renderFrame(); }
+function next() { if(!state.trace)return;state.inspectPart=null;state.index=Math.min(state.index+1,state.trace.steps.length-1);if(state.index===state.trace.steps.length-1)stop();renderFrame(); }
+function previous(){ if(!state.trace)return;stop();state.inspectPart=null;state.index=Math.max(state.index-1,0);renderFrame(); }
 function togglePlay(){
   if(state.timer!==null){stop();renderFrame();return;}
   if(!state.trace)startLookup();
@@ -113,7 +155,7 @@ function togglePlay(){
   state.timer=window.setInterval(()=>{ next(); },900);
   renderFrame();
 }
-function reset(){stop();state.tree=fromKeys(DEFAULT_KEYS);state.trace=null;state.index=0;byId('query').value='24';drawMachine();}
+function reset(){stop();state.inspectPart=null;state.tree=fromKeys(DEFAULT_KEYS);state.trace=null;state.index=0;byId('query').value='24';drawMachine();}
 function localize(){
   document.documentElement.lang=state.lang==='zh'?'zh-CN':'en';
   for(const [id,key] of [['hero','hero'],['subtitle','subtitle'],['label-query','query'],['search','search'],['insert','insert'],['previous','previous'],['next','next'],['reset','reset'],['source-title','sources'],['explain','explain']])byId(id).textContent=texts[state.lang][key];
@@ -127,6 +169,9 @@ byId('next').addEventListener('click',()=>{stop();next();});
 byId('play').addEventListener('click',togglePlay);
 byId('reset').addEventListener('click',reset);
 byId('toggle-language').addEventListener('click',()=>{state.lang=state.lang==='zh'?'en':'zh';localize();});
+byId('evidence-follow').addEventListener('click',followTrace);
+byId('machine').addEventListener('click',e=>inspectDiagramPart(e.target));
+byId('machine').addEventListener('keydown',e=>{ if(['Enter',' '].includes(e.key) && e.target.closest('[data-evidence-part]')){e.preventDefault();inspectDiagramPart(e.target);} });
 byId('query').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();startLookup();}});
 document.addEventListener('keydown',e=>{
   if(e.target instanceof HTMLElement && (e.target.closest('input,textarea,button,select') || e.altKey || e.ctrlKey || e.metaKey))return;

@@ -8,6 +8,13 @@ An **evidence-first B-tree archive machine**: a real, deterministic multiway sea
 
 ## 中文
 
+### P4：交互式证据图谱
+
+- 点选档案抽屉、数字卡片或连接通道，可以追踪到关联的 **Claim → Source → Assumption → Model → Visual → Test**。
+- 同一组声明同时区分 **来源支持**、**已测试的程序逻辑** 与 **人为设定的演示假设**；不会把 B-tree 教学隐喻说成 BOOK-ID-SEARCH 的实际索引。
+- `src/evidence.js` 公开所有证据记录和事件映射；`tests/evidence.test.mjs` 验证来源完整性和引用关系。
+- CI 增加 Chromium 真实交互检验，维护桌面与手机两类截图。证据定义与约束详见 [P4 EVIDENCE GRAPH](docs/EVIDENCE_GRAPH.md)。
+
 ### 核心内容
 
 - 可运行的最小度数 `t=2` B-tree 插入及检索；25 个合成整数样本、多层节点。
@@ -54,14 +61,19 @@ index.html          Browser UI and evidence disclosure
 styles.css          Responsive mechanical illustration style
 src/btree.js        Pure B-tree algorithms, trace, invariants and layout
 src/scene.js        Pure readout/highlight projections
+src/evidence.js     Typed claim/source/assumption/model/visual/test graph
 src/app.js          Accessible controls and SVG renderer
 scripts/build.mjs   Static packaging into dist/
 scripts/serve.mjs   Local-only static preview server
-tests/*.test.mjs    Deterministic algorithm and view tests
-scripts/browser_smoke.py  Optional Playwright + Chromium smoke test
+tests/*.test.mjs    Deterministic model, view and provenance graph tests
+scripts/browser_smoke.py  Playwright + Chromium smoke test (also CI)
 docs/PROVENANCE.md  Source pin, assumptions and evidentiary boundaries
 docs/RUN_RECEIPT.md  Verified results and untested boundaries
 docs/LOCAL_HERMES_HANDOFF.md  Command for resuming on local Hermes
 ```
 
 **Publication gate:** a passing unit suite proves only the coded invariants, not a scientific or historical truth claim. The visual/browser gate and source trace must also be reviewed before claiming a complete interactive explanation.
+
+## P4 / Evidence graph (English)
+
+The new **Evidence Graph** panel attaches each trace event to a typed claim, primary source, declared assumptions, executable model code, visual mapping and reproducible tests. Click a drawer, card or rail to inspect its mapping; a dedicated control returns to the live search trace. This is an auditable *teaching model*, not a claim that a real database has been reverse engineered. The provenance graph is intentionally a small custom schema rather than a W3C PROV-O implementation. Details: [docs/EVIDENCE_GRAPH.md](docs/EVIDENCE_GRAPH.md).

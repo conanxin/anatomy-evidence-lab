@@ -33,3 +33,22 @@ No physical mechanical accuracy claim, historical reconstruction claim, full col
 - Notion: https://app.notion.com/p/3f734a28189a81699161dd858772aed5
 - GitHub issue: https://github.com/conanxin/anatomy-evidence-lab/issues/1
 - Upstream Anatomy pin from 2026-10-12 local Git: `689dcf966e63d92be10a5d593c6e19e10acd4422`
+
+---
+
+# P4 / Evidence Graph verification — 2026-10-18
+
+This section is an independent local container test of a new revision; it is not the historic 2026-10-12 Hermes branch. A separate untouched Windows/WSL worktree has been inspected for reconciliation.
+
+| Gate | Method | Observed result |
+| --- | --- | --- |
+| Evidence graph validation | `node --test tests/evidence.test.mjs` (included in `npm test`) | 13 new checks passed |
+| Unit suite | `npm test`, Node 22.16.0 | **47 passed / 0 failed / 0 skipped** |
+| Static build | `npm run build` | **PASS**, 46,155-byte standalone HTML |
+| Browser smoke | `CHROMIUM_PATH=/usr/bin/chromium python scripts/browser_smoke.py` | **23 passed / 0 failed**, Chromium at 1366 px and 390 px; validates source cards, keyboard rail, clickable card, bilingual outcome, reduced-motion, reset and search consistency |
+| Artifact digest | `sha256sum dist/index.html` | `c1787e2c4a96d940e491965ad61f9a9528f849bf3d266bed3257497befceed94` |
+| GitHub Actions P4 | CI will run after this revision is pushed | **PENDING AT TIME OF LOCAL RECEIPT**; check PR's current commit / checks |
+
+**Limitations:** The browser test directly executes the self-contained HTML via Playwright `page.set_content`, not by navigating to a deployed public URL. It verifies interactions but is not a full screen-reader accessibility audit, and it does not prove effectiveness for teaching real learners. The W3C PROV-O comparison is conceptual; RDF export is not implemented.
+
+**Source tracking:** NIST definition is evidence for the general balanced multiway tree, not validation of the custom B-tree code or rendering. The synthetic degree convention, filing-cabinet analogy, and omitted database concerns remain explicitly labeled assumptions.

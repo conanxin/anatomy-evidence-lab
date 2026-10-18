@@ -26,3 +26,11 @@ This repository contains an independently authored pedagogical implementation an
 | Visual design follows original Anatomy principles | Official Anatomy project; independent design | ANALYSIS / adaptation |
 | Specific database internals match the machine | No code audit of BOOK-ID-SEARCH | NOT CLAIMED |
 | Upstream author's geometry audit results | Author's own report | AUTHOR_REPORTED only |
+
+## P4: typed claim → source → assumption → model → visual → test chains
+
+Read [EVIDENCE_GRAPH.md](EVIDENCE_GRAPH.md) and [`src/evidence.js`](../src/evidence.js). The chain is deliberately a **research annotation**, not a statement that visual components have been independently verified by NIST. It makes model assumptions and omitted areas visible, rather than hiding them in a footnote. The conceptual extension is informed by [W3C PROV-O](https://www.w3.org/TR/prov-o/), but no PROV-O/RDF compliance is claimed.
+
+## Upstream review — 2026-10-18
+
+Original Anatomy upstream has released [Anatomy 1.1](https://github.com/wheresryan22/anatomy/releases/tag/v1.1.0). This introduces optional community-gallery publication, geometry audit changes, reduced-motion handling updates, and expanded available agents. It does **not** make this project an upstream official illustration and has no bearing on our custom B-tree correctness guarantee. The P0 upstream pin remains a historical reference; no silent upstream upgrade has been performed.

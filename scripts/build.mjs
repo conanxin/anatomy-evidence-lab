@@ -6,7 +6,7 @@ await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 let html = await read('index.html');
 const css = (await read('styles.css')).replace(/^@import url\(.+?\);\s*/m,'');
-const files = ['src/btree.js','src/scene.js','src/app.js'];
+const files = ['src/btree.js','src/scene.js','src/evidence.js','src/app.js'];
 const sources = await Promise.all(files.map(read));
 const bundled = sources.map((src,i) => `\n// bundled: ${files[i]}\n` + src.replace(/^export\s+/gm,'').replace(/^import\s+.+?;\s*$/gm,'')).join('\n');
 html = html.replace('<link rel="stylesheet" href="./styles.css">', `<style>\n${css}\n</style>`);

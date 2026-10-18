@@ -4,3 +4,27 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
 
 .evidence p[lang='en']{display:none}html[lang='en'] .evidence p[lang='zh-CN']{display:none}html[lang='en'] .evidence p[lang='en']{display:block}
+
+/* P4 Evidence Graph: links on a claim never turn an illustrative metaphor into a fact. */
+.trace-evidence{border:1px solid var(--line);background:#fffdf7;padding:26px 28px;margin-top:32px;}
+.trace-evidence .panel-index{margin-bottom:12px;}
+.trace-heading{display:flex;justify-content:space-between;align-items:start;gap:18px;}
+.trace-heading h2{font-size:clamp(19px,2vw,28px);line-height:1.35;font-weight:600;margin:0;}
+.trace-heading p{color:var(--muted);font-size:12px;line-height:1.8;max-width:680px;}
+.evidence-follow{flex-shrink:0;font-size:12px;}
+.trace-selection{font:11px 'DM Mono',monospace;color:var(--brass);letter-spacing:.07em;margin:8px 0 10px;}
+.trace-claim{font-size:17px;line-height:1.65;font-weight:600;max-width:900px;margin:0 0 24px;}
+.trace-records{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+.proof-record{border:1px solid #dedfce;padding:13px;background:#faf8ef;min-width:0;overflow-wrap:anywhere;}
+.proof-head{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--olive);font:10px/1.5 'DM Mono',monospace;}
+.proof-head small{font-size:9px;color:#767c6f;}
+.proof-record p{line-height:1.65;color:var(--muted);font-size:12px;margin:10px 0 6px;}
+.proof-record a{font-size:12px;color:var(--olive);text-underline-offset:3px;}
+.proof-source{border-left:3px solid var(--brass);}
+.proof-assumption{border-left:3px solid #b4a28b;}
+.trace-boundary{color:var(--red);font-size:12px;margin:24px 0 0;line-height:1.8;}
+.drawer[data-evidence-part],.file-card[data-evidence-part],.rail[data-evidence-part]{cursor:pointer;}
+.drawer:focus-visible,.file-card:focus-visible,.rail:focus-visible{outline:4px solid #b68d4c;outline-offset:4px;}
+@media(max-width:920px){.trace-records{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:580px){.trace-evidence{padding:18px 14px;}.trace-records{grid-template-columns:1fr;}.trace-heading{flex-direction:column;}.trace-heading h2{font-size:22px;}}
+.file-number{pointer-events:none;} /* Click the card, not its overlaid text glyph. */
