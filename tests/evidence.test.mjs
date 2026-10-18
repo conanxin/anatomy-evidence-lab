@@ -4,7 +4,7 @@ import { EVIDENCE_RECORDS, STEP_EVIDENCE, evidenceFor, validateEvidenceGraph } f
 import { fromKeys, searchTrace } from '../src/btree.js';
 import { frameFor } from '../src/scene.js';
 
-const kinds=['scenario','idle','visit','compare','descend','found','miss'];
+const kinds=['cost','scenario','idle','visit','compare','descend','found','miss'];
 const knownTypes=['claim','source','assumption','model','visual','test'];
 
 test('evidence graph has unique stable identifiers and every step has all six evidence types',()=>{

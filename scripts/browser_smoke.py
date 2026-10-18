@@ -117,6 +117,62 @@ with sync_playwright() as p:
         assert page.locator('#case-2').get_attribute('data-found')=='true'
         assert '25' in page.locator('#stats').inner_text()
         checks.append(f'{width}px: reset restores t=2, original dataset and original query')
+        # P6: change only hypothetical cost weights, never source tree or trace.
+        assert page.locator('#cost-lab').get_attribute('data-tradeoff')=='false'
+        initial_t2=page.locator('#case-2').get_attribute('data-scenario-id')
+        initial_t3=page.locator('#case-3').get_attribute('data-scenario-id')
+        page.locator('#regime-keys').click()
+        assert page.locator('#cost-lab').get_attribute('data-winner')=='t2'
+        assert page.locator('#case-2').get_attribute('data-scenario-id')==initial_t2
+        assert page.locator('#case-3').get_attribute('data-scenario-id')==initial_t3
+        checks.append(f'{width}px: cost-only regime does not mutate baseline tree and t=2 retains dominance')
+        page.locator('#dataset-tradeoff').click()
+        assert '42' in page.locator('#stats').inner_text()
+        assert page.locator('#query').input_value()=='7'
+        assert page.locator('#cost-lab').get_attribute('data-tradeoff')=='true'
+        assert page.locator('#cost-case-2').get_attribute('data-visits')=='4'
+        assert page.locator('#cost-case-3').get_attribute('data-visits')=='3'
+        assert page.locator('#cost-case-2').get_attribute('data-comparisons')=='5'
+        assert page.locator('#cost-case-3').get_attribute('data-comparisons')=='6'
+        checks.append(f'{width}px: counterexample reproduces 4/5 vs 3/6 and same absent query')
+        page.locator('#regime-nodes').click()
+        assert page.locator('#cost-lab').get_attribute('data-winner')=='t3'
+        assert [page.locator(f'#cost-case-{i}').get_attribute('data-score') for i in [2,3]]==['25','21']
+        c2=page.locator('#case-2').get_attribute('data-scenario-id')
+        c3=page.locator('#case-3').get_attribute('data-scenario-id')
+        page.locator('#regime-keys').click()
+        assert page.locator('#cost-lab').get_attribute('data-winner')=='t2'
+        assert [page.locator(f'#cost-case-{i}').get_attribute('data-score') for i in [2,3]]==['29','33']
+        assert page.locator('#case-2').get_attribute('data-scenario-id')==c2
+        assert page.locator('#case-3').get_attribute('data-scenario-id')==c3
+        checks.append(f'{width}px: hypothetical weight flip reverses ranking without changing scenario IDs')
+        page.locator('#regime-balanced').click()
+        assert page.locator('#cost-lab').get_attribute('data-winner')=='tie'
+        assert [page.locator(f'#cost-case-{i}').get_attribute('data-score') for i in [2,3]]==['9','9']
+        checks.append(f'{width}px: equal weights create a genuine tie')
+        page.locator('#weight-node').evaluate('(el)=>{el.value="7";el.dispatchEvent(new Event("input",{bubbles:true}));}')
+        assert page.locator('#cost-lab').get_attribute('data-winner')=='t3'
+        assert page.locator('#weight-node-value').inner_text()=='7'
+        checks.append(f'{width}px: range slider is live and recomputes fictional scores')
+        page.locator('#cost-evidence').click()
+        assert page.locator('#evidence-claim').get_attribute('data-claim-id')=='C-COST'
+        for e in ['A-WEIGHTS','A-NOT-IO','M-COST','T-COST']:
+            assert page.locator(f'[data-evidence-id="{e}"]').count()==1
+        page.locator('#evidence-follow').click()
+        checks.append(f'{width}px: cost-model claim explicitly links to assumptions and tests')
+        for i,v in enumerate(['t2','t3','t2','no','no']): page.locator(f'#study-q-{i}').select_option(v)
+        page.locator('#study-submit').click()
+        assert page.locator('#study-score').get_attribute('data-correct')=='5'
+        checks.append(f'{width}px: same five comprehension items grade correctly with no participant collection')
+        page.screenshot(path=str(OUT / f'p6-tradeoff-{width}.png'),full_page=True)
+        page.locator('#toggle-language').click()
+        assert 'Teaching points' in page.locator('#cost-verdict').inner_text()
+        assert page.locator('#study-q-0 option').count()==4
+        checks.append(f'{width}px: bilingual P6 cost conclusion and quiz')
+        page.locator('#reset').click()
+        assert page.locator('#dataset-baseline').get_attribute('aria-pressed')=='true'
+        assert page.locator('#cost-lab').get_attribute('data-tradeoff')=='false'
+        checks.append(f'{width}px: restoring default dataset, weights and active model')
         page.screenshot(path=str(OUT / f'p5-comparison-{width}.png'),full_page=True)
         assert not errors, f'JS runtime errors: {errors}'
         checks.append(f'{width}px: zero page errors')

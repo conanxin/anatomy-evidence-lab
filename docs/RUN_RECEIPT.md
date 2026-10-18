@@ -75,3 +75,15 @@ This section is an independent local container test of a new revision; it is not
 **Observed result for query 24**: t=2: 14 total nodes / 3 levels / 2 visits / 4 comparisons; t=3: 9 total nodes / 3 levels / 3 visits / 6 comparisons. These are exact counts for the chosen input and code, not disk I/O or relative runtime performance. The browser smoke uses Playwright `page.set_content` with the built, self-contained HTML, not public URL navigation.
 
 **Additional syntax/graph check:** Local Python `rdflib.Graph.parse(..., format='json-ld')` successfully expanded the actual CLI-produced JSON-LD into 31 RDF triples: 1 `prov:Activity`, 3 `prov:Entity` (one input + two model outputs) and 1 `prov:Agent`. This verifies a usable minimal RDF graph, **not** SHACL validation, full PROV-O ontology conformance or trustworthy source claims.
+
+## P6｜2026-10-18 本地独立复验（GitHub CI 另查）
+
+- Source basis: P5 GitHub branch head `5f1274d39667723894f9da6709cf1a7a4fec4248`。P6 在该源码的独立复制目录中实现，不覆盖用户 WSL 中未提交的 Hermes 旧版。
+- `node --version`: v22.16.0。
+- `npm test`: **96 PASS, 0 FAIL, 0 SKIP**。新测项包括成本优劣反转、旧数据集的不可反转、相同权重持平、原始 B-tree/trace 不变、输入参数拒绝、匿名答卷评分、零参与者状态、输入与成本假设分离的溯源哈希。
+- `npm run build`: **PASS**，自包含 `dist/index.html` (86,249 bytes)。
+- `npm run export:provenance`: **PASS**（P5 输入/运行记录）；`npm run export:cost`: **PASS**（P6 假设分离记录）。
+- `artifacts/cost-run.jsonld`：经 Python rdflib 成功解析，**31 RDF 三元组**；此项只证明可解析，不证明全套 PROV-O/OWL 语义一致性。
+- `CHROMIUM_PATH=/usr/bin/chromium python3 scripts/browser_smoke.py`: **55 PASS**（1366px + 390px；包括反例切换、权重反转/持平、原情景 ID 不变、成本来源卡、理解度自测、语言/重置及 P5 兼容）。第一次尝试由于 Playwright 默认浏览器未安装而失败；指定本机 Chromium 后成功，未伪造 PASS。
+- 实际参与者：**0**；不存在 A/B 学习效果结果。
+- GitHub PR/CI: **PENDING_REMOTE_CHECK_AT_TIME_OF_THIS_LOCAL_RUN**（后续以真实 GitHub 执行记录为准）。

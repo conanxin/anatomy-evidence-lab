@@ -2,10 +2,12 @@ import { createTree, fromKeys, insert, validateTree, searchTrace, layoutTree, DE
 import { frameFor, readout, highlightModel } from './scene.js';
 import { evidenceFor, validateEvidenceGraph } from './evidence.js';
 import { createComparison, describeComparison, COMPARED_DEGREES } from './comparison.js';
+import { PRESETS, WEIGHT_PRESETS, validateWeights, evaluateCost, explainCost } from './cost-model.js';
+import { LEARNING_QUESTIONS, gradeQuiz } from './learning.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 const byId = id => document.getElementById(id);
-const state = { keys: [...DEFAULT_KEYS], degree: 2, lastQuery: 24, tree: fromKeys(), comparison: null, trace: null, index: 0, lang: 'zh', timer: null, layout: null, inspectPart: null, inspectTarget: '' };
+const state = { keys: [...DEFAULT_KEYS], degree: 2, lastQuery: 24, tree: fromKeys(), comparison: null, trace: null, index: 0, lang: 'zh', timer: null, layout: null, inspectPart: null, inspectTarget: '', costWeights:WEIGHT_PRESETS.nodes, datasetPreset:'baseline' };
 validateEvidenceGraph();
 const texts = {
   zh: { hero:'一座能够解释搜索的档案柜', subtitle:'真实 B-tree 算法 · 轴测机械示意 · 证据与假设可追踪', query:'检索整数', degree:'当前模型的最小度数', degreeHint:'切换度数会按相同插入顺序，使用同一组整数重新建树。', comparisonHeading:'更改假设，比较两棵树', comparisonIntro:'固定同一组整数和插入顺序，仅改变最小度数 t。点击不同案例，机械模型随之重新计算。', comparisonEvidence:'查看参数证据', comparisonBoundary:'访问节点数、键比较数并非磁盘 I/O 或真实性能。模型编号是非加密的界面标识，不是证据校验哈希。', search:'开始检索', insert:'插入卡片', previous:'上一步', next:'下一步', autoplay:'自动播放', pause:'暂停', reset:'恢复初始档案', records:'卡片', drawers:'抽屉', levels:'层级', gate:'算法门槛', sources:'来源与假设', explain:'每张抽屉是一个 B-tree 节点。比较档案号，再沿正确的子节点通道下降。动画只反映真实搜索轨迹。', idle:'请开始一次检索。', error:'请输入安全范围内的整数。', duplicate:'该整数已存在，未重复插入。', inserted:'卡片已插入，B-tree 已重新平衡。', status:'状态：' },
@@ -49,7 +51,67 @@ function renderComparison() {
   }
   byId('comparison-result').textContent = describeComparison(comparison, state.lang);
   byId('comparison-version').textContent = comparison.cases.map(c => c.scenarioId).join('  /  ');
+  renderCost();
 }
+function renderCost(){
+  const data=evaluateCost(state.comparison,state.costWeights);
+  byId('weight-node').value=String(state.costWeights.node);
+  byId('weight-compare').value=String(state.costWeights.comparison);
+  byId('weight-node-value').textContent=String(state.costWeights.node);
+  byId('weight-compare-value').textContent=String(state.costWeights.comparison);
+  for(const c of data.cases){
+    const card=byId(`cost-case-${c.degree}`);
+    card.dataset.score=String(c.score);
+    card.dataset.visits=String(c.nodeVisits);
+    card.dataset.comparisons=String(c.keyComparisons);
+    card.dataset.lower=String(data.winner===c.degree || data.winner===null);
+    byId(`cost-value-${c.degree}`).textContent=String(c.score);
+    byId(`cost-math-${c.degree}`).textContent=`(${c.nodeVisits} × ${data.weights.node}) + (${c.keyComparisons} × ${data.weights.comparison}) = ${c.score}`;
+  }
+  byId('cost-lab').dataset.winner=data.winner===null?'tie':`t${data.winner}`;
+  byId('cost-lab').dataset.tradeoff=String(data.tradeoff);
+  byId('cost-verdict').textContent=explainCost(data,state.lang);
+  byId('cost-version').textContent=`DATASET: ${state.datasetPreset} · QUERY: ${state.lastQuery} · Δ(t3−t2): ${data.delta}`;
+  for(const [key,preset] of Object.entries(PRESETS)) byId(`dataset-${key}`).setAttribute('aria-pressed',String(state.datasetPreset===key));
+  for(const [key,weights] of Object.entries(WEIGHT_PRESETS))byId(`regime-${key}`).setAttribute('aria-pressed',String(weights.node===state.costWeights.node && weights.comparison===state.costWeights.comparison));
+}
+function setWeights(nextWeights){state.costWeights=validateWeights(nextWeights);renderCost();}
+function changeDataset(id){
+  if(!PRESETS[id])throw new RangeError('Unknown teaching dataset preset');
+  stop();state.inspectPart=null;state.inspectTarget='';state.datasetPreset=id;
+  state.keys=[...PRESETS[id].keys];state.lastQuery=PRESETS[id].query;state.degree=2;state.trace=null;state.index=0;
+  state.tree=fromKeys(state.keys,state.degree);byId('degree').value='2';byId('query').value=String(state.lastQuery);
+  drawMachine();renderComparison();
+}
+function buildQuiz(){
+  const root=byId('study-questions');root.replaceChildren();
+  LEARNING_QUESTIONS.forEach((q,i)=>{
+    const box=document.createElement('div');box.className='study-question';
+    const label=document.createElement('label');label.htmlFor=`study-q-${i}`;label.textContent=`${i+1}. ${q[state.lang]}`;
+    const select=document.createElement('select');select.id=`study-q-${i}`;select.name=q.id;
+    const empty=document.createElement('option');empty.value='';empty.textContent=state.lang==='zh'?'选择答案':'Choose an answer';select.append(empty);
+    for(const op of q.options){const item=document.createElement('option');item.value=op.value;item.textContent=op[state.lang];select.append(item);}
+    box.append(label,select);root.append(box);
+  });
+}
+function handleQuiz(event){
+  event.preventDefault();
+  const answers={};for(let i=0;i<LEARNING_QUESTIONS.length;i++)answers[LEARNING_QUESTIONS[i].id]=byId(`study-q-${i}`).value;
+  const score=gradeQuiz(answers);
+  byId('study-score').textContent=state.lang==='zh'?`自测：${score.correct}/${score.total}；已答 ${score.answered}/${score.total}。未收集参与者数据，不证明教学有效性。`:`Self-check: ${score.correct}/${score.total}, answered ${score.answered}/${score.total}. No participant data collected, no teaching-effect claim.`;
+  byId('study-score').dataset.correct=String(score.correct);
+}
+function localizeP6(){
+ const en=state.lang==='en';
+ const labels=en ? {
+  heading:'Change the cost assumptions. Can the conclusion reverse?',intro:'Keep the B-tree trace unchanged and adjust fictional score weights. Compare the baseline and an authentic metric-tradeoff counterexample.',
+  baseline:'25 integers · baseline',tradeoff:'42 integers · metric tradeoff',node:'Fictional points per visited node',key:'Fictional points per key comparison',nodes:'Visits costly (5 : 1)',keys:'Comparisons costly (1 : 5)',equal:'Equal weights (1 : 1)',formula:'Teaching score = node visits × visit weight + key comparisons × comparison weight',evidence:'Inspect the cost assumption chain',boundary:'These scores are imaginary teaching points—not milliseconds, disk I/O, actual costs or BOOK-ID-SEARCH performance. Moving a weight slider cannot alter B-tree traces.',study:'Comprehension self-check, not an aesthetic rating',studyIntro:'This is a question toolkit, not a completed participant study. A real A/B study must separate static and interactive participants, use identical items and record actual responses.',sheetLabel:'Read the equivalent static control material',sheet:'B-trees are balanced multiway search trees. Baseline query 24: t=2 makes 2 visits and 4 comparisons; t=3 makes 3 visits and 6 comparisons. Tradeoff query 7: t=2 makes 4 visits and 5 comparisons; t=3 makes 3 visits and 6 comparisons. Teaching score = node visits × visit weight + key comparisons × comparison weight. Weights do not change search behavior or measure hardware.',submit:'Check understanding'} : {
+  heading:'当假设改变，结论也可能改变',intro:'固定每组的真实 B-tree 搜索路径，只调整人为设定的成本权重。先比较常规数据，再打开指标权衡反例。',baseline:'25 个整数 · 常规案例',tradeoff:'42 个整数 · 权衡反例',node:'访问每个节点的假想分值',key:'每次键比较的假想分值',nodes:'访问较贵（5 : 1）',keys:'比较较贵（1 : 5）',equal:'相同权重（1 : 1）',formula:'教学分值 = 节点访问数 × 节点权重 + 键比较次数 × 比较权重',evidence:'检查成本假设的证据链',boundary:'分值只是人为选择的教学权重，不是毫秒、磁盘 I/O、实际费用或 BOOK-ID-SEARCH 性能。权重不会修改树结构和轨迹。',study:'知识理解自测：测理解，不评价外观',studyIntro:'这是尚未用于正式受试者研究的题目工具。若开展实验，必须分开呈现静态/互动材料、使用同一组问题，并记录真实回答。',sheetLabel:'查看供静态组阅读的等价文字材料',sheet:'B-tree 是多路平衡搜索树。常规数据查询 24：t=2 访问 2 节点、比较 4 次；t=3 访问 3 节点、比较 6 次。反例数据查询 7：t=2 访问 4 节点、比较 5 次；t=3 访问 3 节点、比较 6 次。教学分值 = 访问节点数 × 节点权重 + 键比较次数 × 比较权重。权重不修改检索过程，也不是真实硬件性能。',submit:'检查理解结果'};
+ const ids={ 'cost-heading':'heading','cost-intro':'intro','dataset-baseline':'baseline','dataset-tradeoff':'tradeoff','label-node-weight':'node','label-compare-weight':'key','regime-nodes':'nodes','regime-keys':'keys','regime-balanced':'equal','cost-formula':'formula','cost-evidence':'evidence','cost-boundary':'boundary','study-heading':'study','study-intro':'studyIntro','study-sheet-label':'sheetLabel','study-sheet':'sheet','study-submit':'submit' };
+ for(const [id,k] of Object.entries(ids))byId(id).textContent=labels[k];
+ buildQuiz();byId('study-score').textContent=en?'No answers saved or sent.':'尚无测验结果；页面不会保存或发送回答。';
+}
+
 function setDegree(degree) {
   if (!COMPARED_DEGREES.includes(degree)) throw new RangeError('Unsupported pedagogical degree');
   stop(); state.degree = degree; state.inspectPart = null; state.inspectTarget = '';
@@ -194,13 +256,19 @@ function togglePlay(){
   state.timer=window.setInterval(()=>{ next(); },900);
   renderFrame();
 }
-function reset(){stop();state.inspectPart=null;state.keys=[...DEFAULT_KEYS];state.degree=2;state.lastQuery=24;state.tree=fromKeys(state.keys,state.degree);state.trace=null;state.index=0;byId('query').value='24';byId('degree').value='2';drawMachine();renderComparison();}
+function reset(){stop();state.inspectPart=null;state.datasetPreset='baseline';state.costWeights=WEIGHT_PRESETS.nodes;state.keys=[...DEFAULT_KEYS];state.degree=2;state.lastQuery=24;state.tree=fromKeys(state.keys,state.degree);state.trace=null;state.index=0;byId('query').value='24';byId('degree').value='2';drawMachine();renderComparison();}
 function localize(){
   document.documentElement.lang=state.lang==='zh'?'zh-CN':'en';
   for(const [id,key] of [['hero','hero'],['subtitle','subtitle'],['label-query','query'],['label-degree','degree'],['degree-hint','degreeHint'],['comparison-heading','comparisonHeading'],['comparison-intro','comparisonIntro'],['scenario-evidence','comparisonEvidence'],['comparison-boundary','comparisonBoundary'],['search','search'],['insert','insert'],['previous','previous'],['next','next'],['reset','reset'],['source-title','sources'],['explain','explain']])byId(id).textContent=texts[state.lang][key];
   byId('toggle-language').textContent=state.lang==='zh'?'English':'中文';
-  describe(validateTree(state.tree)); renderFrame(); renderComparison();
+  describe(validateTree(state.tree)); renderFrame(); renderComparison(); localizeP6();
 }
+for(const id of Object.keys(PRESETS))byId(`dataset-${id}`).addEventListener('click',()=>changeDataset(id));
+for(const [id,weights] of Object.entries(WEIGHT_PRESETS))byId(`regime-${id}`).addEventListener('click',()=>setWeights(weights));
+byId('weight-node').addEventListener('input',e=>setWeights({node:Number(e.target.value),comparison:state.costWeights.comparison}));
+byId('weight-compare').addEventListener('input',e=>setWeights({node:state.costWeights.node,comparison:Number(e.target.value)}));
+byId('cost-evidence').addEventListener('click',()=>{state.inspectPart='cost';state.inspectTarget=`${state.costWeights.node} : ${state.costWeights.comparison}`;renderEvidence(frameFor(state.trace,state.index));});
+byId('study-form').addEventListener('submit',handleQuiz);
 byId('degree').addEventListener('change',e=>setDegree(Number(e.target.value)));
 for(const degree of COMPARED_DEGREES)byId(`case-${degree}`).addEventListener('click',()=>setDegree(degree));
 byId('scenario-evidence').addEventListener('click',()=>{state.inspectPart='comparison';state.inspectTarget='t=2 ↔ t=3';renderEvidence(frameFor(state.trace,state.index));});

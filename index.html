@@ -72,8 +72,55 @@
         <p id="comparison-boundary" class="comparison-boundary">请勿把访问节点数理解为磁盘读写次数或现实数据库的速度。模型版本编号仅用于界面识别，不是校验用哈希。</p>
       </section>
 
+
+      <section class="cost-lab" id="cost-lab" aria-labelledby="cost-heading">
+        <div class="panel-index">04 / CONTESTABLE COST MODEL · HYPOTHETICAL ONLY</div>
+        <h2 id="cost-heading">当假设改变，结论也可能改变</h2>
+        <p id="cost-intro">固定每组的实际 B-tree 搜索路径，只修改人为设定的成本权重。先比较常规数据，再打开反例数据集。</p>
+        <div class="cost-preset" role="group" aria-label="Dataset presets">
+          <button id="dataset-baseline" data-preset="baseline" type="button" aria-pressed="true">25 个整数 · 常规案例</button>
+          <button id="dataset-tradeoff" data-preset="tradeoff" type="button" aria-pressed="false">42 个整数 · 权衡反例</button>
+        </div>
+        <div class="cost-weight-grid">
+          <div class="weight-field">
+            <label for="weight-node" id="label-node-weight">访问每个节点的假想分值</label>
+            <div class="weight-range"><input type="range" id="weight-node" min="1" max="10" step="1" value="5"><output id="weight-node-value" for="weight-node">5</output></div>
+          </div>
+          <div class="weight-field">
+            <label for="weight-compare" id="label-compare-weight">每次键比较的假想分值</label>
+            <div class="weight-range"><input type="range" id="weight-compare" min="1" max="10" step="1" value="1"><output id="weight-compare-value" for="weight-compare">1</output></div>
+          </div>
+        </div>
+        <div class="cost-regimes" role="group" aria-label="Hypothetical cost regimes">
+          <button type="button" id="regime-nodes" data-regime="nodes">访问较贵（5 : 1）</button>
+          <button type="button" id="regime-keys" data-regime="keys">比较较贵（1 : 5）</button>
+          <button type="button" id="regime-balanced" data-regime="balanced">相同权重（1 : 1）</button>
+        </div>
+        <p class="cost-formula" id="cost-formula">教学分值 = 节点访问数 × 节点权重 + 键比较次数 × 比较权重</p>
+        <div class="cost-score-grid" aria-label="Derived hypothetical scores">
+          <div class="cost-score" id="cost-case-2" data-degree="2"><span>t = 2</span><strong id="cost-value-2">—</strong><small id="cost-math-2">—</small></div>
+          <div class="cost-score" id="cost-case-3" data-degree="3"><span>t = 3</span><strong id="cost-value-3">—</strong><small id="cost-math-3">—</small></div>
+        </div>
+        <p class="cost-verdict" id="cost-verdict" role="status" aria-live="polite"></p>
+        <div class="comparison-bottom"><small class="cost-version" id="cost-version">INPUT UNCHANGED WHEN WEIGHTS CHANGE</small><button id="cost-evidence" type="button" class="ghost">检查成本假设的证据链</button></div>
+        <p class="cost-boundary" id="cost-boundary">这些分值为人为选择的教学权重，不是毫秒、磁盘 I/O、真实费用或 BOOK-ID-SEARCH 性能。零件与搜索轨迹不会随权重滑块改变。</p>
+      </section>
+
+      <section class="study-kit" id="study-kit" aria-labelledby="study-heading">
+        <div class="panel-index">05 / COMPREHENSION STUDY KIT · NO PARTICIPANT DATA</div>
+        <h2 id="study-heading">知识理解自测：先测“是否理解”，不评价“是否好看”</h2>
+        <p id="study-intro">这是一套可自行验证的问题，不是已经进行过的受试者研究。正式研究必须将静态材料与交互材料分组展示、使用相同题目并记录真实回答。</p>
+        <details class="study-static-sheet" id="study-static-sheet"><summary id="study-sheet-label">查看供静态组阅读的等价文字材料</summary>
+          <p id="study-sheet">B-tree 是多路平衡搜索树。本实验的常规数据查询 24：t=2 访问 2 节点、比较 4 次；t=3 访问 3 节点、比较 6 次。反例数据查询 7：t=2 访问 4 节点、比较 5 次；t=3 访问 3 节点、比较 6 次。假设分值 = 访问节点 × 节点权重 + 比较次数 × 比较权重。权重不修改搜索过程，分值不等于真实硬件性能。</p>
+        </details>
+        <form id="study-form" autocomplete="off">
+          <div id="study-questions" class="study-questions"></div>
+          <button type="submit" id="study-submit" class="primary study-submit">检查理解结果</button>
+        </form>
+        <p id="study-score" role="status" aria-live="polite">尚无测验结果；页面不会保存或发送回答。</p>
+      </section>
       <section class="trace-evidence" id="trace-evidence" aria-labelledby="trace-evidence-heading">
-        <div class="panel-index">04 / EVIDENCE GRAPH · INSPECT THE EXPLANATION</div>
+        <div class="panel-index">06 / EVIDENCE GRAPH · INSPECT THE EXPLANATION</div>
         <div class="trace-heading">
           <div>
             <h2 id="trace-evidence-heading">这一步为何如此运动？</h2>
@@ -88,7 +135,7 @@
       </section>
 
       <details class="evidence" open>
-        <summary><span>05 / <span id="source-title">来源与假设</span></span><span class="summary-symbol" aria-hidden="true">+</span></summary>
+        <summary><span>07 / <span id="source-title">来源与假设</span></span><span class="summary-symbol" aria-hidden="true">+</span></summary>
         <div class="evidence-cols">
           <div><h2>REFERENCE / 一手定义</h2><p lang="zh-CN"><a href="https://xlinux.nist.gov/dads/HTML/btree.html" target="_blank" rel="noopener noreferrer">NIST Dictionary of Algorithms and Data Structures: B-tree ↗</a>。节点多路搜索、同深度叶节点、有限节点容量。这里可切换最小度数 t=2 或 t=3；各节点最多 2t−1 个键、内部节点最多 2t 个子节点。</p><p lang="en"><a href="https://xlinux.nist.gov/dads/HTML/btree.html" target="_blank" rel="noopener noreferrer">NIST Dictionary of Algorithms and Data Structures: B-tree ↗</a> defines balanced multiway search trees. Our teaching convention compares minimum degree t=2 and t=3: up to 2t−1 keys and 2t children per internal node.</p></div>
           <div><h2>ASSUMPTION / 演示边界</h2><p lang="zh-CN">键值、抽屉、颜色和机械连接均是合成教学隐喻；只实现插入和搜索，不模拟删除、磁盘 I/O、并发或具体数据库产品。<strong>不代表 BOOK-ID-SEARCH 的真实内部实现。</strong></p><p lang="en">Every key, cabinet and rail is a synthetic educational metaphor. Only insert/search is modeled: no deletion, disk I/O, concurrency or real database product. <strong>This does not describe BOOK-ID-SEARCH internals.</strong></p></div>

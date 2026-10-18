@@ -8,6 +8,15 @@ An **evidence-first B-tree archive machine**: a real, deterministic multiway sea
 
 ## 中文
 
+### P6：可质疑的成本假设与理解度自测（2026-10-18）
+
+- 新增 **成本模型假设滑块**，分别给“访问节点”和“比较键”分配虚构分值；修改权重不会更改 B-tree、搜索轨迹、真实计数或输入摘要。分值**不是毫秒、磁盘 I/O 或 BOOK-ID-SEARCH 实测性能**。
+- 两个可选样本：P5 **25 键常规数据**（查询 24，t=2 同时拥有较少访问与比较，正权重无法反转）和 P6 **42 键特意选取的权衡反例**（查询 7，t=2: 4 访问/5 比较，t=3: 3 访问/6 比较）。反例中权重 `5:1` 使 t=3 分值更低，而 `1:5` 使 t=2 更低，相等权重产生并列。此为**教学模型内的可反驳结论，不推广为数据库性能排序**。
+- 增加成本假设的 Claim → Source → Assumption → Model → Visual → Test 证据关联及真实输入/轨迹/权重/输出分开的 JSON-LD 运行记录；不声称完整 PROV-O 一致性。
+- 新增静态说明材料与**相同的五道客观理解题**的自测工具，页面不收集参与者信息。**未开展真实 A/B 研究，没有教学效果比较结果。** 将来可用匿名真实回答运行 `npm run score:study -- /path/to/responses.json` 生成描述性统计。
+- [成本反例分析与方法边界](docs/P6_CONTESTABLE_COST.md) · [学习对照研究协议（未实施）](docs/P6_STUDY_PROTOCOL.md) · [`src/cost-model.js`](src/cost-model.js) · [测试](tests/cost-model.test.mjs)。
+- P6 命令：`npm test && npm run build && npm run export:cost`。浏览器检查另行执行 `npm run test:browser`（需要 Chromium + Playwright）。CI 的真实状态必须按相应 commit 检查，不能由本地通过推断。
+
 ### P5：可修改假设的双模型对照（2026-10-18）
 
 - 使用**完全相同的插入顺序和整数集合**，按 `t=2` / `t=3` 重建两棵 B-tree；在页面选择最小度数、查找整数、插入新卡片，结构与结果同步重算。

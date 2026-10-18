@@ -13,6 +13,8 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npm run export:provenance
+      - run: npm run export:cost
+      - run: test -f artifacts/cost-run.jsonld
       - run: test -f artifacts/comparison-run.jsonld
       - run: test -f dist/index.html
       - name: Upload static preview
@@ -39,6 +41,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: anatomy-p5-browser-screenshots
+          name: anatomy-p6-browser-screenshots
           path: browser-artifacts/
           if-no-files-found: ignore
