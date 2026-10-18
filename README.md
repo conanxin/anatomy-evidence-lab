@@ -154,13 +154,26 @@ Run `npm run build` and open `dist/jiegao.html` to inspect a source-linked, inte
 `npm test` includes torque, documentary IDs and uncertainty checks; `npm run test:browser:p9` checks the actual standalone HTML in desktop and mobile Chromium (requires Playwright/Chromium). Agent runtime loading must be tested separately; copying a Skill directory does not prove either Hermes or OpenClaw actually invoked it.
 
 
-## P10 | Historical source atlas and Agent canary
+## P10 | Historical plate provenance and agent runtime gates
 
-Run `npm run build` and open `dist/source-atlas.html` to review 7 source records, **zero verified original folios**. Run `npm run export:source-atlas` for structured evidence. See [P10 source research](docs/P10_SOURCE_AUDIT.md) and [runtime gates](docs/P10_RUNTIME_GATE.md). Hermes temporary profile discovery passed, but actual prompt timed out; OpenClaw inventory also timed out. These are not completed cross-Agent benchmarks.
+- Open `dist/source-atlas.html` after `npm run build` to inspect **seven differently typed historical records**. The published atlas does *not* claim that a Ming or Yuan woodblock folio image has been independently authenticated.
+- Reproduce machine-readable source records with `npm run export:source-atlas`. The JSON deliberately reports `verifiedOriginalFolio: 0`.
+- Run `npm test` and `python scripts/browser_source_atlas.py` (with Chromium available) for the structural and browser verification gates.
+- See [P10 Source Audit](docs/P10_SOURCE_AUDIT.md) and [P10 Runtime Gate](docs/P10_RUNTIME_GATE.md). Local Hermes CLI skill discovery in a temporary isolated profile has been observed; actual skill-following Agent response was still timed out.
+- Original uncommitted Hermes project, public PR and existing website are not changed by the source atlas.
 
 
-## P11 | Ming Jiajing 1530 digitized scan locators + provider-baseline gate
+## P11｜Tracked historical editions and conditional Agent diagnostics
 
-P11 adds four precisely identified edition/volume resources without claiming a verified jiégāo folio. Run `npm run build` to open `dist/source-atlas-p11.html` (11 records combined), and `npm run export:source-atlas:p11` to regenerate the four-item addendum JSON. See [P11 edition evidence](docs/P11_EDITION_DISCOVERY.md), [runtime triage](docs/P11_RUNTIME_TRIAGE.md), and [P11 run receipt](docs/P11_RUN_RECEIPT.md).
+P11 locates two digitized resources describing the **1530 Ming Jiajing edition** and two further catalog/volume pathways without declaring an original jiégāo folio resolved. Open `dist/source-atlas-p11.html` after `npm run build`, or inspect `artifacts/p11-edition-candidates.json` after `npm run export:source-atlas:p11`. The old P10 seven-record atlas remains available independently.
 
-Historical scan discovery, algorithm/browser checks and a real Hermes/OpenClaw completion are three separate gates. P11's local no-Skill provider baseline was **not verified** because the authorized desktop disconnected. `scripts/p11_agent_runtime_canary.sh` is opt-in, **never auto-run in CI**, and must not alter global Agent trust or the original uncommitted WSL worktree.
+For the Agent gap, see `docs/P11_RUNTIME_TRIAGE.md` and the *not automatically executed* `scripts/p11_agent_runtime_canary.sh`. Skill discovery is not equivalent to an Agent successfully obeying it; CLI/model provider baseline remains unverified due remote connection failure. No global trust, original Hermes working-tree edits, PR merge or site deployment.
+
+
+## P12 | Institution-specific witnesses + Hermes baseline
+
+New P12 source atlas: `npm run build` then open `dist/source-atlas-p12.html`. Three further 1530-edition catalogue witnesses (Harvard-Yenching partial copy, Japan National Archives 300-0073, Nanjing Library rare-book registry 01780) raise the source count to 14; **none is a verified jiégāo folio**. `npm run export:source-atlas:p12` produces an auditable JSON registry. See [folio gap](docs/P12_FOLIO_RESEARCH.md).
+
+The isolated local Hermes **no-custom-Skill** provider baseline successfully returned `READY` (exit 0, 41.399 s). A prior `--skills none` attempt failed due to a potentially invalid argument; it was not a provider test. The actual explicit Skill prompt is a separate gate; see [runtime triage](docs/P12_RUNTIME_TRIAGE.md). Reproduce with `bash scripts/p12_hermes_provider_canary.sh` on an authorized agent machine; CI checks only its shell syntax. The old dirty user worktree is untouched.
+
+**P12 runtime post-check (2026-10-19):** A real Hermes v0.21.3 no-custom-Skill `READY` baseline exited 0 after 41.399s. An explicit invocation of the **older P10 Skill** then exited 0 after 29s (1,422 bytes), but review found source-quote deviations and an unsupported inference from 3:1 arm length to water-volume gain. Thus `RUNTIME_RESPONSE=PASS` but `SOURCE_FIDELITY=FAIL`. P12 adds [source fidelity rules](skills/evidence-first-anatomy/references/source-fidelity.md); these updated instructions have structural/unit test coverage only, not yet a new live runtime-compliance PASS. See [P12 runtime findings](docs/P12_RUNTIME_TRIAGE.md) and [P12 institution witnesses](docs/P12_FOLIO_RESEARCH.md).

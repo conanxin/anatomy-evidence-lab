@@ -15,17 +15,19 @@ Use when asked to **explain** an algorithm or historical mechanical principle in
 ## Workflow
 
 1. **Source before structure.** Read a primary definition, measurement, artifact record or original drawing. Record URL/catalog locator, date, the precise claim it can and cannot support. Mark missing evidence `UNKNOWN`.
-2. **Freeze known versus invented.** Give each statement and visual part an evidence state: `DOCUMENTED`, `INFERRED`, `ILLUSTRATIVE`, or `UNKNOWN`. Do not silently turn an illustrative shape into historically established geometry.
-3. **Create the independent semantic model.** Write a deterministic pure state model first; specify inputs, invariants, transitions, edge cases and explicit simplifying assumptions. With an algorithm, identify one independent oracle or reference behavior; with machinery, identify dimensional / kinematic constraints from sources.
-4. **Map explanation to object.** Select the smallest useful physical analogy. List parts and map each action/readout to semantic fields. The **object** should explain, not merely decorate a flowchart.
-5. **Build a lightweight executable figure.** Prefer SVG and a static HTML for simple scenes; only use WebGL/3D when a specific causal mechanism requires it. Keep keyboard controls, reduced-motion preference, 390px rendering and a static explanation of the result.
-6. **Attach evidence.** Connect claim → source → assumption → model field → visual component → test. Show viewers which elements are synthetic. Keep exact source links accessible rather than fabricated citations.
-7. **Prove what can be proved.** Execute model invariants, independent oracle checks and DOM/browser smoke tests. Compare measured test output against the displayed readouts. Tests are not evidence that the user actually learned the concept.
-8. **Publish responsibly.** Deliver source, run commands, test receipts, known limits, and a clear gate: `VERIFIED_MODEL`, `VISUAL_TESTED`, `SOURCE_CHECKED`, `HISTORICAL_UNCERTAINTY`, `LEARNING_NOT_EVALUATED`. Only claim PASS for gates actually run. Do not modify unrelated sites or merge PRs unless asked.
+2. **Validate source fidelity.** If quoting an ancient text, first open the exact cited version and copy the actual passage; cite URL + chapter/folio. If the text is unavailable, use clearly labeled paraphrase and never invent an exact quotation. Historical source claims must not be inferred from the Agent’s memory alone. Read [source fidelity rules](references/source-fidelity.md).
+3. **Freeze known versus invented.** Give each statement and visual part an evidence state: `DOCUMENTED`, `INFERRED`, `ILLUSTRATIVE`, or `UNKNOWN`. Do not silently turn an illustrative shape into historically established geometry.
+4. **Create the independent semantic model.** Write a deterministic pure state model first; specify inputs, invariants, transitions, edge cases and explicit simplifying assumptions. With an algorithm, identify one independent oracle or reference behavior; with machinery, identify dimensional / kinematic constraints from sources.
+5. **Map explanation to object.** Select the smallest useful physical analogy. List parts and map each action/readout to semantic fields. The **object** should explain, not merely decorate a flowchart.
+6. **Build a lightweight executable figure.** Prefer SVG and a static HTML for simple scenes; only use WebGL/3D when a specific causal mechanism requires it. Keep keyboard controls, reduced-motion preference, 390px rendering and a static explanation of the result.
+7. **Attach evidence.** Connect claim → source → assumption → model field → visual component → test. Show viewers which elements are synthetic. Keep exact source links accessible rather than fabricated citations.
+8. **Prove what can be proved.** Execute model invariants, independent oracle checks and DOM/browser smoke tests. Compare measured test output against the displayed readouts. Tests are not evidence that the user actually learned the concept.
+9. **Publish responsibly.** Deliver source, run commands, test receipts, known limits, and a clear gate: `VERIFIED_MODEL`, `VISUAL_TESTED`, `SOURCE_CHECKED`, `HISTORICAL_UNCERTAINTY`, `LEARNING_NOT_EVALUATED`. Only claim PASS for gates actually run. Do not modify unrelated sites or merge PRs unless asked.
 
 ## Constraints
 
 - A decorative image is not a semantic simulation. Never make display text and animation depend on separate scripted truths.
+- Do not manufacture direct quotations, invert a historical mechanism, or claim that an arm-length ratio alone determines water volume, efficiency or throughput.
 - Keep empirical measurements separate from explicitly hypothetical cost scores or synthetic query frequencies.
 - State when a programmatic source/geometry test cannot verify the real historical object.
 - Do not use inaccessible links as if they prove a claim. Record source locator or use `SOURCE_MISSING`.

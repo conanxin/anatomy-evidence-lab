@@ -31,15 +31,19 @@ if(historical.includes('./src/jiegao-ui.js')||historical.includes('./jiegao.css'
 await writeFile(new URL('jiegao.html',dist),historical);
 console.log(`P9 historical mechanism: dist/jiegao.html (${Buffer.byteLength(historical)} bytes)`);
 
-// P10 atlas: separately typed source evidence without claiming an original folio.
+// P10 edition-aware document atlas (static self-contained).
 const {renderHistoricalAtlas}=await import('../src/historical-atlas.js');
-const p10atlas=renderHistoricalAtlas();
-await writeFile(new URL('source-atlas.html',dist),p10atlas);
-console.log('P10 source atlas: dist/source-atlas.html');
+const atlas=renderHistoricalAtlas();
+await writeFile(new URL('source-atlas.html',dist),atlas);
+console.log(`P10 source atlas: dist/source-atlas.html (${Buffer.byteLength(atlas)} bytes)`);
 
-
-// P11: edition-level supplemental atlas; P10's seven-record atlas remains unchanged.
+// P11 supplementary source atlas preserves the P10 seven-item publication untouched.
 const { renderP11EditionAtlas } = await import('../src/p11-edition-sources.js');
 const p11Atlas = renderP11EditionAtlas();
-await writeFile(new URL('source-atlas-p11.html',dist),p11Atlas);
+await writeFile(new URL('source-atlas-p11.html', dist), p11Atlas);
 console.log(`P11 edition atlas: dist/source-atlas-p11.html (${Buffer.byteLength(p11Atlas)} bytes)`);
+
+// P12: separate, fully self-contained catalogue witnesses. No original folio claim.
+const {renderP12FolioAtlas}=await import('../src/p12-folio-sources.js');
+await writeFile(new URL('source-atlas-p12.html',dist),renderP12FolioAtlas());
+console.log('P12 source atlas: dist/source-atlas-p12.html');

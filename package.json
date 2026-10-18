@@ -1,6 +1,6 @@
 {
   "name": "anatomy-evidence-lab",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "private": true,
   "type": "module",
   "description": "Evidence-first B-tree archive machine: model, SVG explanation and reproducible tests",
@@ -20,7 +20,9 @@
     "test:browser:p9": "python3 scripts/browser_jiegao.py",
     "export:source-atlas": "node scripts/export_source_atlas.mjs",
     "export:source-atlas:p11": "node scripts/export_p11_sources.mjs",
-    "test:browser:p11": "python3 scripts/browser_p11_atlas.py"
+    "test:browser:p11": "python3 scripts/browser_p11_atlas.py",
+    "export:source-atlas:p12": "node scripts/export_p12_sources.mjs",
+    "test:browser:p12": "python3 scripts/browser_p12_atlas.py"
   },
   "engines": {
     "node": ">=22"
