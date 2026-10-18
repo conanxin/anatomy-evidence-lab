@@ -157,3 +157,10 @@ Run `npm run build` and open `dist/jiegao.html` to inspect a source-linked, inte
 ## P10 | Historical source atlas and Agent canary
 
 Run `npm run build` and open `dist/source-atlas.html` to review 7 source records, **zero verified original folios**. Run `npm run export:source-atlas` for structured evidence. See [P10 source research](docs/P10_SOURCE_AUDIT.md) and [runtime gates](docs/P10_RUNTIME_GATE.md). Hermes temporary profile discovery passed, but actual prompt timed out; OpenClaw inventory also timed out. These are not completed cross-Agent benchmarks.
+
+
+## P11 | Ming Jiajing 1530 digitized scan locators + provider-baseline gate
+
+P11 adds four precisely identified edition/volume resources without claiming a verified jiégāo folio. Run `npm run build` to open `dist/source-atlas-p11.html` (11 records combined), and `npm run export:source-atlas:p11` to regenerate the four-item addendum JSON. See [P11 edition evidence](docs/P11_EDITION_DISCOVERY.md), [runtime triage](docs/P11_RUNTIME_TRIAGE.md), and [P11 run receipt](docs/P11_RUN_RECEIPT.md).
+
+Historical scan discovery, algorithm/browser checks and a real Hermes/OpenClaw completion are three separate gates. P11's local no-Skill provider baseline was **not verified** because the authorized desktop disconnected. `scripts/p11_agent_runtime_canary.sh` is opt-in, **never auto-run in CI**, and must not alter global Agent trust or the original uncommitted WSL worktree.

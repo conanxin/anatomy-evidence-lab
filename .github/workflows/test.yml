@@ -25,6 +25,10 @@ jobs:
       - run: test -f artifacts/cost-run.jsonld
       - run: test -f artifacts/comparison-run.jsonld
       - run: npm run export:source-atlas
+      - run: npm run export:source-atlas:p11
+      - run: bash -n scripts/p11_agent_runtime_canary.sh
+      - run: test -f artifacts/p11-edition-candidates.json
+      - run: test -f dist/source-atlas-p11.html
       - run: test -f artifacts/p10-source-atlas.json
       - run: test -f dist/source-atlas.html
       - run: test -f dist/jiegao.html
@@ -60,6 +64,7 @@ jobs:
       - run: python scripts/browser_robustness.py
       - run: python scripts/browser_jiegao.py
       - run: python scripts/browser_source_atlas.py
+      - run: python scripts/browser_p11_atlas.py
       - name: Upload browser screenshots
         if: always()
         uses: actions/upload-artifact@v4

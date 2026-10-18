@@ -36,3 +36,10 @@ const {renderHistoricalAtlas}=await import('../src/historical-atlas.js');
 const p10atlas=renderHistoricalAtlas();
 await writeFile(new URL('source-atlas.html',dist),p10atlas);
 console.log('P10 source atlas: dist/source-atlas.html');
+
+
+// P11: edition-level supplemental atlas; P10's seven-record atlas remains unchanged.
+const { renderP11EditionAtlas } = await import('../src/p11-edition-sources.js');
+const p11Atlas = renderP11EditionAtlas();
+await writeFile(new URL('source-atlas-p11.html',dist),p11Atlas);
+console.log(`P11 edition atlas: dist/source-atlas-p11.html (${Buffer.byteLength(p11Atlas)} bytes)`);
