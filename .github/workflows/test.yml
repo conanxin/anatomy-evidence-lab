@@ -14,14 +14,22 @@ jobs:
       - run: npm run build
       - run: npm run export:provenance
       - run: npm run export:cost
+      - run: npm run analysis:p7
+      - run: test -f artifacts/p7-sensitivity.csv
+      - run: test -f artifacts/p7-sensitivity.json
       - run: test -f artifacts/cost-run.jsonld
       - run: test -f artifacts/comparison-run.jsonld
       - run: test -f dist/index.html
+      - run: test -f dist/study-static.html
+      - run: test -f dist/study-interactive.html
       - name: Upload static preview
         uses: actions/upload-artifact@v4
         with:
           name: anatomy-btree-static-preview
-          path: dist/
+          path: |
+            dist/
+            artifacts/p7-sensitivity.json
+            artifacts/p7-sensitivity.csv
 
   browser:
     runs-on: ubuntu-latest
@@ -37,10 +45,11 @@ jobs:
       - run: python -m pip install playwright==1.56.0
       - run: python -m playwright install --with-deps chromium
       - run: python scripts/browser_smoke.py
+      - run: python scripts/browser_sensitivity.py
       - name: Upload browser screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: anatomy-p6-browser-screenshots
+          name: anatomy-p7-browser-screenshots
           path: browser-artifacts/
           if-no-files-found: ignore

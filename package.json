@@ -1,6 +1,6 @@
 {
   "name": "anatomy-evidence-lab",
-  "version": "0.5.0",
+  "version": "0.7.0",
   "private": true,
   "type": "module",
   "description": "Evidence-first B-tree archive machine: model, SVG explanation and reproducible tests",
@@ -11,7 +11,11 @@
     "test:browser": "python3 scripts/browser_smoke.py",
     "export:provenance": "node scripts/export_provenance.mjs",
     "export:cost": "node scripts/export_cost_run.mjs",
-    "score:study": "node scripts/score_study.mjs"
+    "score:study": "node scripts/score_study.mjs",
+    "analysis:p7": "node scripts/run_sensitivity.mjs",
+    "test:browser:p7": "python3 scripts/browser_sensitivity.py"
   },
-  "engines": {"node": ">=22"}
+  "engines": {
+    "node": ">=22"
+  }
 }

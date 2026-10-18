@@ -87,3 +87,25 @@ This section is an independent local container test of a new revision; it is not
 - `CHROMIUM_PATH=/usr/bin/chromium python3 scripts/browser_smoke.py`: **55 PASS**（1366px + 390px；包括反例切换、权重反转/持平、原情景 ID 不变、成本来源卡、理解度自测、语言/重置及 P5 兼容）。第一次尝试由于 Playwright 默认浏览器未安装而失败；指定本机 Chromium 后成功，未伪造 PASS。
 - 实际参与者：**0**；不存在 A/B 学习效果结果。
 - GitHub PR/CI: **PENDING_REMOTE_CHECK_AT_TIME_OF_THIS_LOCAL_RUN**（后续以真实 GitHub 执行记录为准）。
+
+## P7 | 2026-10-18 deterministic sensitivity + two preview arms (local execution)
+
+**Origin**: isolated P6 ZIP copy, not the user's preserved local Hermes WSL worktree. Public preregistration first committed to GitHub at `33f35b83a93ec9ae5e821e8c5e2aec522d369e35` before running the new P7 scan.
+
+| Gate | Actual execution | Outcome |
+|---|---|---|
+| Node | `node --version` | `v22.16.0` |
+| Old + new tests | `npm test` | **113 PASS / 0 FAIL / 0 SKIP** |
+| Locked finite-grid scan | `npm run analysis:p7` | **288 paired synthetic cases**, 111 tradeoffs (38.54% of locked finite grid), 288 rows in JSON+CSV |
+| Build | `npm run build` | **PASS**; 108,227-byte self-contained `dist/index.html`, plus 2 distinct study-arm previews |
+| Baseline browser regression | `CHROMIUM_PATH=/usr/bin/chromium npm run test:browser` | **55 PASS**, 1366px + 390px |
+| P7 browser + arm isolation | `CHROMIUM_PATH=/usr/bin/chromium npm run test:browser:p7` | **56 PASS**, 1366px + 390px and static/interactive arm previews |
+| JSON / CSV identity | `sha256sum artifacts/p7-sensitivity.{json,csv}` | JSON `36c38c6510a3a24b12e25fa492f8f62cad9333c32e22f6e47ec23cf2dd510317`; CSV `091cebf90ee681ee97501361b47e019df3f7d932dfccc42316e7820869ad3b6b` |
+| Main self-contained HTML identity | `sha256sum dist/index.html` | `4aeb37ef463b7fbbc8f6a38ae59fccb80828075359e9b472b7d79670be89ab52` |
+| P7 new human participation | No participants enrolled / randomized | **NO_PARTICIPANT_DATA; effectiveness NOT EVALUATED** |
+| GitHub Actions on new commit | Pending at time of this local receipt | **PENDING**; confirm on GitHub separately |
+| Live site / PR merge | Not performed | **NOT DEPLOYED; NOT MERGED** |
+
+**Test correction record**: initial P7 test asserted that identical weights (5,5) cause a tie in a case with dv=-1 and dk=+2; this assertion was mistaken. The actual equality condition is `node_weight=2*comparison_weight`. Test corrected to (2,1) without changing the algorithm or preregistration. The full suite rerun passed. This is a test expectation fix, not an inconvenient result removed.
+
+**No sampling claim**: the 288 scenarios are a complete enumeration of *chosen* deterministic seeds/sizes/orders/probes with correlated rows, not independent random workloads. No p-values, confidence intervals, real hardware metrics or human effectiveness are inferred.

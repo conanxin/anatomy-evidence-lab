@@ -103,3 +103,23 @@ The new **Evidence Graph** panel attaches each trace event to a typed claim, pri
 ## P5 / Change an assumption (English)
 
 The interface can rebuild an interactive archive machine for the *same insertion sequence* with degree `t=2` or `t=3`. The controlled comparison counts actual in-model node visits, key comparisons and tree levels. A reproducible counterexample for key 24 shows fewer total nodes under `t=3`, yet more node visits than under `t=2`. This does not imply a performance benchmark of any database. See [controlled experiment and provenance](docs/P5_CONTROLLED_EXPERIMENT.md).
+
+## P7 | Full finite-grid sensitivity audit (2026-10-18)
+
+The P6 42-key tradeoff was chosen specifically to demonstrate a reversibility claim; it cannot estimate prevalence. P7 therefore **committed its design before calculating results**: [P7 design lock](docs/P7_DESIGN_LOCK.md), commit `33f35b83a93ec9ae5e821e8c5e2aec522d369e35`.
+
+The fixed cross-product contains **288 deterministic paired synthetic B-tree searches** (sizes 12/25/42/80 × four seeds × three insertion orders × six queries). The pure algorithm counts node visits and key comparisons for t=2/t=3, classifies Pareto dominance/tradeoff/identical, and presents a 4×4 hypothetical-weight sensitivity heatmap. Data cells from one tree are correlated; these results do not generalize to real-world databases or measure time/disk I/O.
+
+```bash
+npm test                  # semantic + P7 grid tests
+npm run analysis:p7       # export 288-row JSON, CSV, and generated docs/P7_RESULTS.md
+npm run build             # dist/index.html plus both separate study previews
+npm run test:browser:p7   # optional, requires Python Playwright + Chromium
+npm run preview
+```
+
+- [`docs/P7_RESULTS.md`](docs/P7_RESULTS.md) — generated counts and restrictions.
+- [`artifacts/p7-sensitivity.json`](artifacts/p7-sensitivity.json) and [`artifacts/p7-sensitivity.csv`](artifacts/p7-sensitivity.csv) — all 288 cases, source/input hashes in JSON.
+- [`docs/P7_STUDY_PROCEDURE.md`](docs/P7_STUDY_PROCEDURE.md) — **unlaunched** two-arm learning pilot materials; `dist/study-static.html` vs `dist/study-interactive.html` use the same five questions. No participants are fabricated or auto-recorded.
+
+**Notion archive:** [Anatomy P1–P7](https://app.notion.com/p/3f734a28189a81699161dd858772aed5). Original local Hermes WSL worktree remains separate and untouched.

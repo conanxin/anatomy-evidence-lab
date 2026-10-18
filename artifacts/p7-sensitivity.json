@@ -1,0 +1,7015 @@
+{
+  "schema": "ANATOMY-P7-SENSITIVITY/1.0",
+  "status": "COMPLETE_SYNTHETIC_GRID_NO_REAL_WORKLOADS",
+  "scope": "Correlated finite deterministic design cells; not a random workload, benchmark, independent statistical sampling unit, or causal result",
+  "designLockCommit": "33f35b83a93ec9ae5e821e8c5e2aec522d369e35",
+  "designHashSHA256": "c5cb93affc356a030b3b84d125dafda908b3b5635474408c8330120c4e9f7fb6",
+  "sourceSHA256": {
+    "src/btree.js": "493df81b10568767c419e58d80318c75ca9019dbe467974e5ce8a31f3a48c0ff",
+    "src/comparison.js": "93893124f4855e1c23a5f9186bee2bcb4a116f18bd5bb8e4b536ce67037d4eb3",
+    "src/cost-model.js": "6d2801002ab0101768a7cfd48dbfb93ccf8502d59dbca4d96c27b40defc39db3",
+    "src/sensitivity.js": "cb11ce97f0d3f1824306188609e7c72f75c7aada076b7f4acc01611ec195be40"
+  },
+  "datasetSHA256": {
+    "n12-s7": "14f332f02a9456210b5e5b6575bd7961f32fe7211bef7f961484d22451e12ac9",
+    "n12-s19": "d29fad813f26fc6068ecf184c4fd39d835f9a183047b3d8f4aa96e50ee359095",
+    "n12-s37": "28a814c4ecce77307b5642658f1d9286427fdcf41f4988aea5b02f2b79457594",
+    "n12-s101": "06a64ea5df400a80ae6b659cfa952d50b93abe43af6729c49f3de7e2b35f9f17",
+    "n25-s7": "47f2c7f1da6c8229ff2d3940be207b7a4988ac4c6b6212a8af39023c50b0d563",
+    "n25-s19": "0102b06a6ba20fc07ce6881ed4784ede16a2c3f3bc3bebdd2a48bebf14643942",
+    "n25-s37": "9870dd976ad55ea9957796fb9fee04591032e1baeeecf9ba1d8e81c8d1a898c0",
+    "n25-s101": "dffec1a81c033b2db900a64ae084c68ef3b3851d84ecb54802f09828b6d82769",
+    "n42-s7": "1c371eea890b3581de929418f4e258b909b42a057279a1f4762fe511c7e0a3b5",
+    "n42-s19": "2771930653380343a8342f04cf6336d3eef46a02c67e7893caee36afb3602d96",
+    "n42-s37": "25a42e45e306b1d37bde4b29c551e27cbbc389423b9a53326ae4dfdd92b255c6",
+    "n42-s101": "5185d799778ec22aeb98e427ba2eebd0c7c8ce8971abaf8927bbb857cc5a4b55",
+    "n80-s7": "131e09c3f033f1545ccf0e860c4645699ecd5ca372375821ca80d3a1f389e664",
+    "n80-s19": "8dbab710254be98ee3331ea956f35f7824042b25ee968882067fd259b2d9f861",
+    "n80-s37": "36a224e5a5bfd024d12e448f11f2259b683b2e56178ab91141599542f9908a66",
+    "n80-s101": "d1ee5ebcee4c4915d436659e6139f8c734ec611d5d9cbb0f118c42177eb8d661"
+  },
+  "summary": {
+    "total": 288,
+    "counts": {
+      "t2-dominates": 13,
+      "t3-dominates": 152,
+      "tradeoff": 111,
+      "identical": 12
+    },
+    "tradeoffRate": 0.3854166666666667,
+    "bySize": {
+      "12": {
+        "t2-dominates": 4,
+        "t3-dominates": 51,
+        "tradeoff": 15,
+        "identical": 2
+      },
+      "25": {
+        "t2-dominates": 3,
+        "t3-dominates": 34,
+        "tradeoff": 25,
+        "identical": 10
+      },
+      "42": {
+        "t2-dominates": 2,
+        "t3-dominates": 37,
+        "tradeoff": 33,
+        "identical": 0
+      },
+      "80": {
+        "t2-dominates": 4,
+        "t3-dominates": 30,
+        "tradeoff": 38,
+        "identical": 0
+      }
+    },
+    "byOrder": {
+      "ascending": {
+        "t2-dominates": 0,
+        "t3-dominates": 52,
+        "tradeoff": 44,
+        "identical": 0
+      },
+      "descending": {
+        "t2-dominates": 4,
+        "t3-dominates": 48,
+        "tradeoff": 44,
+        "identical": 0
+      },
+      "shuffled": {
+        "t2-dominates": 9,
+        "t3-dominates": 52,
+        "tradeoff": 23,
+        "identical": 12
+      }
+    },
+    "byFound": {
+      "hit": {
+        "t2-dominates": 11,
+        "t3-dominates": 77,
+        "tradeoff": 50,
+        "identical": 6
+      },
+      "miss": {
+        "t2-dominates": 2,
+        "t3-dominates": 75,
+        "tradeoff": 61,
+        "identical": 6
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": "P7-n12-s7-ascending-hit-min",
+      "size": 12,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 8,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-ascending-hit-median",
+      "size": 12,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 116,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-ascending-hit-max",
+      "size": 12,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 186,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 6,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-ascending-miss-below",
+      "size": 12,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 7,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-ascending-miss-between",
+      "size": 12,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 117,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s7-ascending-miss-above",
+      "size": 12,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 187,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 6,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-descending-hit-min",
+      "size": 12,
+      "seed": 7,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 8,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-descending-hit-median",
+      "size": 12,
+      "seed": 7,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 116,
+      "found": true,
+      "t2": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 1,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-descending-hit-max",
+      "size": 12,
+      "seed": 7,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 186,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s7-descending-miss-below",
+      "size": 12,
+      "seed": 7,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 7,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-descending-miss-between",
+      "size": 12,
+      "seed": 7,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 117,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-descending-miss-above",
+      "size": 12,
+      "seed": 7,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 187,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s7-shuffled-hit-min",
+      "size": 12,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 8,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 7
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-shuffled-hit-median",
+      "size": 12,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 116,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 7
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 3,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-shuffled-hit-max",
+      "size": 12,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 186,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 7
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-shuffled-miss-below",
+      "size": 12,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 7,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 7
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-shuffled-miss-between",
+      "size": 12,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 117,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 7
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s7-shuffled-miss-above",
+      "size": 12,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 187,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 7
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s19-ascending-hit-min",
+      "size": 12,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 34,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s19-ascending-hit-median",
+      "size": 12,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 112,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s19-ascending-hit-max",
+      "size": 12,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 192,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 6,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s19-ascending-miss-below",
+      "size": 12,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 33,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s19-ascending-miss-between",
+      "size": 12,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 113,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s19-ascending-miss-above",
+      "size": 12,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 193,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 6,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s19-descending-hit-min",
+      "size": 12,
+      "seed": 19,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 34,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s19-descending-hit-median",
+      "size": 12,
+      "seed": 19,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 112,
+      "found": true,
+      "t2": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 1,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s19-descending-hit-max",
+      "size": 12,
+      "seed": 19,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 192,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s19-descending-miss-below",
+      "size": 12,
+      "seed": 19,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 33,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s19-descending-miss-between",
+      "size": 12,
+      "seed": 19,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 113,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s19-descending-miss-above",
+      "size": 12,
+      "seed": 19,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 193,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s19-shuffled-hit-min",
+      "size": 12,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 34,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 7
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s19-shuffled-hit-median",
+      "size": 12,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 112,
+      "found": true,
+      "t2": {
+        "visits": 1,
+        "comparisons": 1,
+        "levels": 3,
+        "nodes": 7
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": 1,
+      "dk": 3,
+      "category": "t2-dominates"
+    },
+    {
+      "id": "P7-n12-s19-shuffled-hit-max",
+      "size": 12,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 192,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 7
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 6,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s19-shuffled-miss-below",
+      "size": 12,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 33,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 7
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s19-shuffled-miss-between",
+      "size": 12,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 113,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 7
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s19-shuffled-miss-above",
+      "size": 12,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 193,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 7
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 6,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s37-ascending-hit-min",
+      "size": 12,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 22,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s37-ascending-hit-median",
+      "size": 12,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 120,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s37-ascending-hit-max",
+      "size": 12,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 184,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 6,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s37-ascending-miss-below",
+      "size": 12,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 21,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s37-ascending-miss-between",
+      "size": 12,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 121,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s37-ascending-miss-above",
+      "size": 12,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 185,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 6,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s37-descending-hit-min",
+      "size": 12,
+      "seed": 37,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 22,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s37-descending-hit-median",
+      "size": 12,
+      "seed": 37,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 120,
+      "found": true,
+      "t2": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 1,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s37-descending-hit-max",
+      "size": 12,
+      "seed": 37,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 184,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s37-descending-miss-below",
+      "size": 12,
+      "seed": 37,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 21,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s37-descending-miss-between",
+      "size": 12,
+      "seed": 37,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 121,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s37-descending-miss-above",
+      "size": 12,
+      "seed": 37,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 185,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s37-shuffled-hit-min",
+      "size": 12,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 22,
+      "found": true,
+      "t2": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": 0,
+      "dk": 0,
+      "category": "identical"
+    },
+    {
+      "id": "P7-n12-s37-shuffled-hit-median",
+      "size": 12,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 120,
+      "found": true,
+      "t2": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": 0,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s37-shuffled-hit-max",
+      "size": 12,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 184,
+      "found": true,
+      "t2": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 5
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 6,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": 0,
+      "dk": 2,
+      "category": "t2-dominates"
+    },
+    {
+      "id": "P7-n12-s37-shuffled-miss-below",
+      "size": 12,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 21,
+      "found": false,
+      "t2": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": 0,
+      "dk": 0,
+      "category": "identical"
+    },
+    {
+      "id": "P7-n12-s37-shuffled-miss-between",
+      "size": 12,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 121,
+      "found": false,
+      "t2": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": 0,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s37-shuffled-miss-above",
+      "size": 12,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 185,
+      "found": false,
+      "t2": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 5
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 6,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": 0,
+      "dk": 2,
+      "category": "t2-dominates"
+    },
+    {
+      "id": "P7-n12-s101-ascending-hit-min",
+      "size": 12,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 24,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s101-ascending-hit-median",
+      "size": 12,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 144,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s101-ascending-hit-max",
+      "size": 12,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 182,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 6,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s101-ascending-miss-below",
+      "size": 12,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 23,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s101-ascending-miss-between",
+      "size": 12,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 145,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s101-ascending-miss-above",
+      "size": 12,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 183,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 6,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s101-descending-hit-min",
+      "size": 12,
+      "seed": 101,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 24,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s101-descending-hit-median",
+      "size": 12,
+      "seed": 101,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 144,
+      "found": true,
+      "t2": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 1,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s101-descending-hit-max",
+      "size": 12,
+      "seed": 101,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 182,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s101-descending-miss-below",
+      "size": 12,
+      "seed": 101,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 23,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s101-descending-miss-between",
+      "size": 12,
+      "seed": 101,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 145,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s101-descending-miss-above",
+      "size": 12,
+      "seed": 101,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 183,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 5,
+        "levels": 2,
+        "nodes": 5
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n12-s101-shuffled-hit-min",
+      "size": 12,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 24,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 8
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s101-shuffled-hit-median",
+      "size": 12,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 144,
+      "found": true,
+      "t2": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 3,
+        "nodes": 8
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 3,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": 0,
+      "dk": 1,
+      "category": "t2-dominates"
+    },
+    {
+      "id": "P7-n12-s101-shuffled-hit-max",
+      "size": 12,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 182,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 8
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s101-shuffled-miss-below",
+      "size": 12,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 23,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 8
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s101-shuffled-miss-between",
+      "size": 12,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 145,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 8
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n12-s101-shuffled-miss-above",
+      "size": 12,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 183,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 8
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 2,
+        "nodes": 4
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s7-ascending-hit-min",
+      "size": 25,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 4,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s7-ascending-hit-median",
+      "size": 25,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 190,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s7-ascending-hit-max",
+      "size": 25,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 374,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 8,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 9,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s7-ascending-miss-below",
+      "size": 25,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 3,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s7-ascending-miss-between",
+      "size": 25,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 191,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s7-ascending-miss-above",
+      "size": 25,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 375,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 8,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 9,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s7-descending-hit-min",
+      "size": 25,
+      "seed": 7,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 4,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s7-descending-hit-median",
+      "size": 25,
+      "seed": 7,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 190,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 6,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s7-descending-hit-max",
+      "size": 25,
+      "seed": 7,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 374,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s7-descending-miss-below",
+      "size": 25,
+      "seed": 7,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 3,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s7-descending-miss-between",
+      "size": 25,
+      "seed": 7,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 191,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 6,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s7-descending-miss-above",
+      "size": 25,
+      "seed": 7,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 375,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s7-shuffled-hit-min",
+      "size": 25,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 4,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 12
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "dv": 0,
+      "dk": 0,
+      "category": "identical"
+    },
+    {
+      "id": "P7-n25-s7-shuffled-hit-median",
+      "size": 25,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 190,
+      "found": true,
+      "t2": {
+        "visits": 2,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 12
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 9
+      },
+      "dv": 1,
+      "dk": 2,
+      "category": "t2-dominates"
+    },
+    {
+      "id": "P7-n25-s7-shuffled-hit-max",
+      "size": 25,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 374,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 12
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 9
+      },
+      "dv": 0,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s7-shuffled-miss-below",
+      "size": 25,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 3,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 12
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "dv": 0,
+      "dk": 0,
+      "category": "identical"
+    },
+    {
+      "id": "P7-n25-s7-shuffled-miss-between",
+      "size": 25,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 191,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 12
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 9
+      },
+      "dv": 0,
+      "dk": 1,
+      "category": "t2-dominates"
+    },
+    {
+      "id": "P7-n25-s7-shuffled-miss-above",
+      "size": 25,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 375,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 12
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 9
+      },
+      "dv": 0,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s19-ascending-hit-min",
+      "size": 25,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 2,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s19-ascending-hit-median",
+      "size": 25,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 140,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s19-ascending-hit-max",
+      "size": 25,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 374,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 8,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 9,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s19-ascending-miss-below",
+      "size": 25,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 1,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s19-ascending-miss-between",
+      "size": 25,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 141,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s19-ascending-miss-above",
+      "size": 25,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 375,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 8,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 9,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s19-descending-hit-min",
+      "size": 25,
+      "seed": 19,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 2,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s19-descending-hit-median",
+      "size": 25,
+      "seed": 19,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 140,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 6,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s19-descending-hit-max",
+      "size": 25,
+      "seed": 19,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 374,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s19-descending-miss-below",
+      "size": 25,
+      "seed": 19,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 1,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s19-descending-miss-between",
+      "size": 25,
+      "seed": 19,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 141,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 6,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s19-descending-miss-above",
+      "size": 25,
+      "seed": 19,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 375,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s19-shuffled-hit-min",
+      "size": 25,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 2,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 14
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 10
+      },
+      "dv": 0,
+      "dk": 0,
+      "category": "identical"
+    },
+    {
+      "id": "P7-n25-s19-shuffled-hit-median",
+      "size": 25,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 140,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 14
+      },
+      "t3": {
+        "visits": 1,
+        "comparisons": 1,
+        "levels": 3,
+        "nodes": 10
+      },
+      "dv": -2,
+      "dk": -4,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s19-shuffled-hit-max",
+      "size": 25,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 374,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 14
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 10
+      },
+      "dv": 0,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s19-shuffled-miss-below",
+      "size": 25,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 1,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 14
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 10
+      },
+      "dv": 0,
+      "dk": 0,
+      "category": "identical"
+    },
+    {
+      "id": "P7-n25-s19-shuffled-miss-between",
+      "size": 25,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 141,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 14
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 10
+      },
+      "dv": 0,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s19-shuffled-miss-above",
+      "size": 25,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 375,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 14
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 10
+      },
+      "dv": 0,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s37-ascending-hit-min",
+      "size": 25,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 8,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s37-ascending-hit-median",
+      "size": 25,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 214,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s37-ascending-hit-max",
+      "size": 25,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 392,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 8,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 9,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s37-ascending-miss-below",
+      "size": 25,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 7,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s37-ascending-miss-between",
+      "size": 25,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 215,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s37-ascending-miss-above",
+      "size": 25,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 393,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 8,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 9,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s37-descending-hit-min",
+      "size": 25,
+      "seed": 37,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 8,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s37-descending-hit-median",
+      "size": 25,
+      "seed": 37,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 214,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 6,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s37-descending-hit-max",
+      "size": 25,
+      "seed": 37,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 392,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s37-descending-miss-below",
+      "size": 25,
+      "seed": 37,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 7,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s37-descending-miss-between",
+      "size": 25,
+      "seed": 37,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 215,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 6,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s37-descending-miss-above",
+      "size": 25,
+      "seed": 37,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 393,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s37-shuffled-hit-min",
+      "size": 25,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 8,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "dv": 0,
+      "dk": 0,
+      "category": "identical"
+    },
+    {
+      "id": "P7-n25-s37-shuffled-hit-median",
+      "size": 25,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 214,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 11
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 9
+      },
+      "dv": 0,
+      "dk": 0,
+      "category": "identical"
+    },
+    {
+      "id": "P7-n25-s37-shuffled-hit-max",
+      "size": 25,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 392,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 11
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 9
+      },
+      "dv": 0,
+      "dk": 0,
+      "category": "identical"
+    },
+    {
+      "id": "P7-n25-s37-shuffled-miss-below",
+      "size": 25,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 7,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 9
+      },
+      "dv": 0,
+      "dk": 0,
+      "category": "identical"
+    },
+    {
+      "id": "P7-n25-s37-shuffled-miss-between",
+      "size": 25,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 215,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 11
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 9
+      },
+      "dv": 0,
+      "dk": 0,
+      "category": "identical"
+    },
+    {
+      "id": "P7-n25-s37-shuffled-miss-above",
+      "size": 25,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 393,
+      "found": false,
+      "t2": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 11
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 9
+      },
+      "dv": 0,
+      "dk": 0,
+      "category": "identical"
+    },
+    {
+      "id": "P7-n25-s101-ascending-hit-min",
+      "size": 25,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 4,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s101-ascending-hit-median",
+      "size": 25,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 242,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s101-ascending-hit-max",
+      "size": 25,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 398,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 8,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 9,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s101-ascending-miss-below",
+      "size": 25,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 3,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s101-ascending-miss-between",
+      "size": 25,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 243,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s101-ascending-miss-above",
+      "size": 25,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 399,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 8,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 9,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s101-descending-hit-min",
+      "size": 25,
+      "seed": 101,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 4,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s101-descending-hit-median",
+      "size": 25,
+      "seed": 101,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 242,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 6,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s101-descending-hit-max",
+      "size": 25,
+      "seed": 101,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 398,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s101-descending-miss-below",
+      "size": 25,
+      "seed": 101,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 3,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s101-descending-miss-between",
+      "size": 25,
+      "seed": 101,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 243,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 6,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s101-descending-miss-above",
+      "size": 25,
+      "seed": 101,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 399,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 21
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 11
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s101-shuffled-hit-min",
+      "size": 25,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 4,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 16
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 10
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s101-shuffled-hit-median",
+      "size": 25,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 242,
+      "found": true,
+      "t2": {
+        "visits": 1,
+        "comparisons": 1,
+        "levels": 4,
+        "nodes": 16
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 10
+      },
+      "dv": 2,
+      "dk": 4,
+      "category": "t2-dominates"
+    },
+    {
+      "id": "P7-n25-s101-shuffled-hit-max",
+      "size": 25,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 398,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 16
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 10
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s101-shuffled-miss-below",
+      "size": 25,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 3,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 16
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 10
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n25-s101-shuffled-miss-between",
+      "size": 25,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 243,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 16
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 10
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n25-s101-shuffled-miss-above",
+      "size": 25,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 399,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 16
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 10
+      },
+      "dv": -1,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s7-ascending-hit-min",
+      "size": 42,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 2,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s7-ascending-hit-median",
+      "size": 42,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 342,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s7-ascending-hit-max",
+      "size": 42,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 648,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 8,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 10,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s7-ascending-miss-below",
+      "size": 42,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 1,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s7-ascending-miss-between",
+      "size": 42,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 343,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s7-ascending-miss-above",
+      "size": 42,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 649,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 8,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 10,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s7-descending-hit-min",
+      "size": 42,
+      "seed": 7,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 2,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s7-descending-hit-median",
+      "size": 42,
+      "seed": 7,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 342,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 6,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -3,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s7-descending-hit-max",
+      "size": 42,
+      "seed": 7,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 648,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s7-descending-miss-below",
+      "size": 42,
+      "seed": 7,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 1,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s7-descending-miss-between",
+      "size": 42,
+      "seed": 7,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 343,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 6,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s7-descending-miss-above",
+      "size": 42,
+      "seed": 7,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 649,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s7-shuffled-hit-min",
+      "size": 42,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 2,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 24
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 14
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s7-shuffled-hit-median",
+      "size": 42,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 342,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 4,
+        "nodes": 24
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 14
+      },
+      "dv": 0,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s7-shuffled-hit-max",
+      "size": 42,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 648,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 24
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 8,
+        "levels": 3,
+        "nodes": 14
+      },
+      "dv": -1,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s7-shuffled-miss-below",
+      "size": 42,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 1,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 24
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 14
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s7-shuffled-miss-between",
+      "size": 42,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 343,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 24
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 14
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s7-shuffled-miss-above",
+      "size": 42,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 649,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 24
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 8,
+        "levels": 3,
+        "nodes": 14
+      },
+      "dv": -1,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s19-ascending-hit-min",
+      "size": 42,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 98,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s19-ascending-hit-median",
+      "size": 42,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 430,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s19-ascending-hit-max",
+      "size": 42,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 668,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 8,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 10,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s19-ascending-miss-below",
+      "size": 42,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 97,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s19-ascending-miss-between",
+      "size": 42,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 431,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s19-ascending-miss-above",
+      "size": 42,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 669,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 8,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 10,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s19-descending-hit-min",
+      "size": 42,
+      "seed": 19,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 98,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s19-descending-hit-median",
+      "size": 42,
+      "seed": 19,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 430,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 6,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -3,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s19-descending-hit-max",
+      "size": 42,
+      "seed": 19,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 668,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s19-descending-miss-below",
+      "size": 42,
+      "seed": 19,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 97,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s19-descending-miss-between",
+      "size": 42,
+      "seed": 19,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 431,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 6,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s19-descending-miss-above",
+      "size": 42,
+      "seed": 19,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 669,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s19-shuffled-hit-min",
+      "size": 42,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 98,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 24
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 13
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s19-shuffled-hit-median",
+      "size": 42,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 430,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 6,
+        "levels": 4,
+        "nodes": 24
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 2,
+        "levels": 3,
+        "nodes": 13
+      },
+      "dv": -2,
+      "dk": -4,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s19-shuffled-hit-max",
+      "size": 42,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 668,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 24
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 10,
+        "levels": 3,
+        "nodes": 13
+      },
+      "dv": -1,
+      "dk": 5,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s19-shuffled-miss-below",
+      "size": 42,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 97,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 24
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 13
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s19-shuffled-miss-between",
+      "size": 42,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 431,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 24
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 13
+      },
+      "dv": -1,
+      "dk": -3,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s19-shuffled-miss-above",
+      "size": 42,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 669,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 24
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 10,
+        "levels": 3,
+        "nodes": 13
+      },
+      "dv": -1,
+      "dk": 5,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s37-ascending-hit-min",
+      "size": 42,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 18,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s37-ascending-hit-median",
+      "size": 42,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 324,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s37-ascending-hit-max",
+      "size": 42,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 648,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 8,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 10,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s37-ascending-miss-below",
+      "size": 42,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 17,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s37-ascending-miss-between",
+      "size": 42,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 325,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s37-ascending-miss-above",
+      "size": 42,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 649,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 8,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 10,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s37-descending-hit-min",
+      "size": 42,
+      "seed": 37,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 18,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s37-descending-hit-median",
+      "size": 42,
+      "seed": 37,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 324,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 6,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -3,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s37-descending-hit-max",
+      "size": 42,
+      "seed": 37,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 648,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s37-descending-miss-below",
+      "size": 42,
+      "seed": 37,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 17,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s37-descending-miss-between",
+      "size": 42,
+      "seed": 37,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 325,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 6,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s37-descending-miss-above",
+      "size": 42,
+      "seed": 37,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 649,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s37-shuffled-hit-min",
+      "size": 42,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 18,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 22
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 12
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s37-shuffled-hit-median",
+      "size": 42,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 324,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 22
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 12
+      },
+      "dv": 0,
+      "dk": 3,
+      "category": "t2-dominates"
+    },
+    {
+      "id": "P7-n42-s37-shuffled-hit-max",
+      "size": 42,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 648,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 22
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 12
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s37-shuffled-miss-below",
+      "size": 42,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 17,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 22
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 12
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s37-shuffled-miss-between",
+      "size": 42,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 325,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 6,
+        "levels": 4,
+        "nodes": 22
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 8,
+        "levels": 3,
+        "nodes": 12
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s37-shuffled-miss-above",
+      "size": 42,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 649,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 22
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 12
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s101-ascending-hit-min",
+      "size": 42,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 24,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s101-ascending-hit-median",
+      "size": 42,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 280,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -1,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s101-ascending-hit-max",
+      "size": 42,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 672,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 8,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 10,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s101-ascending-miss-below",
+      "size": 42,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 23,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s101-ascending-miss-between",
+      "size": 42,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 281,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s101-ascending-miss-above",
+      "size": 42,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 673,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 8,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 10,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s101-descending-hit-min",
+      "size": 42,
+      "seed": 101,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 24,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s101-descending-hit-median",
+      "size": 42,
+      "seed": 101,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 280,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 6,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -3,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s101-descending-hit-max",
+      "size": 42,
+      "seed": 101,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 672,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s101-descending-miss-below",
+      "size": 42,
+      "seed": 101,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 23,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s101-descending-miss-between",
+      "size": 42,
+      "seed": 101,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 281,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 6,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 5,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s101-descending-miss-above",
+      "size": 42,
+      "seed": 101,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 673,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 39
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 19
+      },
+      "dv": -2,
+      "dk": 2,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s101-shuffled-hit-min",
+      "size": 42,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 24,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 22
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 12
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s101-shuffled-hit-median",
+      "size": 42,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 280,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 4,
+        "nodes": 22
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 12
+      },
+      "dv": 0,
+      "dk": 1,
+      "category": "t2-dominates"
+    },
+    {
+      "id": "P7-n42-s101-shuffled-hit-max",
+      "size": 42,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 672,
+      "found": true,
+      "t2": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 22
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 10,
+        "levels": 3,
+        "nodes": 12
+      },
+      "dv": -1,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n42-s101-shuffled-miss-below",
+      "size": 42,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 23,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 22
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 12
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s101-shuffled-miss-between",
+      "size": 42,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 281,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 5,
+        "levels": 4,
+        "nodes": 22
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 4,
+        "levels": 3,
+        "nodes": 12
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n42-s101-shuffled-miss-above",
+      "size": 42,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 673,
+      "found": false,
+      "t2": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 22
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 10,
+        "levels": 3,
+        "nodes": 12
+      },
+      "dv": -1,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s7-ascending-hit-min",
+      "size": 80,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 2,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s7-ascending-hit-median",
+      "size": 80,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 594,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s7-ascending-hit-max",
+      "size": 80,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 1266,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 11,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 14,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s7-ascending-miss-below",
+      "size": 80,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 1,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s7-ascending-miss-between",
+      "size": 80,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 595,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s7-ascending-miss-above",
+      "size": 80,
+      "seed": 7,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 1267,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 11,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 14,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s7-descending-hit-min",
+      "size": 80,
+      "seed": 7,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 2,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s7-descending-hit-median",
+      "size": 80,
+      "seed": 7,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 594,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 9,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": 1,
+      "dk": 6,
+      "category": "t2-dominates"
+    },
+    {
+      "id": "P7-n80-s7-descending-hit-max",
+      "size": 80,
+      "seed": 7,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 1266,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s7-descending-miss-below",
+      "size": 80,
+      "seed": 7,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 1,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s7-descending-miss-between",
+      "size": 80,
+      "seed": 7,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 595,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 9,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s7-descending-miss-above",
+      "size": 80,
+      "seed": 7,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 1267,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s7-shuffled-hit-min",
+      "size": 80,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 2,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 45
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 25
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s7-shuffled-hit-median",
+      "size": 80,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 594,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 7,
+        "levels": 5,
+        "nodes": 45
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 25
+      },
+      "dv": -2,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s7-shuffled-hit-max",
+      "size": 80,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 1266,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 8,
+        "levels": 5,
+        "nodes": 45
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 12,
+        "levels": 3,
+        "nodes": 25
+      },
+      "dv": -2,
+      "dk": 4,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s7-shuffled-miss-below",
+      "size": 80,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 1,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 45
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 25
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s7-shuffled-miss-between",
+      "size": 80,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 595,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 7,
+        "levels": 5,
+        "nodes": 45
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 25
+      },
+      "dv": -2,
+      "dk": 0,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s7-shuffled-miss-above",
+      "size": 80,
+      "seed": 7,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 1267,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 8,
+        "levels": 5,
+        "nodes": 45
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 12,
+        "levels": 3,
+        "nodes": 25
+      },
+      "dv": -2,
+      "dk": 4,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s19-ascending-hit-min",
+      "size": 80,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 6,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s19-ascending-hit-median",
+      "size": 80,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 504,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s19-ascending-hit-max",
+      "size": 80,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 1250,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 11,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 14,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s19-ascending-miss-below",
+      "size": 80,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 5,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s19-ascending-miss-between",
+      "size": 80,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 505,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s19-ascending-miss-above",
+      "size": 80,
+      "seed": 19,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 1251,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 11,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 14,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s19-descending-hit-min",
+      "size": 80,
+      "seed": 19,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 6,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s19-descending-hit-median",
+      "size": 80,
+      "seed": 19,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 504,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 9,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": 1,
+      "dk": 6,
+      "category": "t2-dominates"
+    },
+    {
+      "id": "P7-n80-s19-descending-hit-max",
+      "size": 80,
+      "seed": 19,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 1250,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s19-descending-miss-below",
+      "size": 80,
+      "seed": 19,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 5,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s19-descending-miss-between",
+      "size": 80,
+      "seed": 19,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 505,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 9,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s19-descending-miss-above",
+      "size": 80,
+      "seed": 19,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 1251,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s19-shuffled-hit-min",
+      "size": 80,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 6,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 46
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 25
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s19-shuffled-hit-median",
+      "size": 80,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 504,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 46
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 25
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s19-shuffled-hit-max",
+      "size": 80,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 1250,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 6,
+        "levels": 5,
+        "nodes": 46
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 9,
+        "levels": 3,
+        "nodes": 25
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s19-shuffled-miss-below",
+      "size": 80,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 5,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 46
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 25
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s19-shuffled-miss-between",
+      "size": 80,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 505,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 6,
+        "levels": 5,
+        "nodes": 46
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 25
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s19-shuffled-miss-above",
+      "size": 80,
+      "seed": 19,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 1251,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 6,
+        "levels": 5,
+        "nodes": 46
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 9,
+        "levels": 3,
+        "nodes": 25
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s37-ascending-hit-min",
+      "size": 80,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 6,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s37-ascending-hit-median",
+      "size": 80,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 640,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s37-ascending-hit-max",
+      "size": 80,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 1270,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 11,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 14,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s37-ascending-miss-below",
+      "size": 80,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 5,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s37-ascending-miss-between",
+      "size": 80,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 641,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s37-ascending-miss-above",
+      "size": 80,
+      "seed": 37,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 1271,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 11,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 14,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s37-descending-hit-min",
+      "size": 80,
+      "seed": 37,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 6,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s37-descending-hit-median",
+      "size": 80,
+      "seed": 37,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 640,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 9,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": 1,
+      "dk": 6,
+      "category": "t2-dominates"
+    },
+    {
+      "id": "P7-n80-s37-descending-hit-max",
+      "size": 80,
+      "seed": 37,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 1270,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s37-descending-miss-below",
+      "size": 80,
+      "seed": 37,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 5,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s37-descending-miss-between",
+      "size": 80,
+      "seed": 37,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 641,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 9,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s37-descending-miss-above",
+      "size": 80,
+      "seed": 37,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 1271,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s37-shuffled-hit-min",
+      "size": 80,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 6,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 46
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 27
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s37-shuffled-hit-median",
+      "size": 80,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 640,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 7,
+        "levels": 5,
+        "nodes": 46
+      },
+      "t3": {
+        "visits": 2,
+        "comparisons": 6,
+        "levels": 3,
+        "nodes": 27
+      },
+      "dv": -3,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s37-shuffled-hit-max",
+      "size": 80,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 1270,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 7,
+        "levels": 5,
+        "nodes": 46
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 12,
+        "levels": 3,
+        "nodes": 27
+      },
+      "dv": -2,
+      "dk": 5,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s37-shuffled-miss-below",
+      "size": 80,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 5,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 46
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 3,
+        "nodes": 27
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s37-shuffled-miss-between",
+      "size": 80,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 641,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 8,
+        "levels": 5,
+        "nodes": 46
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 7,
+        "levels": 3,
+        "nodes": 27
+      },
+      "dv": -2,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s37-shuffled-miss-above",
+      "size": 80,
+      "seed": 37,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 1271,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 7,
+        "levels": 5,
+        "nodes": 46
+      },
+      "t3": {
+        "visits": 3,
+        "comparisons": 12,
+        "levels": 3,
+        "nodes": 27
+      },
+      "dv": -2,
+      "dk": 5,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s101-ascending-hit-min",
+      "size": 80,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "hit-min",
+      "query": 4,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s101-ascending-hit-median",
+      "size": 80,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "hit-median",
+      "query": 692,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s101-ascending-hit-max",
+      "size": 80,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "hit-max",
+      "query": 1262,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 11,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 14,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s101-ascending-miss-below",
+      "size": 80,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "miss-below",
+      "query": 3,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s101-ascending-miss-between",
+      "size": 80,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "miss-between",
+      "query": 693,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s101-ascending-miss-above",
+      "size": 80,
+      "seed": 101,
+      "order": "ascending",
+      "probe": "miss-above",
+      "query": 1263,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 11,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 14,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s101-descending-hit-min",
+      "size": 80,
+      "seed": 101,
+      "order": "descending",
+      "probe": "hit-min",
+      "query": 4,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s101-descending-hit-median",
+      "size": 80,
+      "seed": 101,
+      "order": "descending",
+      "probe": "hit-median",
+      "query": 692,
+      "found": true,
+      "t2": {
+        "visits": 3,
+        "comparisons": 3,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 9,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": 1,
+      "dk": 6,
+      "category": "t2-dominates"
+    },
+    {
+      "id": "P7-n80-s101-descending-hit-max",
+      "size": 80,
+      "seed": 101,
+      "order": "descending",
+      "probe": "hit-max",
+      "query": 1262,
+      "found": true,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s101-descending-miss-below",
+      "size": 80,
+      "seed": 101,
+      "order": "descending",
+      "probe": "miss-below",
+      "query": 3,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": -2,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s101-descending-miss-between",
+      "size": 80,
+      "seed": 101,
+      "order": "descending",
+      "probe": "miss-between",
+      "query": 693,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 9,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 3,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s101-descending-miss-above",
+      "size": 80,
+      "seed": 101,
+      "order": "descending",
+      "probe": "miss-above",
+      "query": 1263,
+      "found": false,
+      "t2": {
+        "visits": 6,
+        "comparisons": 6,
+        "levels": 6,
+        "nodes": 75
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 7,
+        "levels": 4,
+        "nodes": 37
+      },
+      "dv": -2,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s101-shuffled-hit-min",
+      "size": 80,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "hit-min",
+      "query": 4,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 44
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 30
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s101-shuffled-hit-median",
+      "size": 80,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "hit-median",
+      "query": 692,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 7,
+        "levels": 5,
+        "nodes": 44
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 8,
+        "levels": 4,
+        "nodes": 30
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s101-shuffled-hit-max",
+      "size": 80,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "hit-max",
+      "query": 1262,
+      "found": true,
+      "t2": {
+        "visits": 5,
+        "comparisons": 9,
+        "levels": 5,
+        "nodes": 44
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 8,
+        "levels": 4,
+        "nodes": 30
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s101-shuffled-miss-below",
+      "size": 80,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "miss-below",
+      "query": 3,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 5,
+        "levels": 5,
+        "nodes": 44
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 4,
+        "levels": 4,
+        "nodes": 30
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    },
+    {
+      "id": "P7-n80-s101-shuffled-miss-between",
+      "size": 80,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "miss-between",
+      "query": 693,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 8,
+        "levels": 5,
+        "nodes": 44
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 9,
+        "levels": 4,
+        "nodes": 30
+      },
+      "dv": -1,
+      "dk": 1,
+      "category": "tradeoff"
+    },
+    {
+      "id": "P7-n80-s101-shuffled-miss-above",
+      "size": 80,
+      "seed": 101,
+      "order": "shuffled",
+      "probe": "miss-above",
+      "query": 1263,
+      "found": false,
+      "t2": {
+        "visits": 5,
+        "comparisons": 9,
+        "levels": 5,
+        "nodes": 44
+      },
+      "t3": {
+        "visits": 4,
+        "comparisons": 8,
+        "levels": 4,
+        "nodes": 30
+      },
+      "dv": -1,
+      "dk": -1,
+      "category": "t3-dominates"
+    }
+  ]
+}

@@ -4,15 +4,107 @@ import { evidenceFor, validateEvidenceGraph } from './evidence.js';
 import { createComparison, describeComparison, COMPARED_DEGREES } from './comparison.js';
 import { PRESETS, WEIGHT_PRESETS, validateWeights, evaluateCost, explainCost } from './cost-model.js';
 import { LEARNING_QUESTIONS, gradeQuiz } from './learning.js';
+import { P7_PROTOCOL, p7Case, p7Heatmap, runP7Sensitivity } from './sensitivity.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 const byId = id => document.getElementById(id);
 const state = { keys: [...DEFAULT_KEYS], degree: 2, lastQuery: 24, tree: fromKeys(), comparison: null, trace: null, index: 0, lang: 'zh', timer: null, layout: null, inspectPart: null, inspectTarget: '', costWeights:WEIGHT_PRESETS.nodes, datasetPreset:'baseline' };
 validateEvidenceGraph();
+// P7: fixed synthetic grid, independent of the P6 teaching model and user sliders.
+const p7Report = runP7Sensitivity();
+const p7Selection = {size:42,seed:7,order:'ascending',probe:'hit-median'};
+const p7CategoryNames = ['t2-dominates','t3-dominates','tradeoff','identical'];
 const texts = {
   zh: { hero:'一座能够解释搜索的档案柜', subtitle:'真实 B-tree 算法 · 轴测机械示意 · 证据与假设可追踪', query:'检索整数', degree:'当前模型的最小度数', degreeHint:'切换度数会按相同插入顺序，使用同一组整数重新建树。', comparisonHeading:'更改假设，比较两棵树', comparisonIntro:'固定同一组整数和插入顺序，仅改变最小度数 t。点击不同案例，机械模型随之重新计算。', comparisonEvidence:'查看参数证据', comparisonBoundary:'访问节点数、键比较数并非磁盘 I/O 或真实性能。模型编号是非加密的界面标识，不是证据校验哈希。', search:'开始检索', insert:'插入卡片', previous:'上一步', next:'下一步', autoplay:'自动播放', pause:'暂停', reset:'恢复初始档案', records:'卡片', drawers:'抽屉', levels:'层级', gate:'算法门槛', sources:'来源与假设', explain:'每张抽屉是一个 B-tree 节点。比较档案号，再沿正确的子节点通道下降。动画只反映真实搜索轨迹。', idle:'请开始一次检索。', error:'请输入安全范围内的整数。', duplicate:'该整数已存在，未重复插入。', inserted:'卡片已插入，B-tree 已重新平衡。', status:'状态：' },
   en: { hero:'An archive cabinet that explains search', subtitle:'Real B-tree algorithm · isometric machine · inspectable evidence', query:'Look up integer', degree:'Minimum degree of the active model', degreeHint:'Switching t rebuilds both models from the same keys, in the same insertion order.', comparisonHeading:'Change an assumption. Compare two trees.', comparisonIntro:'Hold the ordered input dataset fixed and vary only minimum degree t. Choose a case to rebuild the machine.', comparisonEvidence:'Inspect parameter evidence', comparisonBoundary:'Node visits and comparisons do not measure disk I/O or real latency. Scenario IDs are non-cryptographic UI labels, not integrity proofs.', search:'Search', insert:'Insert card', previous:'Previous', next:'Next', autoplay:'Autoplay', pause:'Pause', reset:'Reset archive', records:'Cards', drawers:'Drawers', levels:'Levels', gate:'Invariant gate', sources:'Sources & assumptions', explain:'Each drawer is a B-tree node. Compare the file number and descend through the correct corridor. Every motion comes from a real search trace.', idle:'Start a search.', error:'Enter a safe integer.', duplicate:'This key already exists; no duplicate inserted.', inserted:'Card inserted; B-tree rebalanced.', status:'Status: ' },
 };
+
+function p7Text(zh,en){return state.lang==='zh'?zh:en;}
+function initializeP7(){
+  const choices = {
+    'sens-size':P7_PROTOCOL.sizes,'sens-seed':P7_PROTOCOL.seeds,
+    'sens-order':P7_PROTOCOL.orders,'sens-probe':P7_PROTOCOL.probes,
+  };
+  for(const [id,options] of Object.entries(choices)){
+    const select=byId(id);
+    for(const option of options){const item=document.createElement('option');item.value=String(option);item.textContent=String(option);select.append(item);}
+    const property={'sens-size':'size','sens-seed':'seed','sens-order':'order','sens-probe':'probe'}[id];
+    select.value=String(p7Selection[property]);
+    select.addEventListener('change',()=>{p7Selection[property]=['size','seed'].includes(property)?Number(select.value):select.value;renderP7();});
+  }
+  renderP7();
+}
+function renderP7(){
+  const report=p7Report.summary;
+  const zh=state.lang==='zh';
+  byId('sensitivity-lab').dataset.gridTotal=String(report.total);
+  byId('sensitivity-lab').dataset.tradeoffs=String(report.counts.tradeoff);
+  byId('sensitivity-heading').textContent=p7Text('不再挑选反例：检查全部 288 个预设查询','No cherry-picked cases: all 288 frozen queries');
+  byId('sensitivity-intro').textContent=p7Text('按预先锁定的规模、种子、插入顺序及查询类型运行配对实验。这是有限合成样例，不是实际数据库基准。','Paired search traces over a locked grid of sizes, seeds, insertion orders and queries. Synthetic counts, not a production database benchmark.');
+  byId('sens-fraction').textContent=`${report.counts.tradeoff}/${report.total}`;
+  byId('sens-rate').textContent=`${(100*report.tradeoffRate).toFixed(2)}%`;
+  byId('sens-context').textContent=p7Text('指标权衡；不能据此推断真实数据库总体比例','Opposing metric tradeoffs; NOT a real-world workload prevalence estimate');
+  const labels = zh?['t=2 帕累托占优','t=3 帕累托占优','相反指标取舍','两项指标完全相同']:['t=2 Pareto dominates','t=3 Pareto dominates','Opposing-metric tradeoff','Identical metrics'];
+  const categories=byId('sensitivity-categories');categories.replaceChildren();
+  p7CategoryNames.forEach((key,i)=>{
+    const card=document.createElement('div');card.className='sensitivity-category';card.dataset.category=key;
+    const number=document.createElement('strong');number.textContent=String(report.counts[key]);
+    const title=document.createElement('span');title.textContent=labels[i];card.append(number,title);categories.append(card);
+  });
+  const tbody=byId('sensitivity-size-body');tbody.replaceChildren();
+  P7_PROTOCOL.sizes.forEach(size=>{
+    const tr=document.createElement('tr');
+    const group=report.bySize[String(size)];
+    for(const value of [size,...p7CategoryNames.map(k=>group[k])]){
+      const td=document.createElement('td');td.textContent=String(value);tr.append(td);
+    }
+    tbody.append(tr);
+  });
+  byId('sensitivity-table-caption').textContent=p7Text('按键数分层；每组 72 次相关的合成查询','By inserted keys: 72 correlated synthetic queries in each group');
+  byId('sensitivity-panel-heading').textContent=p7Text('选择预定网格中的一个实际查询','Inspect one actual query in the frozen grid');
+  for(const [id,one,two] of [
+    ['sens-size-label','键数 ','Keys '],['sens-seed-label','种子 ','Seed '],
+    ['sens-order-label','插入顺序 ','Insertion order '],['sens-probe-label','查询类型 ','Probe ']
+  ])byId(id).firstChild.textContent=zh?one:two;
+  byId('sens-heatmap-heading').textContent=p7Text('改变成本权重：16 格可解释矩阵','Four-by-four hypothetical weight matrix');
+  byId('sens-heatmap-help').textContent=p7Text('纵轴：每次节点访问权重；横轴：每次键比较权重。绿=t=3 较低，黄=t=2 较低，灰=持平；只代表人为评分。','Rows: node-visit weight; columns: comparison weight. Green=t=3 lower, amber=t=2 lower, gray=tie. Fictional points only.');
+  byId('sens-heatmap-caption').textContent=p7Text('不同假想成本权重下的较低分值选项','Lower fictional score under each cost-weight pair');
+  byId('sens-lock-link').textContent=p7Text('核对提前提交的研究设计 ↗','See publicly committed design lock ↗');
+  byId('sens-no-study').textContent=p7Text('未招募参与者；无教学效果结论。','No participants recruited; no learning-effect result.');
+  const c=p7Case(p7Selection.size,p7Selection.seed,p7Selection.order,p7Selection.probe);
+  byId('sensitivity-lab').dataset.currentClass=c.category;
+  byId('sensitivity-lab').dataset.currentId=c.id;
+  byId('sens-current').textContent=`${c.id} · QUERY ${c.query} · ${c.found?'HIT':'MISS'} · ${c.category}`;
+  byId('sens-metrics').textContent=zh?
+   `t=2: ${c.t2.visits} 次节点访问、${c.t2.comparisons} 次比较；t=3: ${c.t3.visits} 次访问、${c.t3.comparisons} 次比较。Δ(t3−t2) = (${c.dv}, ${c.dk})。`:
+   `t=2: ${c.t2.visits} node visits, ${c.t2.comparisons} comparisons; t=3: ${c.t3.visits} visits, ${c.t3.comparisons} comparisons. Δ(t3−t2) = (${c.dv}, ${c.dk}).`;
+  const table=byId('sens-heatmap'),thead=table.querySelector('thead'),body=table.querySelector('tbody');
+  thead.replaceChildren();body.replaceChildren();
+  const header=document.createElement('tr');
+  for(const text of [zh?'访问权重 \ 比较权重':'Visit \ Compare',...P7_PROTOCOL.weights]){
+    const th=document.createElement('th');th.scope='col';th.textContent=String(text);header.append(th);
+  }
+  thead.append(header);
+  const grid=p7Heatmap(c);
+  for(const line of grid){
+    const row=document.createElement('tr');
+    const side=document.createElement('th');side.scope='row';side.textContent=String(line[0].nodeWeight);row.append(side);
+    for(const cell of line){
+      const td=document.createElement('td');td.dataset.preference=cell.preference;td.dataset.nodeWeight=String(cell.nodeWeight);td.dataset.comparisonWeight=String(cell.keyWeight);
+      td.textContent=`${cell.preference==='tie'?'=':cell.preference} · ${cell.scoreT2}/${cell.scoreT3}`;
+      td.setAttribute('aria-label',`Node weight ${cell.nodeWeight}, comparison weight ${cell.keyWeight}: t=2 score ${cell.scoreT2}, t=3 score ${cell.scoreT3}, lower ${cell.preference}`);
+      row.append(td);
+    }
+    body.append(row);
+  }
+}
+function initializeStudyModes(){
+  const arm=document.body.dataset.studyCondition;
+  if(!['static','interactive'].includes(arm))return;
+  document.body.dataset.studyStatus='preview-only';
+  if(arm==='static')byId('study-static-sheet').open=true;
+  byId('study-protocol-note').textContent=p7Text('实验材料预览 · 建议阅读 5 分钟后答题。未随机分配参与者，未保存或发送回答。','Study arm preview · recommended 5-minute exposure before quiz. No participants allocated, responses saved or sent.');
+}
 
 function svg(tag, attrs = {}, content) {
   const elem = document.createElementNS(NS, tag);
@@ -261,7 +353,7 @@ function localize(){
   document.documentElement.lang=state.lang==='zh'?'zh-CN':'en';
   for(const [id,key] of [['hero','hero'],['subtitle','subtitle'],['label-query','query'],['label-degree','degree'],['degree-hint','degreeHint'],['comparison-heading','comparisonHeading'],['comparison-intro','comparisonIntro'],['scenario-evidence','comparisonEvidence'],['comparison-boundary','comparisonBoundary'],['search','search'],['insert','insert'],['previous','previous'],['next','next'],['reset','reset'],['source-title','sources'],['explain','explain']])byId(id).textContent=texts[state.lang][key];
   byId('toggle-language').textContent=state.lang==='zh'?'English':'中文';
-  describe(validateTree(state.tree)); renderFrame(); renderComparison(); localizeP6();
+  describe(validateTree(state.tree)); renderFrame(); renderComparison(); localizeP6(); renderP7();
 }
 for(const id of Object.keys(PRESETS))byId(`dataset-${id}`).addEventListener('click',()=>changeDataset(id));
 for(const [id,weights] of Object.entries(WEIGHT_PRESETS))byId(`regime-${id}`).addEventListener('click',()=>setWeights(weights));
@@ -289,4 +381,4 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft'){e.preventDefault();previous();}
   if(e.code==='Space'){e.preventDefault();togglePlay();}
 });
-reset();localize();
+reset();localize();initializeP7();initializeStudyModes();
