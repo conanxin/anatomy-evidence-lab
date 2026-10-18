@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.DS_Store
+coverage/
+playwright-report/
+browser-artifacts/
+
+artifacts/comparison-run.jsonld
+artifacts/cost-run.jsonld
+artifacts/study-summary.json

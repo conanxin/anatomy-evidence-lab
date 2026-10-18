@@ -1,0 +1,31 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createTree,fromKeys,insert,search,searchTrace,layoutTree,validateTree,DEFAULT_KEYS} from '../src/btree.js';
+
+const SAMPLE=new Set(DEFAULT_KEYS);
+
+test('empty tree is a valid root leaf',()=>assert.deepEqual(validateTree(createTree()),{valid:true,height:1,nodes:1,keys:0,leafDepth:0}));
+test('minimum degree rejects invalid values',()=>{for(const t of [0,1,-1,2.5,NaN])assert.throws(()=>createTree(t));});
+test('unsafe and fractional keys rejected',()=>{const t=createTree();for(const k of [1.2,Infinity,'2',NaN,Number.MAX_SAFE_INTEGER+1]){assert.throws(()=>insert(t,k));assert.throws(()=>search(t,k));}});
+test('initial sample has 25 unique keys and multiple levels',()=>{const s=validateTree(fromKeys());assert.equal(s.keys,25);assert.ok(s.height>=3);});
+test('all seeded keys return found',()=>{const tree=fromKeys();for(const k of SAMPLE)assert.equal(search(tree,k).found,true);});
+test('out-of-set keys return misses',()=>{const tree=fromKeys();for(const k of [-7,0,1,3,7,11,15,25,35,45,65])assert.equal(search(tree,k).found,false);});
+test('duplicate insertion is a no-op and leaves tree unchanged',()=>{const tree=fromKeys(),before=JSON.stringify(tree);assert.deepEqual(insert(tree,24),{inserted:false,duplicate:true});assert.equal(JSON.stringify(tree),before);});
+test('new key inserts and grows size',()=>{const tree=fromKeys();const prev=tree.size;assert.deepEqual(insert(tree,999),{inserted:true,duplicate:false});assert.equal(tree.size,prev+1);assert.ok(search(tree,999).found);assert.ok(validateTree(tree).valid);});
+test('negative integer keys work',()=>{const tree=fromKeys([-9,-4,0,4,9]);assert.ok(search(tree,-9).found);assert.equal(search(tree,-8).found,false);});
+test('B-tree invariants survive sorted ascending stress',()=>{const tree=createTree();for(let i=0;i<200;i++){insert(tree,i);assert.ok(validateTree(tree).valid);}assert.equal(tree.size,200);});
+test('B-tree invariants survive descending stress',()=>{const tree=createTree();for(let i=200;i>=0;i--){insert(tree,i);validateTree(tree);}assert.equal(tree.size,201);});
+test('B-tree invariants survive seeded pseudorandom insertion order',()=>{let v=19;const values=Array.from({length:400},(_,i)=>i-200);for(let i=values.length-1;i>0;i--){v=(v*1664525+1013904223)>>>0;const j=v%(i+1);[values[i],values[j]]=[values[j],values[i]];}const tree=fromKeys(values);assert.equal(validateTree(tree).keys,400);for(const k of values)assert.ok(search(tree,k).found);});
+test('changing degree keeps all keys and validates',()=>{for(const t of [2,3,4,7]){const tree=fromKeys([...DEFAULT_KEYS,101,102,103],t);assert.equal(validateTree(tree).keys,28);for(const k of DEFAULT_KEYS)assert.ok(search(tree,k).found);}});
+test('validator detects key order corruption',()=>{const t=fromKeys();t.root.keys[0]=1e6;assert.throws(()=>validateTree(t));});
+test('validator detects missing child corruption',()=>{const t=fromKeys();t.root.children.pop();assert.throws(()=>validateTree(t),/child count/);});
+test('validator detects leaf depth violation',()=>{const t=fromKeys();const child=t.root.children[0];child.leaf=true;child.children=[];assert.throws(()=>validateTree(t));});
+test('trace emits visit/compare/terminal outcome',()=>{const hit=searchTrace(fromKeys(),24);assert.equal(hit.steps[0].type,'visit');assert.ok(hit.steps.some(s=>s.type==='compare'));assert.equal(hit.steps.at(-1).type,'found');const miss=searchTrace(fromKeys(),25);assert.equal(miss.steps.at(-1).type,'miss');});
+test('trace hit/miss equals independent search for large key range',()=>{const t=fromKeys();for(let n=-5;n<=75;n++){const tr=searchTrace(t,n);assert.equal(tr.found,search(t,n).found);assert.equal(tr.steps.at(-1).type,tr.found?'found':'miss');}});
+test('trace only references valid node ids and descendants',()=>{const t=fromKeys(),layout=layoutTree(t),ids=new Set(layout.nodes.map(n=>n.id));for(let n=-5;n<=75;n++){const tr=searchTrace(t,n);for(const s of tr.steps){assert.ok(ids.has(s.nodeId));if(s.childId!==undefined)assert.ok(ids.has(s.childId));}}});
+test('trace comparisons have coherent directional decisions',()=>{const t=fromKeys();for(const key of [-100,0,4,24,35,100]){for(const s of searchTrace(t,key).steps){if(s.type!=='compare')continue;assert.equal(s.relation, key===s.comparedKey?'equal':key<s.comparedKey?'less':'greater');}}});
+test('trace serializes without cycles',()=>assert.doesNotThrow(()=>JSON.stringify(searchTrace(fromKeys(),16))));
+test('search and trace do not mutate the tree',()=>{const t=fromKeys(),snap=JSON.stringify(t);search(t,24);searchTrace(t,24);layoutTree(t);assert.equal(JSON.stringify(t),snap);});
+test('planar layout centers parents above first and last child',()=>{const t=fromKeys(),lay=layoutTree(t);for(const n of lay.nodes){const children=lay.edges.filter(e=>e.from===n.id).map(e=>lay.nodes.find(x=>x.id===e.to));if(!children.length)continue;assert.ok(Math.abs(n.x-(children[0].x+children.at(-1).x)/2)<1e-9);for(const child of children)assert.ok(child.y>n.y);}});
+test('layout size encloses all nodes',()=>{for(const t of [fromKeys(),fromKeys([2]),fromKeys(Array.from({length:200},(_,i)=>i))]){const l=layoutTree(t);for(const n of l.nodes){assert.ok(n.x>=0&&n.x<l.width);assert.ok(n.y>=0&&n.y<l.height);}}});
+test('snapshot node ordering retains exact B-tree keys',()=>{const tree=fromKeys();const l=layoutTree(tree);const observed=l.nodes.flatMap(n=>n.keys).sort((a,b)=>a-b);assert.deepEqual(observed,[...SAMPLE].sort((a,b)=>a-b));});
