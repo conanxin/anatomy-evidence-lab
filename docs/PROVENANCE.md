@@ -59,3 +59,13 @@ No URL in the evidence graph is taken as proof of the specific SVG geometry: NIS
 - The design is a fully enumerated correlated grid. Comparisons use the same keyset, insertion order and query for both degrees. Classifications, 4×4 hypothetical weights and grouped results are deterministic, not speed measurements.
 - The 42-key P6 hand-picked teaching example does not contribute extra observations to the 288 preselected P7 rows. Changes to the design need a documented deviation and new version.
 - Real human learning outcome data: **none**. Two isolated exposure preview documents exist, but the A/B pilot is not conducted. [Learning protocol](P7_STUDY_PROCEDURE.md).
+
+
+## P8 extension (2026-10-18)
+
+- Public design-before-results commit: `df2dbc3ed06c320e1c0ed7693f6cd0e4f96cdede` (`docs/P8_DESIGN_LOCK.md`).
+- Fixed synthetic 864-case source: `src/robustness.js` and `scripts/run_robustness.mjs`. P7's fixed 288-case program is left unchanged; alternate key spacing maps are order-isomorphic negative controls.
+- Independent walk checks `searchTrace` node IDs and compared keys, plus `Set` membership and `validateTree` shape. This is a separate implementation of a *search oracle*, not a second independent database engine.
+- New portable process: `skills/evidence-first-anatomy/SKILL.md`, references and eval prompts; only structural checks are executed in this repository. No OpenClaw or Hermes automatic skill loading has been claimed.
+- Future historical waterwheel test is **SOURCE_GAP / SCHEMATIC_ONLY**. No historical reconstruction, dimensions or motion sourced.
+- No participant data, measured latency, actual production I/O or independent workload sampling are available. P7 and P8 can only describe their fixed synthetic grids.

@@ -130,6 +130,38 @@
         </div>
       </section>
 
+
+      <section class="robustness-lab" id="robustness-lab" aria-labelledby="rob-heading" data-cases="0" data-tradeoffs="0" data-spacing-mismatches="0">
+        <div class="panel-index">05B / ROBUSTNESS · PUBLIC DESIGN LOCK</div>
+        <h2 id="rob-heading">不同生成规则下的稳健性验证</h2>
+        <p class="sensitivity-intro" id="rob-intro">改变合成数据的数字间距、插入顺序与查询权重，检查指标权衡是否稳定。</p>
+        <div class="sensitivity-total" role="status" aria-live="polite"><strong id="rob-total">—</strong><span id="rob-percent">—</span><small id="rob-invariance">—</small></div>
+        <h3 id="rob-weight-heading">查询构成敏感性</h3>
+        <div class="sensitivity-table-wrap"><table class="sensitivity-table" id="rob-mix-table"><caption>Weights are fictional query frequencies · not production traffic</caption><thead><tr><th>Mix</th><th>Weighted cases</th><th>Tradeoffs</th><th>Rate</th></tr></thead><tbody id="rob-mix-body"></tbody></table></div>
+        <div class="rob-grid">
+          <div class="rob-inputs">
+            <h3 id="rob-scenario-heading">检查一个固定查询</h3>
+            <div class="rob-select-grid">
+              <label id="rob-mix-label" for="rob-mix">查询权重 <select id="rob-mix"></select></label>
+              <label id="rob-order-label" for="rob-order">插入顺序 <select id="rob-order"></select></label>
+              <label id="rob-spacing-label" for="rob-spacing">数字间距 <select id="rob-spacing"></select></label>
+              <label id="rob-size-label" for="rob-size">数据规模 <select id="rob-size"></select></label>
+              <label id="rob-seed-label" for="rob-seed">数据种子 <select id="rob-seed"></select></label>
+              <label id="rob-probe-label" for="rob-probe">查询类型 <select id="rob-probe"></select></label>
+            </div>
+            <p class="rob-current" id="rob-current" aria-live="polite"></p>
+            <p class="rob-metrics" id="rob-metrics"></p>
+            <div id="rob-invariant-values" class="rob-control-list" aria-label="Rank-preserving spacing controls"></div>
+          </div>
+          <div class="rob-order-panel">
+            <h3 id="rob-order-heading">插入顺序的结果</h3>
+            <div class="sensitivity-table-wrap"><table class="sensitivity-table" id="rob-order-table"><caption>Selected hypothetical lookup mix</caption><thead><tr><th>Order</th><th>Tradeoffs</th><th>Rate</th></tr></thead><tbody id="rob-order-body"></tbody></table></div>
+          </div>
+        </div>
+        <p id="rob-limit" class="comparison-boundary"></p>
+        <a id="rob-lock" href="https://github.com/conanxin/anatomy-evidence-lab/blob/feat/anatomy-btree-evidence/docs/P8_DESIGN_LOCK.md" target="_blank" rel="noopener noreferrer">核对事先锁定的 P8 规则 ↗</a>
+      </section>
+
       <section class="study-kit" id="study-kit" aria-labelledby="study-heading">
         <div class="panel-index">06 / COMPREHENSION STUDY KIT · NO PARTICIPANT DATA</div>
         <h2 id="study-heading">知识理解自测：先测“是否理解”，不评价“是否好看”</h2>

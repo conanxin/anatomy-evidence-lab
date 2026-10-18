@@ -134,3 +134,23 @@ body[data-study-condition=static] .study-static-sheet summary{display:none;}
 body[data-study-condition] #study-static-sheet p{max-width:880px;}
 @media(max-width:800px){.sensitivity-categories{grid-template-columns:repeat(2,minmax(0,1fr));}.sensitivity-controls{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:560px){.sensitivity-lab{padding:18px 14px}.sensitivity-controls{grid-template-columns:1fr 1fr}.sensitivity-total{gap:7px}.sensitivity-total strong{font-size:25px}.sensitivity-panel h3{font-size:15px;}}
+
+/* P8: document the difference between query weights and tree search traces. */
+.robustness-lab{margin:32px 0 0;background:#f3f1e8;border:1px solid #d5d2c1;padding:26px 28px;}
+.robustness-lab .panel-index{margin-bottom:14px}.robustness-lab h2{font-size:clamp(20px,2.4vw,28px);margin:0 0 12px;line-height:1.45;}
+.robustness-lab h3{font-size:17px;margin:20px 0 12px;color:var(--olive);}
+.rob-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;margin-top:20px;}
+.rob-select-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px;}
+.rob-select-grid label{font-size:12px;line-height:1.65;font-weight:600;}
+.rob-select-grid select{display:block;width:100%;padding:10px;border:1px solid var(--line);border-radius:4px;background:var(--card);color:var(--ink);font:11px 'DM Mono',monospace;}
+.rob-current{font:11px/1.8 'DM Mono',monospace;color:var(--brass);overflow-wrap:anywhere;}
+.rob-metrics{font-size:13px;line-height:1.8;color:var(--ink);}
+.rob-control-list{display:grid;gap:8px;margin:10px 0 20px;}
+.rob-control-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding:9px 10px;background:#fffdf7;border:1px solid #dedac8;font:11px/1.6 'DM Mono',monospace;}
+.rob-control-row strong{color:var(--olive);}
+.robustness-lab .sensitivity-table tbody tr[data-selected='true']{background:#e0e9d9;}
+.robustness-lab .sensitivity-total{margin-bottom:14px;}
+.robustness-lab #rob-lock{display:inline-block;font-size:12px;color:var(--olive);text-underline-offset:3px;}
+body[data-study-condition] .robustness-lab{display:none!important;}
+@media(max-width:850px){.rob-grid{grid-template-columns:1fr;}.robustness-lab{padding:20px 14px;}}
+@media(max-width:390px){.rob-select-grid{grid-template-columns:1fr;}}

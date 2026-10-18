@@ -109,3 +109,30 @@ This section is an independent local container test of a new revision; it is not
 **Test correction record**: initial P7 test asserted that identical weights (5,5) cause a tie in a case with dv=-1 and dk=+2; this assertion was mistaken. The actual equality condition is `node_weight=2*comparison_weight`. Test corrected to (2,1) without changing the algorithm or preregistration. The full suite rerun passed. This is a test expectation fix, not an inconvenient result removed.
 
 **No sampling claim**: the 288 scenarios are a complete enumeration of *chosen* deterministic seeds/sizes/orders/probes with correlated rows, not independent random workloads. No p-values, confidence intervals, real hardware metrics or human effectiveness are inferred.
+
+---
+
+## P8 execution receipt — 2026-10-18 (independent analysis environment)
+
+**Status:** `LOCAL_P8_PASS / REMOTE_CI_PENDING / AGENT_RUNTIME_LOADING_UNTESTED` at the time this section was authored. The eventual GitHub CI status must be checked for the exact P8 commit; do not copy this local result into a claim of remote success.
+
+- **Public design lock commit before analysis:** `df2dbc3ed06c320e1c0ed7693f6cd0e4f96cdede`; the locked rules remain in `docs/P8_DESIGN_LOCK.md`.
+- **Environment:** Node.js `v22.16.0`, Python `3.13.5`, Chromium `144.0.7559.96` via `CHROMIUM_PATH=/usr/bin/chromium`; Linux execution container, not the user's original WSL / Hermes process.
+- **`npm test`:** 130 PASS, 0 FAIL, 0 SKIP, exit 0. New P8 oracle/robustness/Skill structural tests contribute 17 cases above P7's 113.
+- **`npm run build`:** PASS; produces `dist/index.html`, `dist/study-static.html`, `dist/study-interactive.html`; each standalone HTML is 127246 bytes. No server/site deployment.
+- **`npm run check:skill`:** PASS structure+reference checks. NOT proof of Hermes / OpenClaw loading. Packaged eval prompts are NOT executed agent evaluations.
+- **`npm run analysis:p7`:** PASS; P7 fixed baseline retained unchanged; 288 records as previously verified.
+- **`npm run analysis:p8`:** PASS; 864 paired query rows with independent trace oracle; 336 tradeoff, 447 `t3-dominates`, 51 `t2-dominates`, 30 identical. Rank control 288/288 matched with zero metric mismatches.
+- **Byte-for-byte repeat:** repeated `npm run analysis:p8` with SHA-256 of JSON/CSV/result-report checked unchanged (three sha256sum checks PASS).
+- **Browser previous regression:** `python scripts/browser_smoke.py` with Chromium: **55/55**.
+- **Browser P7 regression:** `python scripts/browser_sensitivity.py`: **56/56**.
+- **Browser new P8:** `python scripts/browser_robustness.py`: **48/48**; desktop viewport 1366 px, mobile 390 px, both preregistered-study previews hidden from P8 exposure, without observed JS page errors.
+- **Browser total:** 159 counted assertions across three separately executed scripts; do not add this to Node test count as if all were the same testing family.
+- **P8 stable JSON file SHA-256:** `e8a13a7a97e7d05cf5221e90d8bad9b8a794a7910c987f77368f07b460ac61c0`.
+- **P8 CSV SHA-256:** `8d5d0a32688b101d99711cd592ce5de61e93e81db5fcc26fd512af36bc52dbfd`.
+- **Canonical results payload SHA-256:** `8b6b1d40f1a41a42b6d49e9638b62c6712fdbc9433696724325ad9ab1676091a`, over `JSON.stringify({protocol,summary,rows})`, not over JSON file bytes.
+- **Learning trial:** `NO_PARTICIPANT_DATA`; no allocation, consent, collected surveys or learning effect. Static/interactive study previews unchanged.
+- **Historical object:** `SOURCE_GAP / SCHEMATIC_ONLY`; no dated or dimensioned actual waterwheel reconstruction supplied.
+- **Production/site:** `NOT_DEPLOYED`; unrelated projects untouched, original local Hermes worktree unchanged.
+
+The 864 cells are 3-fold related spacing transformations of 288 rank/order/probe designs. They are **not** 864 independent draws from a target statistical population. Reported proportions are descriptive for this deliberately designed synthetic experiment and are not empirical database performance rates. Correctness of `searchTrace` is cross-checked with an independently written tree traversal, but construction still uses the same B-tree engine.

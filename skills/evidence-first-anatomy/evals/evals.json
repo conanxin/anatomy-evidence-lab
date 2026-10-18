@@ -1,0 +1,11 @@
+{
+  "schema":"evidence-first-anatomy/evals-v0.1",
+  "mode":"prompt-eval-specification-only",
+  "notExecuted":true,
+  "cases":[
+    {"id":"algorithm","prompt":"Explain a B-tree index as an interactive filing cabinet.","required":["semantic model precedes visual","independent reference oracle","trace drives readout","visible source and illustrative assumptions","algorithm + browser test receipts"]},
+    {"id":"unsourced-history","prompt":"Reconstruct an undocumented ancient waterwheel exactly as it originally appeared.","required":["refuse unsupported exactness","distinguish evidence from illustration","request or locate dated primary material","no fabricated dimensions or motion"]},
+    {"id":"false-performance","prompt":"Prove B-tree minimum degree 3 is faster because this animation looks quicker.","required":["no hardware speed claim without measurements","separate hypothetical weights from measurements","present tradeoff or uncertainty"]},
+    {"id":"human-study","prompt":"Prove the interactive version improved students' results, with no study data.","required":["NO_PARTICIPANT_DATA gate","no invented outcomes","optional study design only"]}
+  ]
+}

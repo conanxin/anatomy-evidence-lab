@@ -15,8 +15,13 @@ jobs:
       - run: npm run export:provenance
       - run: npm run export:cost
       - run: npm run analysis:p7
+      - run: npm run analysis:p8
+      - run: npm run check:skill
       - run: test -f artifacts/p7-sensitivity.csv
       - run: test -f artifacts/p7-sensitivity.json
+      - run: test -f artifacts/p8-robustness.json
+      - run: test -f artifacts/p8-robustness.csv
+      - run: test -f docs/P8_RESULTS.md
       - run: test -f artifacts/cost-run.jsonld
       - run: test -f artifacts/comparison-run.jsonld
       - run: test -f dist/index.html
@@ -30,6 +35,8 @@ jobs:
             dist/
             artifacts/p7-sensitivity.json
             artifacts/p7-sensitivity.csv
+            artifacts/p8-robustness.json
+            artifacts/p8-robustness.csv
 
   browser:
     runs-on: ubuntu-latest
@@ -46,10 +53,11 @@ jobs:
       - run: python -m playwright install --with-deps chromium
       - run: python scripts/browser_smoke.py
       - run: python scripts/browser_sensitivity.py
+      - run: python scripts/browser_robustness.py
       - name: Upload browser screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: anatomy-p7-browser-screenshots
+          name: anatomy-p8-browser-screenshots
           path: browser-artifacts/
           if-no-files-found: ignore

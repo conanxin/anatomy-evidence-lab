@@ -123,3 +123,26 @@ npm run preview
 - [`docs/P7_STUDY_PROCEDURE.md`](docs/P7_STUDY_PROCEDURE.md) — **unlaunched** two-arm learning pilot materials; `dist/study-static.html` vs `dist/study-interactive.html` use the same five questions. No participants are fabricated or auto-recorded.
 
 **Notion archive:** [Anatomy P1–P7](https://app.notion.com/p/3f734a28189a81699161dd858772aed5). Original local Hermes WSL worktree remains separate and untouched.
+
+
+## P8 | Rank-invariance robustness and portable Evidence-first Anatomy Skill
+
+P8's [public design lock](docs/P8_DESIGN_LOCK.md) was committed as `df2dbc3ed06c320e1c0ed7693f6cd0e4f96cdede` **before its new results were generated**. It tests 864 correlated synthetic paired searches: 3 sizes × 4 seeds × 3 strictly increasing value-spacing maps × 4 insertion orders × 6 query probes. The spacing maps are intentional **rank-preserving negative controls**, not independent workload samples. In this implementation, 288/288 rank-equivalent groups have identical node-visit and comparison metrics; query-order and insertion-order composition can change the observed tradeoff rate. These are descriptive proportions on a finite generated grid, not empirical performance estimates.
+
+```bash
+npm test                  # B-tree + independent oracle + P7/P8 regression tests
+npm run analysis:p8       # deterministic JSON/CSV + generated result report
+npm run check:skill       # verify skill package and reference project files
+npm run build             # self-contained HTML for offline exploration
+npm run preview           # local webpage (port indicated by server)
+```
+
+The UI has a P8 panel with a query mix selector, insertion-order comparison and 3 rank-preserving key-spacing variants. All data is generated from the actual JS B-tree implementation. The output is also in `artifacts/p8-robustness.json` and `.csv`, with a SHA-256 digest of the canonical payload for repeatability. Neither the UI score nor any key comparison counts are wall-clock latency or I/O.
+
+### Portable Skill — packaged but not globally installed
+
+`skills/evidence-first-anatomy/SKILL.md` contains a cross-agent Agent Skills-formatted procedure: primary sources → explicit model assumptions → deterministic algorithm → physical analogy → evidence links → independent semantic / browser test → provenance receipt. Supporting references, structural checker and *unexecuted evaluation scenarios* are included. A file structure check is not a Hermes/OpenClaw runtime integration test.
+
+For **Hermes**, the [documented project-local skill folders](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills) are `<git-project>/.agents/skills` or `.hermes/skills`; copy the skill folder there in a separate checkout, then follow the Hermes project-trust prompt before running. For **OpenClaw**, use the configured workspace skills folder and inspect actual CLI loading in your own profile. This repository **does not install or trust** either runtime automatically, to preserve local agent configuration.
+
+The [historical mechanical-object gate](docs/P8_HISTORICAL_OBJECT_GATE.md) is currently only a source-validation checklist, NOT a reconstruction of a named waterwheel or site. No human learning data have been collected. Existing P7 study previews remain unused test materials.

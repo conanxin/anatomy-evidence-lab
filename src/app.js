@@ -5,6 +5,7 @@ import { createComparison, describeComparison, COMPARED_DEGREES } from './compar
 import { PRESETS, WEIGHT_PRESETS, validateWeights, evaluateCost, explainCost } from './cost-model.js';
 import { LEARNING_QUESTIONS, gradeQuiz } from './learning.js';
 import { P7_PROTOCOL, p7Case, p7Heatmap, runP7Sensitivity } from './sensitivity.js';
+import { P8_PROTOCOL, p8Case, runP8Robustness, p8WeightedSummary } from './robustness.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 const byId = id => document.getElementById(id);
@@ -12,6 +13,8 @@ const state = { keys: [...DEFAULT_KEYS], degree: 2, lastQuery: 24, tree: fromKey
 validateEvidenceGraph();
 // P7: fixed synthetic grid, independent of the P6 teaching model and user sliders.
 const p7Report = runP7Sensitivity();
+const p8Report = runP8Robustness();
+const p8Selection = {mix:'balanced',order:'bursty',spacing:'clustered-gap',size:42,seed:19,probe:'miss-between'};
 const p7Selection = {size:42,seed:7,order:'ascending',probe:'hit-median'};
 const p7CategoryNames = ['t2-dominates','t3-dominates','tradeoff','identical'];
 const texts = {
@@ -98,6 +101,78 @@ function renderP7(){
     body.append(row);
   }
 }
+
+function initializeP8() {
+  const selects={
+    'rob-mix':Object.keys(P8_PROTOCOL.mixes),
+    'rob-order':P8_PROTOCOL.orders,
+    'rob-spacing':P8_PROTOCOL.spacing,
+    'rob-size':P8_PROTOCOL.sizes,
+    'rob-seed':P8_PROTOCOL.seeds,
+    'rob-probe':P8_PROTOCOL.probes,
+  };
+  for(const [id,choices] of Object.entries(selects)) {
+    const select=byId(id),key=id.slice(4);
+    for(const value of choices){const option=document.createElement('option');option.value=String(value);option.textContent=String(value);select.append(option);}
+    select.value=String(p8Selection[key]);
+    select.addEventListener('change',()=>{
+      p8Selection[key]=['size','seed'].includes(key)?Number(select.value):select.value;
+      renderP8();
+    });
+  }
+  renderP8();
+}
+function renderP8() {
+  const s=p8Report.summary,zh=state.lang==='zh',lab=byId('robustness-lab');
+  lab.dataset.cases=String(s.total);
+  lab.dataset.tradeoffs=String(s.counts.tradeoff);
+  lab.dataset.spacingMismatches=String(s.spacingMismatches);
+  const tx=(cn,en)=>zh?cn:en;
+  byId('rob-heading').textContent=tx('换数据间距、插入顺序和查询权重，结论还成立吗？','Do rankings survive changes in key spacing, insertion order and lookup mix?');
+  byId('rob-intro').textContent=tx('864 个固定合成查询组成负对照；真正改变路径的是相对插入顺序和查询位置，不是数字间距本身。','864 deterministic synthetic comparisons. Changing numeric key spacing but not ranks is a negative control; insertion order and query composition can matter.');
+  byId('rob-total').textContent=`${s.counts.tradeoff}/${s.total}`;
+  byId('rob-percent').textContent=`${(100*s.tradeoffRate).toFixed(2)}%`;
+  byId('rob-invariance').textContent=tx(`保持排序关系的 288 组变化：${s.spacingMismatches} 次路径差异` ,`Rank-preserving transformations: ${s.spacingMismatches} mismatches across 288 groups`);
+  byId('rob-weight-heading').textContent=tx('查询构成敏感性：仅重加权，不重新计算搜索轨迹','Query-mix sensitivity: reweight, never recompute the trace');
+  byId('rob-order-heading').textContent=tx('不同插入顺序下的权衡比例','Opposing-metric tradeoffs by insertion order');
+  byId('rob-scenario-heading').textContent=tx('检查一个固定查询，以及数字间距的负对照','Inspect one fixed query and its rank-preserving controls');
+  byId('rob-limit').textContent=tx('严格限制：合成网格不是随机工作负载样本；这些分值和计数不是硬件延迟，也不证明真人学习效果。','Scope: finite synthetic design, not sampled production workloads or real latency; no human learning outcome measured.');
+  byId('rob-lock').textContent=tx('核对事先锁定的 P8 规则 ↗','See precommitted P8 design rules ↗');
+  for(const [id,cn,en] of [['rob-mix-label','查询权重','Lookup mix'],['rob-order-label','插入顺序','Insertion order'],['rob-spacing-label','数字间距','Value spacing'],['rob-size-label','数据规模','Dataset size'],['rob-seed-label','数据种子','Seed'],['rob-probe-label','查询类型','Probe']])byId(id).firstChild.textContent=zh?cn+' ':en+' ';
+  const mixTbody=byId('rob-mix-body');mixTbody.replaceChildren();
+  for(const mix of Object.keys(P8_PROTOCOL.mixes)){
+    const row=document.createElement('tr');const v=s.mixes[mix];
+    for(const cell of [mix,v.denominator,v.counts.tradeoff,`${(100*v.tradeoffRate).toFixed(2)}%`]){
+      const td=document.createElement('td');td.textContent=String(cell);row.append(td);
+    }
+    if(mix===p8Selection.mix)row.dataset.selected='true';mixTbody.append(row);
+  }
+  const body=byId('rob-order-body');body.replaceChildren();
+  for(const order of P8_PROTOCOL.orders){
+    const v=s.byOrderMix[order][p8Selection.mix];
+    const tr=document.createElement('tr');tr.dataset.order=order;tr.dataset.tradeoffs=String(v.counts.tradeoff);
+    if(order===p8Selection.order)tr.dataset.selected='true';
+    for(const cell of [order,`${v.counts.tradeoff}/${v.denominator}`,`${(100*v.tradeoffRate).toFixed(2)}%`]){
+      const td=document.createElement('td');td.textContent=cell;tr.append(td);
+    }
+    body.append(tr);
+  }
+  const {size,seed,spacing,order,probe}=p8Selection;
+  const c=p8Case(size,seed,spacing,order,probe);
+  lab.dataset.currentId=c.id;lab.dataset.currentCategory=c.category;
+  byId('rob-current').textContent=`${c.id} · ${c.found?'HIT':'MISS'} · ${c.category}`;
+  byId('rob-metrics').textContent=tx(`查询 ${c.query}：t=2 访问 ${c.t2.visits} 节点、比较 ${c.t2.comparisons} 次；t=3 访问 ${c.t3.visits} 节点、比较 ${c.t3.comparisons} 次。`,`Query ${c.query}: t=2 visited ${c.t2.visits} nodes, ${c.t2.comparisons} comparisons; t=3 visited ${c.t3.visits} nodes, ${c.t3.comparisons} comparisons.`);
+  const invariant=byId('rob-invariant-values');invariant.replaceChildren();
+  for(const sp of P8_PROTOCOL.spacing){
+    const val=p8Case(size,seed,sp,order,probe);
+    const item=document.createElement('div');item.className='rob-control-row';item.dataset.spacing=sp;
+    item.dataset.metrics=`${val.t2.visits},${val.t2.comparisons},${val.t3.visits},${val.t3.comparisons}`;
+    const name=document.createElement('strong');name.textContent=sp;
+    const data=document.createElement('span');data.textContent=`Q=${val.query} · t2=${val.t2.visits}/${val.t2.comparisons} · t3=${val.t3.visits}/${val.t3.comparisons}`;
+    item.append(name,data);invariant.append(item);
+  }
+}
+
 function initializeStudyModes(){
   const arm=document.body.dataset.studyCondition;
   if(!['static','interactive'].includes(arm))return;
@@ -353,7 +428,7 @@ function localize(){
   document.documentElement.lang=state.lang==='zh'?'zh-CN':'en';
   for(const [id,key] of [['hero','hero'],['subtitle','subtitle'],['label-query','query'],['label-degree','degree'],['degree-hint','degreeHint'],['comparison-heading','comparisonHeading'],['comparison-intro','comparisonIntro'],['scenario-evidence','comparisonEvidence'],['comparison-boundary','comparisonBoundary'],['search','search'],['insert','insert'],['previous','previous'],['next','next'],['reset','reset'],['source-title','sources'],['explain','explain']])byId(id).textContent=texts[state.lang][key];
   byId('toggle-language').textContent=state.lang==='zh'?'English':'中文';
-  describe(validateTree(state.tree)); renderFrame(); renderComparison(); localizeP6(); renderP7();
+  describe(validateTree(state.tree)); renderFrame(); renderComparison(); localizeP6(); renderP7(); renderP8();
 }
 for(const id of Object.keys(PRESETS))byId(`dataset-${id}`).addEventListener('click',()=>changeDataset(id));
 for(const [id,weights] of Object.entries(WEIGHT_PRESETS))byId(`regime-${id}`).addEventListener('click',()=>setWeights(weights));
@@ -381,4 +456,4 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft'){e.preventDefault();previous();}
   if(e.code==='Space'){e.preventDefault();togglePlay();}
 });
-reset();localize();initializeP7();initializeStudyModes();
+reset();localize();initializeP7();initializeP8();initializeStudyModes();
