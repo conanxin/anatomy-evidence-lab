@@ -152,3 +152,8 @@ The [historical mechanical-object gate](docs/P8_HISTORICAL_OBJECT_GATE.md) is cu
 Run `npm run build` and open `dist/jiegao.html` to inspect a source-linked, interactive **teaching schematic** of a counterweight water-lifter. The texts in [《庄子·天地》](https://ctext.org/text.pl?if=en&node=2795&remap=gb&show=parallel) and [《王祯农书》卷十八](https://zh.wikisource.org/w/index.php?title=王禎農書/卷十八&oldid=1142890) support the general up/down counterweight principle, **not exact historical geometry or measured efficiency**. All lengths/masses in the figure are invented demonstration parameters. See [evidence dossier](docs/P9_HISTORICAL_JIEGAO.md) and [agent eval gate](docs/P9_AGENT_EVAL.md).
 
 `npm test` includes torque, documentary IDs and uncertainty checks; `npm run test:browser:p9` checks the actual standalone HTML in desktop and mobile Chromium (requires Playwright/Chromium). Agent runtime loading must be tested separately; copying a Skill directory does not prove either Hermes or OpenClaw actually invoked it.
+
+
+## P10 | Historical source atlas and Agent canary
+
+Run `npm run build` and open `dist/source-atlas.html` to review 7 source records, **zero verified original folios**. Run `npm run export:source-atlas` for structured evidence. See [P10 source research](docs/P10_SOURCE_AUDIT.md) and [runtime gates](docs/P10_RUNTIME_GATE.md). Hermes temporary profile discovery passed, but actual prompt timed out; OpenClaw inventory also timed out. These are not completed cross-Agent benchmarks.

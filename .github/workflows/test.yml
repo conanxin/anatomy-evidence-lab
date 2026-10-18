@@ -24,6 +24,9 @@ jobs:
       - run: test -f docs/P8_RESULTS.md
       - run: test -f artifacts/cost-run.jsonld
       - run: test -f artifacts/comparison-run.jsonld
+      - run: npm run export:source-atlas
+      - run: test -f artifacts/p10-source-atlas.json
+      - run: test -f dist/source-atlas.html
       - run: test -f dist/jiegao.html
       - run: test -f dist/index.html
       - run: test -f dist/study-static.html
@@ -56,6 +59,7 @@ jobs:
       - run: python scripts/browser_sensitivity.py
       - run: python scripts/browser_robustness.py
       - run: python scripts/browser_jiegao.py
+      - run: python scripts/browser_source_atlas.py
       - name: Upload browser screenshots
         if: always()
         uses: actions/upload-artifact@v4

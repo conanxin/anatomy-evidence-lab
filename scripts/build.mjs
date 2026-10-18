@@ -30,3 +30,9 @@ historical=historical.replace('</body>',`<script>\n${historicalBundle}\n</script
 if(historical.includes('./src/jiegao-ui.js')||historical.includes('./jiegao.css'))throw new Error('Historical figure contains external dependency');
 await writeFile(new URL('jiegao.html',dist),historical);
 console.log(`P9 historical mechanism: dist/jiegao.html (${Buffer.byteLength(historical)} bytes)`);
+
+// P10 atlas: separately typed source evidence without claiming an original folio.
+const {renderHistoricalAtlas}=await import('../src/historical-atlas.js');
+const p10atlas=renderHistoricalAtlas();
+await writeFile(new URL('source-atlas.html',dist),p10atlas);
+console.log('P10 source atlas: dist/source-atlas.html');
