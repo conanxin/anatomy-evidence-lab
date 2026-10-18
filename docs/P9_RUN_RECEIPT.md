@@ -36,4 +36,8 @@ This is a modern conceptual lever model from transmitted Chinese texts, not an a
 
 ## Remote CI
 
-CI state is **PENDING until the GitHub Actions run for the actual P9 commit is queried and checked**. Do not cite a prior P8 success as proof of P9 CI. PR #2 remains open; this task does not merge it.
+CI for the published P9 commit `1724b9de242e3f2299814c4e4a6cf48a97162a1e` was **queried and verified**: [pull request run 39114148319](https://github.com/conanxin/anatomy-evidence-lab/actions/runs/39114148319) completed successfully. Both `test` and `browser` jobs passed, including `npm test`, `npm run build`, `npm run check:skill`, historical HTML existence, P3–P8 browser regressions and `scripts/browser_jiegao.py`. This is CI evidence for the specific P9 commit, not Hermes/OpenClaw runtime activation. PR #2 remains open and unmerged.
+
+### Independent archive re-check (2026-10-18)
+
+A separate unpacked P9 source archive was independently tested using Node `v22.16.0`, with **146/146 tests PASS**, build PASS, Skill structure checker PASS and Chromium `P9_BROWSER_PASS 29`. Exit code 0 for each recorded invocation. The separate, earlier 188-browser-check sweep is not claimed to have been rerun in this independent verification.
